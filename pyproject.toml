@@ -1,0 +1,21 @@
+[project]
+name = "beyond-backprop"
+version = "0.1.0"
+description = "A playground for learning rules that aren't backprop, tested on a tiny GPT."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = ["torch>=2.1", "numpy", "matplotlib"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["bbp*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
