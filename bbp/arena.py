@@ -5,13 +5,15 @@
     python -m bbp.arena --list
 
 Only time spent inside rule.step() counts against the budget; evaluation is
-free. Results go to results/<rule>.json (or --tag to keep variants apart).
+free. Early stopping: the best-val checkpoint is what gets scored, on a
+separate test split. Results go to results/<rule>.json (or --tag to keep variants apart).
 """
 from __future__ import annotations
 
 import argparse
 import ast
 import contextlib
+import copy
 import json
 import math
 import time
@@ -49,21 +51,23 @@ def parse_sets(pairs: list[str]) -> dict:
 
 
 @torch.no_grad()
-def evaluate(model, data, batches, batch_size, seed=1234) -> float:
+def evaluate(model, data, batches, batch_size, split="val", seed=1234) -> float:
     was_training = model.training
     model.eval()
-    g = torch.Generator().manual_seed(seed)  # same val batches every time
+    g = torch.Generator().manual_seed(seed)  # same batches every time
     tot = 0.0
     for _ in range(batches):
-        x, y = data.batch("val", batch_size, g)
+        x, y = data.batch(split, batch_size, g)
         tot += model(x, y)[1].item()
     model.train(was_training)
     return tot / batches
 
 
 def run(rule_name: str, minutes: float, device: str, hp: dict, cfg: GPTConfig,
-        batch_size: int = 32, eval_every_s: float = 15.0, seed: int = 0, tag: str = "",
+        batch_size: int = 32, eval_every_s: float = 10.0, seed: int = 0, tag: str = "",
         max_steps: int | None = None, save: bool = True, quiet: bool = False) -> dict:
+    """Train for `minutes` of step() time. Early stopping: the weights with the
+    best val loss seen are kept, and *that* checkpoint is scored on the test split."""
     torch.manual_seed(seed)
     data = CharData(cfg.block_size, device)
     cfg.vocab_size = data.vocab_size
@@ -74,10 +78,19 @@ def run(rule_name: str, minutes: float, device: str, hp: dict, cfg: GPTConfig,
 
     guard = (lambda: no_backprop(rule_name)) if rule.autograd == "none" else contextlib.nullcontext
     budget = minutes * 60
-    train_time, step, last_eval, diverged = 0.0, 0, -1e9, False
-    curve = []
+    train_time, step, last_eval, diverged = 0.0, 0, 0.0, False
     init_val = evaluate(model, data, 10, batch_size)
-    curve.append(dict(t=0.0, step=0, forwards=0, val=init_val))
+    curve = [dict(t=0.0, step=0, forwards=0, val=init_val)]
+    best = dict(val=init_val, t=0.0, step=0, state=copy.deepcopy(model.state_dict()))
+
+    def checkpoint():
+        v = evaluate(model, data, 10, batch_size)
+        curve.append(dict(t=round(train_time, 2), step=step, forwards=rule.forwards, val=v))
+        if v < best["val"]:
+            best.update(val=v, t=round(train_time, 2), step=step,
+                        state={k: t.detach().clone() for k, t in model.state_dict().items()})
+        return v
+
     g = torch.Generator().manual_seed(seed)
     while train_time < budget and (max_steps is None or step < max_steps):
         x, y = data.batch("train", batch_size, g)
@@ -92,19 +105,23 @@ def run(rule_name: str, minutes: float, device: str, hp: dict, cfg: GPTConfig,
             break
         if train_time - last_eval >= eval_every_s:
             last_eval = train_time
-            v = evaluate(model, data, 10, batch_size)
-            curve.append(dict(t=round(train_time, 2), step=step, forwards=rule.forwards, val=v))
+            v = checkpoint()
             log(f"[{rule_name}] t={train_time:6.1f}s step={step:6d} train={train_loss:.3f} val={v:.3f}")
+    if not diverged:
+        checkpoint()
 
-    final = evaluate(model, data, 50, batch_size) if not diverged else float("nan")
-    curve.append(dict(t=round(train_time, 2), step=step, forwards=rule.forwards, val=final))
+    model.load_state_dict(best["state"])
+    best_val = evaluate(model, data, 50, batch_size, "val")
+    test = evaluate(model, data, 50, batch_size, "test")
     prompt = torch.tensor([data.encode("ROMEO:\n")], device=device)
     sample = data.decode(model.generate(prompt, 300, generator=torch.Generator().manual_seed(0))[0].tolist())
-    log(f"[{rule_name}] final val loss {final:.4f} after {step} steps / {train_time:.0f}s\n--- sample ---\n{sample}\n")
+    log(f"[{rule_name}] best checkpoint at {best['t']/60:.1f} min (step {best['step']}): "
+        f"val {best_val:.4f} test {test:.4f}; ran {step} steps / {train_time:.0f}s\n--- sample ---\n{sample}\n")
 
     result = dict(
         rule=rule_name, tag=tag, autograd=rule.autograd, blurb=rule.blurb, paper=rule.paper,
-        hp=rule.hp, val_loss=final, init_val=init_val, steps=step, forwards=rule.forwards,
+        hp=rule.hp, test_loss=test, best_val=best_val, best_at_s=best["t"], best_step=best["step"],
+        init_val=init_val, steps=step, forwards=rule.forwards,
         train_seconds=round(train_time, 1), budget_minutes=minutes, device=device,
         params=model.n_params(), model=cfg.to_dict(), batch_size=batch_size, seed=seed,
         diverged=diverged, unigram_loss=data.unigram_loss, curve=curve, sample=sample,

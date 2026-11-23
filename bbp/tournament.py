@@ -23,8 +23,8 @@ def tournament(rule: str, minutes: float, sweep_minutes: float, device: str, fac
 
     def trial(f):
         val = base * f
-        r = run(rule, sweep_minutes, device, {key: val}, GPTConfig(), eval_every_s=1e9, save=False, quiet=True)
-        v = r["val_loss"] if math.isfinite(r["val_loss"]) else float("inf")
+        r = run(rule, sweep_minutes, device, {key: val}, GPTConfig(), save=False, quiet=True)
+        v = r["best_val"] if math.isfinite(r["best_val"]) else float("inf")
         sweep.append({key: val, "factor": f, "val_loss": v})
         print(f"  sweep {rule:20s} {key}={val:.3g}: val {v:.3f}", flush=True)
 

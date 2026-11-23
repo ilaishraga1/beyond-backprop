@@ -70,8 +70,8 @@ def test_guard_catches_autograd_grad():
 def test_arena_end_to_end_cpu():
     res = run("backprop", minutes=1, device="cpu", hp={}, cfg=GPTConfig(block_size=16, n_layer=1, n_embd=32, n_head=2),
               batch_size=4, max_steps=20, save=False, quiet=True)
-    assert res["steps"] == 20 and math.isfinite(res["val_loss"]) and len(res["sample"]) > 300
-    assert res["val_loss"] < res["init_val"]
+    assert res["steps"] == 20 and math.isfinite(res["test_loss"]) and len(res["sample"]) > 300
+    assert res["test_loss"] < res["init_val"]
 
 
 def test_every_rule_is_honestly_labelled():

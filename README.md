@@ -21,8 +21,13 @@ is *by how much*, and *why*.
 <!-- LEADERBOARD:END -->
 
 **How to read it**
-- **val loss**: cross-entropy on held-out Shakespeare, nats per character. Lower is better.
+- **test loss**: cross-entropy on held-out Shakespeare, nats per character. Lower is better.
   4.17 = uniform guessing over 65 chars, ~3.3 = knows letter frequencies only, ~1.5 = writes pseudo-Shakespeare.
+- **best ckpt at / early stopping**: TinyShakespeare is small. Backprop rips through ~90 epochs
+  in 5 minutes and starts memorising the training text after about a minute. Scoring the
+  *last* weights would reward rules for being bad at overfitting, so the data is split
+  90/5/5 train/val/test: every rule keeps its best checkpoint by val loss, and that
+  checkpoint is scored on a test split it has never seen. "best ckpt at" shows when each rule peaked.
 - **autograd**: how much each rule leans on reverse-mode autodiff.
   🚫 `none` = no backward pass anywhere (**enforced**: the arena makes `.backward()` and `torch.autograd.grad` raise) ·
   🧱 `local` = backprop only *inside* a layer/block, never end to end ·
@@ -118,6 +123,10 @@ open a PR with your result JSON.
   Rankings between close rules can flip with seeds or budgets; huge gaps won't.
 - Wall-clock favours rules that map well to the GPU. `fwd passes` is there so you can
   argue about compute instead.
+- An early version of this arena scored the final weights, and local losses "beat" backprop
+  by 0.27 nats. It was pure overfitting: backprop had peaked at minute 1.3 and spent the
+  rest memorising. Hence early stopping. If your rule suddenly beats backprop, check the
+  curve before you celebrate.
 - Short budgets favour fast starters. Some of these ideas (FA, local losses) are known to
   close the gap or fall further behind with more training and depth.
 

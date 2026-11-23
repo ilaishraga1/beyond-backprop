@@ -1,6 +1,6 @@
 """TinyShakespeare, character level. ~1.1M chars, 65 symbols.
 
-Downloaded once into data/ on first use.
+Downloaded once into data/ on first use. Split 90/5/5 into train/val/test.
 """
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 
 class CharData:
-    def __init__(self, block_size: int, device: str, val_frac: float = 0.1):
+    def __init__(self, block_size: int, device: str, val_frac: float = 0.05, test_frac: float = 0.05):
         path = DATA_DIR / "tinyshakespeare.txt"
         if not path.exists():
             DATA_DIR.mkdir(exist_ok=True)
@@ -29,8 +29,11 @@ class CharData:
         self.vocab_size = len(self.chars)
         self.stoi = {c: i for i, c in enumerate(self.chars)}
         data = torch.tensor([self.stoi[c] for c in text], dtype=torch.long)
-        n = int(len(data) * (1 - val_frac))
-        self.train, self.val = data[:n], data[n:]
+        # train | val (picks each rule's best checkpoint) | test (the reported score)
+        n_tr = int(len(data) * (1 - val_frac - test_frac))
+        n_va = int(len(data) * (1 - test_frac))
+        self.splits = {"train": data[:n_tr], "val": data[n_tr:n_va], "test": data[n_va:]}
+        self.train = self.splits["train"]
         self.block_size = block_size
         self.device = device
         # unigram entropy of the training set: the "learned nothing but letter frequencies" floor
@@ -39,7 +42,7 @@ class CharData:
         self.unigram_loss = float(-(p[p > 0] * p[p > 0].log()).sum())
 
     def batch(self, split: str, batch_size: int, generator: torch.Generator | None = None):
-        d = self.train if split == "train" else self.val
+        d = self.splits[split]
         ix = torch.randint(len(d) - self.block_size - 1, (batch_size,), generator=generator)
         x = torch.stack([d[i : i + self.block_size] for i in ix])
         y = torch.stack([d[i + 1 : i + 1 + self.block_size] for i in ix])

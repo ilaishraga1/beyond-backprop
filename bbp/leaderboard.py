@@ -20,37 +20,37 @@ BADGE = {"none": "🚫 none", "local": "🧱 local", "modified": "🪞 modified"
 
 def load():
     rows = [json.loads(p.read_text()) for p in sorted(RESULTS.glob("*.json"))]
-    return sorted(rows, key=lambda r: r["val_loss"] if math.isfinite(r["val_loss"]) else 1e9)
+    return sorted(rows, key=lambda r: r["test_loss"] if math.isfinite(r["test_loss"]) else 1e9)
 
 
 def table(rows) -> str:
-    bp = next((r["val_loss"] for r in rows if r["rule"] == "backprop" and not r["tag"]), None)
-    res = next((r["val_loss"] for r in rows if r["rule"] == "reservoir" and not r["tag"]), None)
+    bp = next((r["test_loss"] for r in rows if r["rule"] == "backprop" and not r["tag"]), None)
+    res = next((r["test_loss"] for r in rows if r["rule"] == "reservoir" and not r["tag"]), None)
     out = [
-        "| # | rule | autograd | val loss ↓ | vs backprop | beats random reservoir? | steps | fwd passes | tuned |",
-        "|---|------|----------|-----------:|------------:|:--:|------:|-----------:|-------|",
+        "| # | rule | autograd | test loss ↓ | vs backprop | beats random reservoir? | best ckpt at | steps | fwd passes | tuned |",
+        "|---|------|----------|-----------:|------------:|:--:|------:|------:|-----------:|-------|",
     ]
     for i, r in enumerate(rows, 1):
         name = r["rule"] + (f" ({r['tag']})" if r["tag"] else "")
-        v = r["val_loss"]
+        v = r["test_loss"]
         d = f"{v - bp:+.3f}" if bp is not None and math.isfinite(v) else "—"
         beat = "—" if r["rule"] in ("reservoir",) or res is None else ("yes" if v < res else "no")
         sw = r.get("sweep")
         tuned = f"{sw['key']}={r['hp'][sw['key']]:.2g}" if sw else ""
         out.append(
-            f"| {i} | `{name}` | {BADGE[r['autograd']]} | {v:.3f} | {d} | {beat} | {r['steps']:,} | {r['forwards']:,} | {tuned} |"
+            f"| {i} | `{name}` | {BADGE[r['autograd']]} | {v:.3f} | {d} | {beat} | {r['best_at_s']/60:.1f} min | {r['steps']:,} | {r['forwards']:,} | {tuned} |"
         )
     if rows:
         r0 = rows[0]
         out.append(
-            f"| | *unigram (letter frequencies only)* | | {r0['unigram_loss']:.3f} | | | | | |"
+            f"| | *unigram (letter frequencies only)* | | {r0['unigram_loss']:.3f} | | | | | | |"
         )
-        out.append(f"| | *untrained / uniform guess* | | {r0['init_val']:.3f} | | | | | |")
+        out.append(f"| | *untrained / uniform guess* | | {r0['init_val']:.3f} | | | | | | |")
         out.append("")
         out.append(
             f"<sub>{r0['params']/1e6:.2f}M-param char GPT ({r0['model']['n_layer']} layers, d={r0['model']['n_embd']}, "
             f"ctx {r0['model']['block_size']}), batch {r0['batch_size']}, TinyShakespeare, {r0['budget_minutes']:g} min of "
-            f"training time per rule on `{r0['device']}`, val loss in nats/char. Each rule's `tuned` knob got a 3-point sweep first.</sub>"
+            f"training time per rule on `{r0['device']}`, loss in nats/char. Early stopping: each rule's best checkpoint by val loss is scored on a held-out test split. Each rule's `tuned` knob got a 3-point sweep first.</sub>"
         )
     return "\n".join(out)
 
@@ -84,7 +84,7 @@ def plot(rows):
 def samples(rows) -> str:
     parts = ["<details><summary>What each rule's model writes after its run (prompt <code>ROMEO:</code>)</summary>\n"]
     for r in rows:
-        parts.append(f"**{r['rule']}** (val {r['val_loss']:.3f})\n\n```\n{r['sample'][:300]}\n```\n")
+        parts.append(f"**{r['rule']}** (test {r['test_loss']:.3f})\n\n```\n{r['sample'][:300]}\n```\n")
     parts.append("</details>")
     return "\n".join(parts)
 
