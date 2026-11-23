@@ -1,0 +1,244 @@
+{
+ "rule": "feedback_alignment",
+ "tag": "",
+ "autograd": "modified",
+ "blurb": "Backward pass through fixed random matrices instead of W^T. The forward weights learn to 'align'.",
+ "paper": "Lillicrap et al. 2016, 'Random synaptic feedback weights support error backpropagation'",
+ "hp": {
+  "lr": 0.001,
+  "weight_decay": 0.01,
+  "scale": 1.0
+ },
+ "test_loss": 1.9108571958541871,
+ "best_val": 1.7730196595191956,
+ "best_at_s": 270.19,
+ "best_step": 19136,
+ "init_val": 4.216201114654541,
+ "steps": 21233,
+ "forwards": 21233,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.0,
+   "step": 694,
+   "forwards": 694,
+   "val": 2.4572611808776856
+  },
+  {
+   "t": 20.01,
+   "step": 1393,
+   "forwards": 1393,
+   "val": 2.310199427604675
+  },
+  {
+   "t": 30.02,
+   "step": 2084,
+   "forwards": 2084,
+   "val": 2.185265874862671
+  },
+  {
+   "t": 40.02,
+   "step": 2790,
+   "forwards": 2790,
+   "val": 2.0957364082336425
+  },
+  {
+   "t": 50.03,
+   "step": 3479,
+   "forwards": 3479,
+   "val": 2.0583515644073485
+  },
+  {
+   "t": 60.03,
+   "step": 4183,
+   "forwards": 4183,
+   "val": 1.9899089455604553
+  },
+  {
+   "t": 70.05,
+   "step": 4893,
+   "forwards": 4893,
+   "val": 1.9830589175224305
+  },
+  {
+   "t": 80.06,
+   "step": 5602,
+   "forwards": 5602,
+   "val": 1.9587480902671814
+  },
+  {
+   "t": 90.06,
+   "step": 6323,
+   "forwards": 6323,
+   "val": 1.92046560049057
+  },
+  {
+   "t": 100.07,
+   "step": 7039,
+   "forwards": 7039,
+   "val": 1.9255564212799072
+  },
+  {
+   "t": 110.08,
+   "step": 7755,
+   "forwards": 7755,
+   "val": 1.8909919142723084
+  },
+  {
+   "t": 120.09,
+   "step": 8464,
+   "forwards": 8464,
+   "val": 1.8690803527832032
+  },
+  {
+   "t": 130.09,
+   "step": 9174,
+   "forwards": 9174,
+   "val": 1.876237964630127
+  },
+  {
+   "t": 140.11,
+   "step": 9886,
+   "forwards": 9886,
+   "val": 1.862137758731842
+  },
+  {
+   "t": 150.11,
+   "step": 10595,
+   "forwards": 10595,
+   "val": 1.8460353016853333
+  },
+  {
+   "t": 160.11,
+   "step": 11313,
+   "forwards": 11313,
+   "val": 1.8352644324302674
+  },
+  {
+   "t": 170.12,
+   "step": 12027,
+   "forwards": 12027,
+   "val": 1.8443901062011718
+  },
+  {
+   "t": 180.13,
+   "step": 12739,
+   "forwards": 12739,
+   "val": 1.8149160981178283
+  },
+  {
+   "t": 190.13,
+   "step": 13449,
+   "forwards": 13449,
+   "val": 1.8144320964813232
+  },
+  {
+   "t": 200.13,
+   "step": 14158,
+   "forwards": 14158,
+   "val": 1.820729625225067
+  },
+  {
+   "t": 210.14,
+   "step": 14868,
+   "forwards": 14868,
+   "val": 1.8110446214675904
+  },
+  {
+   "t": 220.15,
+   "step": 15578,
+   "forwards": 15578,
+   "val": 1.8040132403373719
+  },
+  {
+   "t": 230.16,
+   "step": 16289,
+   "forwards": 16289,
+   "val": 1.8027645707130433
+  },
+  {
+   "t": 240.17,
+   "step": 17001,
+   "forwards": 17001,
+   "val": 1.8162013411521911
+  },
+  {
+   "t": 250.18,
+   "step": 17712,
+   "forwards": 17712,
+   "val": 1.7898919224739074
+  },
+  {
+   "t": 260.19,
+   "step": 18422,
+   "forwards": 18422,
+   "val": 1.7882606863975525
+  },
+  {
+   "t": 270.19,
+   "step": 19136,
+   "forwards": 19136,
+   "val": 1.7743378639221192
+  },
+  {
+   "t": 280.19,
+   "step": 19846,
+   "forwards": 19846,
+   "val": 1.7806811094284059
+  },
+  {
+   "t": 290.21,
+   "step": 20550,
+   "forwards": 20550,
+   "val": 1.7827128410339355
+  },
+  {
+   "t": 300.0,
+   "step": 21233,
+   "forwards": 21233,
+   "val": 1.7753612279891968
+  }
+ ],
+ "sample": "ROMEO:\nTutry his kiss selves ouch of hang,\nNor gelse than of to giventreather strught she ever igns,\nFor that of to a to be ancesenay thour nee mothereing penty one.\n\nSo king?\n\nLENRLEY:\nI not sweear strue:\nI knew farew dam, you of not say, if come defence,\nAnd the me here, my pown, to the at to the that\nTh",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 2.083971881866455
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 2.015834562778473
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 2.092041907310486
+   }
+  ]
+ }
+}

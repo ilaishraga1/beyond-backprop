@@ -1,0 +1,248 @@
+{
+ "rule": "backprop",
+ "tag": "",
+ "autograd": "full",
+ "blurb": "Plain backprop + AdamW. The baseline everyone loses to.",
+ "paper": "Rumelhart, Hinton & Williams 1986",
+ "hp": {
+  "lr": 0.0006666666666666666,
+  "weight_decay": 0.01
+ },
+ "test_loss": 1.6285193371772766,
+ "best_val": 1.4872431421279908,
+ "best_at_s": 60.05,
+ "best_step": 4779,
+ "init_val": 4.216201114654541,
+ "steps": 23871,
+ "forwards": 23871,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.01,
+   "step": 797,
+   "forwards": 797,
+   "val": 1.910034430027008
+  },
+  {
+   "t": 20.01,
+   "step": 1586,
+   "forwards": 1586,
+   "val": 1.6493727087974548
+  },
+  {
+   "t": 30.02,
+   "step": 2394,
+   "forwards": 2394,
+   "val": 1.5598407983779907
+  },
+  {
+   "t": 40.03,
+   "step": 3191,
+   "forwards": 3191,
+   "val": 1.523178493976593
+  },
+  {
+   "t": 50.04,
+   "step": 3977,
+   "forwards": 3977,
+   "val": 1.4999414205551147
+  },
+  {
+   "t": 60.05,
+   "step": 4779,
+   "forwards": 4779,
+   "val": 1.4871960043907166
+  },
+  {
+   "t": 70.06,
+   "step": 5588,
+   "forwards": 5588,
+   "val": 1.5016935229301454
+  },
+  {
+   "t": 80.06,
+   "step": 6395,
+   "forwards": 6395,
+   "val": 1.4889874696731566
+  },
+  {
+   "t": 90.07,
+   "step": 7184,
+   "forwards": 7184,
+   "val": 1.5074143767356873
+  },
+  {
+   "t": 100.08,
+   "step": 7978,
+   "forwards": 7978,
+   "val": 1.502982997894287
+  },
+  {
+   "t": 110.1,
+   "step": 8772,
+   "forwards": 8772,
+   "val": 1.5111608386039734
+  },
+  {
+   "t": 120.1,
+   "step": 9561,
+   "forwards": 9561,
+   "val": 1.530541229248047
+  },
+  {
+   "t": 130.11,
+   "step": 10351,
+   "forwards": 10351,
+   "val": 1.5409971833229066
+  },
+  {
+   "t": 140.11,
+   "step": 11147,
+   "forwards": 11147,
+   "val": 1.5528037071228027
+  },
+  {
+   "t": 150.11,
+   "step": 11962,
+   "forwards": 11962,
+   "val": 1.5687592148780822
+  },
+  {
+   "t": 160.12,
+   "step": 12766,
+   "forwards": 12766,
+   "val": 1.580437922477722
+  },
+  {
+   "t": 170.12,
+   "step": 13567,
+   "forwards": 13567,
+   "val": 1.6014470100402831
+  },
+  {
+   "t": 180.12,
+   "step": 14368,
+   "forwards": 14368,
+   "val": 1.6018728017807007
+  },
+  {
+   "t": 190.13,
+   "step": 15159,
+   "forwards": 15159,
+   "val": 1.6280396223068236
+  },
+  {
+   "t": 200.13,
+   "step": 15950,
+   "forwards": 15950,
+   "val": 1.6525251746177674
+  },
+  {
+   "t": 210.13,
+   "step": 16743,
+   "forwards": 16743,
+   "val": 1.6607043147087097
+  },
+  {
+   "t": 220.14,
+   "step": 17541,
+   "forwards": 17541,
+   "val": 1.685961079597473
+  },
+  {
+   "t": 230.15,
+   "step": 18336,
+   "forwards": 18336,
+   "val": 1.7024417161941527
+  },
+  {
+   "t": 240.15,
+   "step": 19129,
+   "forwards": 19129,
+   "val": 1.7227984070777893
+  },
+  {
+   "t": 250.16,
+   "step": 19923,
+   "forwards": 19923,
+   "val": 1.7489874362945557
+  },
+  {
+   "t": 260.17,
+   "step": 20716,
+   "forwards": 20716,
+   "val": 1.7581067323684691
+  },
+  {
+   "t": 270.17,
+   "step": 21508,
+   "forwards": 21508,
+   "val": 1.7580034852027893
+  },
+  {
+   "t": 280.18,
+   "step": 22299,
+   "forwards": 22299,
+   "val": 1.7817708492279052
+  },
+  {
+   "t": 290.19,
+   "step": 23093,
+   "forwards": 23093,
+   "val": 1.8204272627830504
+  },
+  {
+   "t": 300.0,
+   "step": 23871,
+   "forwards": 23871,
+   "val": 1.8325539350509643
+  }
+ ],
+ "sample": "ROMEO:\nThou must have sell me of your holy daughter,\nBecause to give thee that the house is son?\nTo him stands, your way, and come already, no; my\nfather we will not carriied to the head and her fruit,\nI hold yet for his files foes, the maring of mercy,\nTheir still to their seating of the queen.\n\nMENENIUS:",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0006666666666666666,
+    "factor": 0.3333333333333333,
+    "val_loss": 1.4925557017326354
+   },
+   {
+    "lr": 0.002,
+    "factor": 1,
+    "val_loss": 1.5051941561698914
+   },
+   {
+    "lr": 0.006,
+    "factor": 3,
+    "val_loss": 2.512076597213745
+   },
+   {
+    "lr": 0.0002222222222222222,
+    "factor": 0.1111111111111111,
+    "val_loss": 1.5599595618247986
+   }
+  ]
+ }
+}

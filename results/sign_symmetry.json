@@ -1,0 +1,244 @@
+{
+ "rule": "sign_symmetry",
+ "tag": "",
+ "autograd": "modified",
+ "blurb": "Backward pass through sign(W) only: the feedback knows the signs, not the magnitudes.",
+ "paper": "Liao, Leibo & Poggio 2016, 'How important is weight symmetry in backpropagation?'",
+ "hp": {
+  "lr": 0.001,
+  "weight_decay": 0.01,
+  "scale": 1.0
+ },
+ "test_loss": 1.675099380016327,
+ "best_val": 1.5345682215690613,
+ "best_at_s": 120.07,
+ "best_step": 8417,
+ "init_val": 4.216201114654541,
+ "steps": 20864,
+ "forwards": 20864,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.01,
+   "step": 701,
+   "forwards": 701,
+   "val": 1.9727699995040893
+  },
+  {
+   "t": 20.01,
+   "step": 1402,
+   "forwards": 1402,
+   "val": 1.7378310441970826
+  },
+  {
+   "t": 30.02,
+   "step": 2104,
+   "forwards": 2104,
+   "val": 1.6413904309272767
+  },
+  {
+   "t": 40.02,
+   "step": 2805,
+   "forwards": 2805,
+   "val": 1.6118287444114685
+  },
+  {
+   "t": 50.02,
+   "step": 3506,
+   "forwards": 3506,
+   "val": 1.5676607489585876
+  },
+  {
+   "t": 60.03,
+   "step": 4207,
+   "forwards": 4207,
+   "val": 1.563884150981903
+  },
+  {
+   "t": 70.04,
+   "step": 4910,
+   "forwards": 4910,
+   "val": 1.5507190227508545
+  },
+  {
+   "t": 80.05,
+   "step": 5612,
+   "forwards": 5612,
+   "val": 1.5518215537071227
+  },
+  {
+   "t": 90.06,
+   "step": 6313,
+   "forwards": 6313,
+   "val": 1.5465261578559875
+  },
+  {
+   "t": 100.06,
+   "step": 7014,
+   "forwards": 7014,
+   "val": 1.5398112416267395
+  },
+  {
+   "t": 110.07,
+   "step": 7716,
+   "forwards": 7716,
+   "val": 1.5462770104408263
+  },
+  {
+   "t": 120.07,
+   "step": 8417,
+   "forwards": 8417,
+   "val": 1.5361743927001954
+  },
+  {
+   "t": 130.09,
+   "step": 9111,
+   "forwards": 9111,
+   "val": 1.541159737110138
+  },
+  {
+   "t": 140.1,
+   "step": 9790,
+   "forwards": 9790,
+   "val": 1.5382737994194031
+  },
+  {
+   "t": 150.1,
+   "step": 10477,
+   "forwards": 10477,
+   "val": 1.5512891173362733
+  },
+  {
+   "t": 160.11,
+   "step": 11171,
+   "forwards": 11171,
+   "val": 1.541253113746643
+  },
+  {
+   "t": 170.11,
+   "step": 11870,
+   "forwards": 11870,
+   "val": 1.5493350982666017
+  },
+  {
+   "t": 180.12,
+   "step": 12561,
+   "forwards": 12561,
+   "val": 1.5509435176849364
+  },
+  {
+   "t": 190.13,
+   "step": 13249,
+   "forwards": 13249,
+   "val": 1.5585437893867493
+  },
+  {
+   "t": 200.14,
+   "step": 13942,
+   "forwards": 13942,
+   "val": 1.560319149494171
+  },
+  {
+   "t": 210.14,
+   "step": 14625,
+   "forwards": 14625,
+   "val": 1.579390287399292
+  },
+  {
+   "t": 220.15,
+   "step": 15306,
+   "forwards": 15306,
+   "val": 1.5819302201271057
+  },
+  {
+   "t": 230.15,
+   "step": 15976,
+   "forwards": 15976,
+   "val": 1.584492063522339
+  },
+  {
+   "t": 240.16,
+   "step": 16672,
+   "forwards": 16672,
+   "val": 1.5940566182136535
+  },
+  {
+   "t": 250.17,
+   "step": 17367,
+   "forwards": 17367,
+   "val": 1.5932666659355164
+  },
+  {
+   "t": 260.18,
+   "step": 18069,
+   "forwards": 18069,
+   "val": 1.6012886881828308
+  },
+  {
+   "t": 270.18,
+   "step": 18771,
+   "forwards": 18771,
+   "val": 1.6100854277610779
+  },
+  {
+   "t": 280.19,
+   "step": 19473,
+   "forwards": 19473,
+   "val": 1.6058288931846618
+  },
+  {
+   "t": 290.19,
+   "step": 20175,
+   "forwards": 20175,
+   "val": 1.621631121635437
+  },
+  {
+   "t": 300.01,
+   "step": 20864,
+   "forwards": 20864,
+   "val": 1.6205160975456239
+  }
+ ],
+ "sample": "ROMEO:\nThou mayst have not made thee hanging.\nI toe there courty he now here here would\nThe sense of these attors or way were comes;\nAnd true nearnest of well stone and winders,\nBy the contrarch from the forth to fair it?\n\nMERCUTIO:\nHas their come?\n\nPOLIXENES:\nThey speed and grown be them.\n\nEDWARD:\nYou may",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 1.6609135746955872
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 1.5569140362739562
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 1.5619841957092284
+   }
+  ]
+ }
+}

@@ -1,0 +1,250 @@
+{
+ "rule": "es",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "OpenAI-style ES: antithetic population evaluated with vmap, rank-shaped fitness, Adam on the estimate.",
+ "paper": "Salimans et al. 2017, 'Evolution Strategies as a Scalable Alternative to RL'",
+ "hp": {
+  "lr": 0.003,
+  "sigma": 0.01,
+  "pairs": 32,
+  "chunk": 16
+ },
+ "test_loss": 2.788202848434448,
+ "best_val": 2.7661041402816773,
+ "best_at_s": 300.02,
+ "best_step": 895,
+ "init_val": 4.216201114654541,
+ "steps": 895,
+ "forwards": 57280,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.08,
+   "step": 31,
+   "forwards": 1984,
+   "val": 3.605706548690796
+  },
+  {
+   "t": 20.22,
+   "step": 62,
+   "forwards": 3968,
+   "val": 3.3770079374313355
+  },
+  {
+   "t": 30.44,
+   "step": 93,
+   "forwards": 5952,
+   "val": 3.3045299291610717
+  },
+  {
+   "t": 40.67,
+   "step": 124,
+   "forwards": 7936,
+   "val": 3.2227108478546143
+  },
+  {
+   "t": 50.96,
+   "step": 155,
+   "forwards": 9920,
+   "val": 3.1712329149246217
+  },
+  {
+   "t": 61.13,
+   "step": 186,
+   "forwards": 11904,
+   "val": 3.116768312454224
+  },
+  {
+   "t": 71.36,
+   "step": 217,
+   "forwards": 13888,
+   "val": 3.069216227531433
+  },
+  {
+   "t": 81.53,
+   "step": 248,
+   "forwards": 15872,
+   "val": 3.0422168016433715
+  },
+  {
+   "t": 91.69,
+   "step": 279,
+   "forwards": 17856,
+   "val": 3.008147954940796
+  },
+  {
+   "t": 101.98,
+   "step": 310,
+   "forwards": 19840,
+   "val": 2.981380486488342
+  },
+  {
+   "t": 112.02,
+   "step": 340,
+   "forwards": 21760,
+   "val": 2.9475430965423586
+  },
+  {
+   "t": 122.25,
+   "step": 371,
+   "forwards": 23744,
+   "val": 2.926833891868591
+  },
+  {
+   "t": 132.27,
+   "step": 400,
+   "forwards": 25600,
+   "val": 2.916605091094971
+  },
+  {
+   "t": 142.45,
+   "step": 430,
+   "forwards": 27520,
+   "val": 2.89693820476532
+  },
+  {
+   "t": 152.53,
+   "step": 460,
+   "forwards": 29440,
+   "val": 2.8859780550003054
+  },
+  {
+   "t": 162.74,
+   "step": 490,
+   "forwards": 31360,
+   "val": 2.8701260089874268
+  },
+  {
+   "t": 172.98,
+   "step": 520,
+   "forwards": 33280,
+   "val": 2.8638068437576294
+  },
+  {
+   "t": 183.08,
+   "step": 550,
+   "forwards": 35200,
+   "val": 2.8588819026947023
+  },
+  {
+   "t": 193.33,
+   "step": 581,
+   "forwards": 37184,
+   "val": 2.8461755990982054
+  },
+  {
+   "t": 203.62,
+   "step": 612,
+   "forwards": 39168,
+   "val": 2.8389202833175657
+  },
+  {
+   "t": 213.88,
+   "step": 643,
+   "forwards": 41152,
+   "val": 2.826878523826599
+  },
+  {
+   "t": 224.21,
+   "step": 674,
+   "forwards": 43136,
+   "val": 2.8212358951568604
+  },
+  {
+   "t": 234.25,
+   "step": 703,
+   "forwards": 44992,
+   "val": 2.8186520099639893
+  },
+  {
+   "t": 244.49,
+   "step": 732,
+   "forwards": 46848,
+   "val": 2.8119332551956178
+  },
+  {
+   "t": 254.54,
+   "step": 761,
+   "forwards": 48704,
+   "val": 2.798774313926697
+  },
+  {
+   "t": 264.67,
+   "step": 791,
+   "forwards": 50624,
+   "val": 2.7911739587783813
+  },
+  {
+   "t": 274.78,
+   "step": 821,
+   "forwards": 52544,
+   "val": 2.7830322980880737
+  },
+  {
+   "t": 284.96,
+   "step": 851,
+   "forwards": 54464,
+   "val": 2.781212091445923
+  },
+  {
+   "t": 294.98,
+   "step": 880,
+   "forwards": 56320,
+   "val": 2.7707555294036865
+  },
+  {
+   "t": 300.02,
+   "step": 895,
+   "forwards": 57280,
+   "val": 2.7687527418136595
+  }
+ ],
+ "sample": "ROMEO:\ncu remhis khes selteeloH t meaman yodd Igels e gMeco ue y he nte here he?\n\nSot s chel s me onre t t atho y we w apee ancos id\nJ\n\n\n:\nAnd d han thoo we wost te acif Iinerethond te c an s uz\n\n\nIRSnr.SSo I\n\nT3rf porir mily moon n t say fins od ld fe ome inl zMThee t thon s\nI:\n\n\nFS y tonoon gor hathald I",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 3.6357085943222045
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 3.352674198150635
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 3.120878219604492
+   },
+   {
+    "lr": 0.009000000000000001,
+    "factor": 9,
+    "val_loss": 3.2157452392578123
+   }
+  ]
+ }
+}

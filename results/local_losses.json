@@ -1,0 +1,243 @@
+{
+ "rule": "local_losses",
+ "tag": "",
+ "autograd": "local",
+ "blurb": "Each block predicts the next char through its own readout; gradients never cross block boundaries.",
+ "paper": "Belilovsky et al. 2019, 'Greedy layerwise learning can scale to ImageNet'; Nokland & Eidnes 2019",
+ "hp": {
+  "lr": 0.002,
+  "weight_decay": 0.01
+ },
+ "test_loss": 1.7426842522621155,
+ "best_val": 1.527351553440094,
+ "best_at_s": 160.1,
+ "best_step": 9846,
+ "init_val": 4.216201114654541,
+ "steps": 18457,
+ "forwards": 18457,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.0,
+   "step": 611,
+   "forwards": 611,
+   "val": 1.9364794969558716
+  },
+  {
+   "t": 20.01,
+   "step": 1225,
+   "forwards": 1225,
+   "val": 1.7273193359375
+  },
+  {
+   "t": 30.01,
+   "step": 1841,
+   "forwards": 1841,
+   "val": 1.673269772529602
+  },
+  {
+   "t": 40.02,
+   "step": 2457,
+   "forwards": 2457,
+   "val": 1.6175256252288819
+  },
+  {
+   "t": 50.02,
+   "step": 3073,
+   "forwards": 3073,
+   "val": 1.604338800907135
+  },
+  {
+   "t": 60.03,
+   "step": 3690,
+   "forwards": 3690,
+   "val": 1.5782124400138855
+  },
+  {
+   "t": 70.04,
+   "step": 4304,
+   "forwards": 4304,
+   "val": 1.5686866402626038
+  },
+  {
+   "t": 80.05,
+   "step": 4917,
+   "forwards": 4917,
+   "val": 1.5655707001686097
+  },
+  {
+   "t": 90.06,
+   "step": 5533,
+   "forwards": 5533,
+   "val": 1.5640568017959595
+  },
+  {
+   "t": 100.07,
+   "step": 6147,
+   "forwards": 6147,
+   "val": 1.546653401851654
+  },
+  {
+   "t": 110.08,
+   "step": 6763,
+   "forwards": 6763,
+   "val": 1.5518914103507995
+  },
+  {
+   "t": 120.08,
+   "step": 7380,
+   "forwards": 7380,
+   "val": 1.5414380073547362
+  },
+  {
+   "t": 130.08,
+   "step": 7998,
+   "forwards": 7998,
+   "val": 1.5383444905281067
+  },
+  {
+   "t": 140.08,
+   "step": 8613,
+   "forwards": 8613,
+   "val": 1.5298656702041626
+  },
+  {
+   "t": 150.09,
+   "step": 9229,
+   "forwards": 9229,
+   "val": 1.5413813471794129
+  },
+  {
+   "t": 160.1,
+   "step": 9846,
+   "forwards": 9846,
+   "val": 1.5245811581611632
+  },
+  {
+   "t": 170.1,
+   "step": 10457,
+   "forwards": 10457,
+   "val": 1.5349694967269898
+  },
+  {
+   "t": 180.1,
+   "step": 11072,
+   "forwards": 11072,
+   "val": 1.5346208095550538
+  },
+  {
+   "t": 190.11,
+   "step": 11690,
+   "forwards": 11690,
+   "val": 1.530508041381836
+  },
+  {
+   "t": 200.12,
+   "step": 12309,
+   "forwards": 12309,
+   "val": 1.5331557393074036
+  },
+  {
+   "t": 210.14,
+   "step": 12927,
+   "forwards": 12927,
+   "val": 1.5269485712051392
+  },
+  {
+   "t": 220.14,
+   "step": 13541,
+   "forwards": 13541,
+   "val": 1.5350901365280152
+  },
+  {
+   "t": 230.15,
+   "step": 14156,
+   "forwards": 14156,
+   "val": 1.5385515928268432
+  },
+  {
+   "t": 240.16,
+   "step": 14773,
+   "forwards": 14773,
+   "val": 1.5263173937797547
+  },
+  {
+   "t": 250.16,
+   "step": 15390,
+   "forwards": 15390,
+   "val": 1.5355127692222594
+  },
+  {
+   "t": 260.17,
+   "step": 16006,
+   "forwards": 16006,
+   "val": 1.5424084067344666
+  },
+  {
+   "t": 270.19,
+   "step": 16627,
+   "forwards": 16627,
+   "val": 1.5412857174873351
+  },
+  {
+   "t": 280.2,
+   "step": 17242,
+   "forwards": 17242,
+   "val": 1.5401115894317627
+  },
+  {
+   "t": 290.21,
+   "step": 17855,
+   "forwards": 17855,
+   "val": 1.5316194653511048
+  },
+  {
+   "t": 300.01,
+   "step": 18457,
+   "forwards": 18457,
+   "val": 1.549455428123474
+  }
+ ],
+ "sample": "ROMEO:\nThou must know'st the decay?\nThat ways I to thee, I was you for me\nTo have think the sensuader by that of the way,\nFor commony thee, nor my father we would for me\nI seek that the Lancaster,\nI shall be my pray thee--\nWhom on not say that of me for my in\nThis medicitizens. Boy! Fare not to the that\nTh",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0006666666666666666,
+    "factor": 0.3333333333333333,
+    "val_loss": 1.617454023361206
+   },
+   {
+    "lr": 0.002,
+    "factor": 1,
+    "val_loss": 1.5869511675834655
+   },
+   {
+    "lr": 0.006,
+    "factor": 3,
+    "val_loss": 1.6623541593551636
+   }
+  ]
+ }
+}

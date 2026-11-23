@@ -1,0 +1,243 @@
+{
+ "rule": "hill_climb",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "(1+1)-ES: random jiggle, keep it if the loss dropped. Adaptive step size. Pure dumb luck, as a floor.",
+ "paper": "Rechenberg 1973 (1/5th success rule)",
+ "hp": {
+  "sigma": 0.01,
+  "adapt": 1.1
+ },
+ "test_loss": 3.152627582550049,
+ "best_val": 3.1277584075927733,
+ "best_at_s": 300.01,
+ "best_step": 24757,
+ "init_val": 4.216201114654541,
+ "steps": 24757,
+ "forwards": 49514,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.0,
+   "step": 824,
+   "forwards": 1648,
+   "val": 3.517129421234131
+  },
+  {
+   "t": 20.01,
+   "step": 1634,
+   "forwards": 3268,
+   "val": 3.3880210399627684
+  },
+  {
+   "t": 30.02,
+   "step": 2449,
+   "forwards": 4898,
+   "val": 3.3279144048690794
+  },
+  {
+   "t": 40.02,
+   "step": 3260,
+   "forwards": 6520,
+   "val": 3.2974765062332154
+  },
+  {
+   "t": 50.04,
+   "step": 4089,
+   "forwards": 8178,
+   "val": 3.2737772941589354
+  },
+  {
+   "t": 60.04,
+   "step": 4915,
+   "forwards": 9830,
+   "val": 3.255507206916809
+  },
+  {
+   "t": 70.05,
+   "step": 5739,
+   "forwards": 11478,
+   "val": 3.2394935369491575
+  },
+  {
+   "t": 80.05,
+   "step": 6566,
+   "forwards": 13132,
+   "val": 3.222801399230957
+  },
+  {
+   "t": 90.05,
+   "step": 7393,
+   "forwards": 14786,
+   "val": 3.2086113929748534
+  },
+  {
+   "t": 100.06,
+   "step": 8223,
+   "forwards": 16446,
+   "val": 3.2166505575180055
+  },
+  {
+   "t": 110.07,
+   "step": 9050,
+   "forwards": 18100,
+   "val": 3.20246365070343
+  },
+  {
+   "t": 120.07,
+   "step": 9876,
+   "forwards": 19752,
+   "val": 3.2017456769943236
+  },
+  {
+   "t": 130.08,
+   "step": 10704,
+   "forwards": 21408,
+   "val": 3.2005826234817505
+  },
+  {
+   "t": 140.09,
+   "step": 11529,
+   "forwards": 23058,
+   "val": 3.1863720417022705
+  },
+  {
+   "t": 150.1,
+   "step": 12357,
+   "forwards": 24714,
+   "val": 3.1932964086532594
+  },
+  {
+   "t": 160.1,
+   "step": 13183,
+   "forwards": 26366,
+   "val": 3.1687728643417357
+  },
+  {
+   "t": 170.1,
+   "step": 14013,
+   "forwards": 28026,
+   "val": 3.1673021793365477
+  },
+  {
+   "t": 180.1,
+   "step": 14840,
+   "forwards": 29680,
+   "val": 3.1618149995803835
+  },
+  {
+   "t": 190.11,
+   "step": 15663,
+   "forwards": 31326,
+   "val": 3.1568602561950683
+  },
+  {
+   "t": 200.12,
+   "step": 16492,
+   "forwards": 32984,
+   "val": 3.1615495681762695
+  },
+  {
+   "t": 210.13,
+   "step": 17320,
+   "forwards": 34640,
+   "val": 3.164018487930298
+  },
+  {
+   "t": 220.13,
+   "step": 18150,
+   "forwards": 36300,
+   "val": 3.1641645193099976
+  },
+  {
+   "t": 230.13,
+   "step": 18979,
+   "forwards": 37958,
+   "val": 3.169151711463928
+  },
+  {
+   "t": 240.14,
+   "step": 19803,
+   "forwards": 39606,
+   "val": 3.1467238903045653
+  },
+  {
+   "t": 250.14,
+   "step": 20626,
+   "forwards": 41252,
+   "val": 3.1447399139404295
+  },
+  {
+   "t": 260.15,
+   "step": 21453,
+   "forwards": 42906,
+   "val": 3.159502053260803
+  },
+  {
+   "t": 270.16,
+   "step": 22282,
+   "forwards": 44564,
+   "val": 3.148242688179016
+  },
+  {
+   "t": 280.17,
+   "step": 23114,
+   "forwards": 46228,
+   "val": 3.133510160446167
+  },
+  {
+   "t": 290.18,
+   "step": 23945,
+   "forwards": 47890,
+   "val": 3.1349543809890745
+  },
+  {
+   "t": 300.01,
+   "step": 24757,
+   "forwards": 49514,
+   "val": 3.1298718452453613
+  }
+ ],
+ "sample": "ROMEO:\nts re hOt khawhs:lte toHct me manlrodd Ig\nls e gMe o ue y h thty\nhere hath thoos thelod so the mose atso y wr w k we aRces iaretho:r ndn mot t tod we w yt donrim d iodovot , thes  an s uw t\nur nr.S w Inyepr, ithi\n\nwelyAmoonnn,rssay ed t odeld fl ome inle innleps t dnm.\nt in,dS y tononEng t  t hand a",
+ "sweep": {
+  "key": "sigma",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "sigma": 0.003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 3.262704682350159
+   },
+   {
+    "sigma": 0.01,
+    "factor": 1,
+    "val_loss": 3.2515164613723755
+   },
+   {
+    "sigma": 0.03,
+    "factor": 3,
+    "val_loss": 3.3307638120651246
+   }
+  ]
+ }
+}

@@ -1,0 +1,242 @@
+{
+ "rule": "reservoir",
+ "tag": "",
+ "autograd": "local",
+ "blurb": "Random frozen transformer, only the final readout learns. The 'is depth doing anything?' floor.",
+ "paper": "Jaeger 2001 (echo state networks)",
+ "hp": {
+  "lr": 0.003
+ },
+ "test_loss": 2.7164948892593386,
+ "best_val": 2.6852394771575927,
+ "best_at_s": 230.08,
+ "best_step": 40395,
+ "init_val": 4.216201114654541,
+ "steps": 52867,
+ "forwards": 52867,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.0,
+   "step": 1685,
+   "forwards": 1685,
+   "val": 2.7081614255905153
+  },
+  {
+   "t": 20.01,
+   "step": 3435,
+   "forwards": 3435,
+   "val": 2.702996015548706
+  },
+  {
+   "t": 30.01,
+   "step": 5183,
+   "forwards": 5183,
+   "val": 2.702414035797119
+  },
+  {
+   "t": 40.01,
+   "step": 6932,
+   "forwards": 6932,
+   "val": 2.7005760192871096
+  },
+  {
+   "t": 50.01,
+   "step": 8694,
+   "forwards": 8694,
+   "val": 2.6924882888793946
+  },
+  {
+   "t": 60.02,
+   "step": 10450,
+   "forwards": 10450,
+   "val": 2.694785952568054
+  },
+  {
+   "t": 70.02,
+   "step": 12214,
+   "forwards": 12214,
+   "val": 2.695940136909485
+  },
+  {
+   "t": 80.03,
+   "step": 13969,
+   "forwards": 13969,
+   "val": 2.6931083679199217
+  },
+  {
+   "t": 90.03,
+   "step": 15725,
+   "forwards": 15725,
+   "val": 2.6996363162994386
+  },
+  {
+   "t": 100.03,
+   "step": 17489,
+   "forwards": 17489,
+   "val": 2.693869185447693
+  },
+  {
+   "t": 110.03,
+   "step": 19248,
+   "forwards": 19248,
+   "val": 2.6958577156066896
+  },
+  {
+   "t": 120.04,
+   "step": 21016,
+   "forwards": 21016,
+   "val": 2.6960005521774293
+  },
+  {
+   "t": 130.04,
+   "step": 22779,
+   "forwards": 22779,
+   "val": 2.6977022647857667
+  },
+  {
+   "t": 140.04,
+   "step": 24534,
+   "forwards": 24534,
+   "val": 2.694901442527771
+  },
+  {
+   "t": 150.04,
+   "step": 26292,
+   "forwards": 26292,
+   "val": 2.6975993156433105
+  },
+  {
+   "t": 160.05,
+   "step": 28061,
+   "forwards": 28061,
+   "val": 2.6900151491165163
+  },
+  {
+   "t": 170.05,
+   "step": 29827,
+   "forwards": 29827,
+   "val": 2.6928213357925417
+  },
+  {
+   "t": 180.05,
+   "step": 31592,
+   "forwards": 31592,
+   "val": 2.6926401615142823
+  },
+  {
+   "t": 190.06,
+   "step": 33359,
+   "forwards": 33359,
+   "val": 2.691634678840637
+  },
+  {
+   "t": 200.06,
+   "step": 35122,
+   "forwards": 35122,
+   "val": 2.6936113595962525
+  },
+  {
+   "t": 210.07,
+   "step": 36879,
+   "forwards": 36879,
+   "val": 2.691099524497986
+  },
+  {
+   "t": 220.07,
+   "step": 38637,
+   "forwards": 38637,
+   "val": 2.696148729324341
+  },
+  {
+   "t": 230.08,
+   "step": 40395,
+   "forwards": 40395,
+   "val": 2.688970756530762
+  },
+  {
+   "t": 240.08,
+   "step": 42153,
+   "forwards": 42153,
+   "val": 2.6917945623397825
+  },
+  {
+   "t": 250.08,
+   "step": 43922,
+   "forwards": 43922,
+   "val": 2.692264199256897
+  },
+  {
+   "t": 260.09,
+   "step": 45680,
+   "forwards": 45680,
+   "val": 2.6940792322158815
+  },
+  {
+   "t": 270.09,
+   "step": 47439,
+   "forwards": 47439,
+   "val": 2.6900267362594605
+  },
+  {
+   "t": 280.09,
+   "step": 49247,
+   "forwards": 49247,
+   "val": 2.6909619092941286
+  },
+  {
+   "t": 290.1,
+   "step": 51061,
+   "forwards": 51061,
+   "val": 2.689190912246704
+  },
+  {
+   "t": 300.0,
+   "step": 52867,
+   "forwards": 52867,
+   "val": 2.696152353286743
+  }
+ ],
+ "sample": "ROMEO:\nTENGLOhis kARGLs:\nWIULoHER heamanUCaid INtlstherd houre y he ntheeare hath hou seerel s hanorre tsthathory we w akeraricothiay thofa nd- myt thyoo we wootour aim wIiouovoto d te c an s u.\nB\nTu th.\nSo I fe EN ithi\n\nOilyompou noussay fiot ou ld fo o I igl bimy t u ou,\nBs toinout y tonouthasof the fowa",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.001,
+    "factor": 0.3333333333333333,
+    "val_loss": 2.6909408569335938
+   },
+   {
+    "lr": 0.003,
+    "factor": 1,
+    "val_loss": 2.6890307331085204
+   },
+   {
+    "lr": 0.009000000000000001,
+    "factor": 3,
+    "val_loss": 2.697474093437195
+   }
+  ]
+ }
+}

@@ -1,0 +1,254 @@
+{
+ "rule": "forward_forward",
+ "tag": "",
+ "autograd": "local",
+ "blurb": "Per-block goodness: high on real text, low on corrupted chars. Readout is a probe on top. No end-to-end signal.",
+ "paper": "Hinton 2022, 'The Forward-Forward Algorithm'",
+ "hp": {
+  "lr": 0.009000000000000001,
+  "corrupt": 0.15,
+  "threshold": 2.0
+ },
+ "test_loss": 2.697743148803711,
+ "best_val": 2.6989292192459104,
+ "best_at_s": 260.41,
+ "best_step": 8766,
+ "init_val": 4.216201114654541,
+ "steps": 10107,
+ "forwards": 20214,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.02,
+   "step": 333,
+   "forwards": 666,
+   "val": 3.3026901483535767
+  },
+  {
+   "t": 20.04,
+   "step": 668,
+   "forwards": 1336,
+   "val": 3.2215912103652955
+  },
+  {
+   "t": 30.07,
+   "step": 1005,
+   "forwards": 2010,
+   "val": 3.031810235977173
+  },
+  {
+   "t": 40.1,
+   "step": 1338,
+   "forwards": 2676,
+   "val": 2.942119908332825
+  },
+  {
+   "t": 50.12,
+   "step": 1675,
+   "forwards": 3350,
+   "val": 2.8918512582778932
+  },
+  {
+   "t": 60.12,
+   "step": 2009,
+   "forwards": 4018,
+   "val": 2.813950300216675
+  },
+  {
+   "t": 70.15,
+   "step": 2345,
+   "forwards": 4690,
+   "val": 2.8083276987075805
+  },
+  {
+   "t": 80.17,
+   "step": 2678,
+   "forwards": 5356,
+   "val": 2.8147122859954834
+  },
+  {
+   "t": 90.17,
+   "step": 3013,
+   "forwards": 6026,
+   "val": 2.8075209617614747
+  },
+  {
+   "t": 100.18,
+   "step": 3350,
+   "forwards": 6700,
+   "val": 2.753303289413452
+  },
+  {
+   "t": 110.21,
+   "step": 3690,
+   "forwards": 7380,
+   "val": 2.7976054430007933
+  },
+  {
+   "t": 120.22,
+   "step": 4031,
+   "forwards": 8062,
+   "val": 2.783996891975403
+  },
+  {
+   "t": 130.24,
+   "step": 4370,
+   "forwards": 8740,
+   "val": 2.720699644088745
+  },
+  {
+   "t": 140.26,
+   "step": 4710,
+   "forwards": 9420,
+   "val": 2.7683348417282105
+  },
+  {
+   "t": 150.27,
+   "step": 5038,
+   "forwards": 10076,
+   "val": 2.756227421760559
+  },
+  {
+   "t": 160.29,
+   "step": 5372,
+   "forwards": 10744,
+   "val": 2.7509586811065674
+  },
+  {
+   "t": 170.3,
+   "step": 5712,
+   "forwards": 11424,
+   "val": 2.732718825340271
+  },
+  {
+   "t": 180.3,
+   "step": 6050,
+   "forwards": 12100,
+   "val": 2.7236339807510377
+  },
+  {
+   "t": 190.32,
+   "step": 6389,
+   "forwards": 12778,
+   "val": 2.7138612985610964
+  },
+  {
+   "t": 200.34,
+   "step": 6729,
+   "forwards": 13458,
+   "val": 2.7331404447555543
+  },
+  {
+   "t": 210.36,
+   "step": 7068,
+   "forwards": 14136,
+   "val": 2.7236616611480713
+  },
+  {
+   "t": 220.36,
+   "step": 7406,
+   "forwards": 14812,
+   "val": 2.7208194732666016
+  },
+  {
+   "t": 230.38,
+   "step": 7746,
+   "forwards": 15492,
+   "val": 2.7950380563735964
+  },
+  {
+   "t": 240.38,
+   "step": 8085,
+   "forwards": 16170,
+   "val": 2.7159323930740356
+  },
+  {
+   "t": 250.39,
+   "step": 8424,
+   "forwards": 16848,
+   "val": 2.760927152633667
+  },
+  {
+   "t": 260.41,
+   "step": 8766,
+   "forwards": 17532,
+   "val": 2.689882779121399
+  },
+  {
+   "t": 270.44,
+   "step": 9105,
+   "forwards": 18210,
+   "val": 2.707956838607788
+  },
+  {
+   "t": 280.45,
+   "step": 9443,
+   "forwards": 18886,
+   "val": 2.7302555799484254
+  },
+  {
+   "t": 290.45,
+   "step": 9784,
+   "forwards": 19568,
+   "val": 2.76015419960022
+  },
+  {
+   "t": 300.01,
+   "step": 10107,
+   "forwards": 20214,
+   "val": 2.7710009574890138
+  }
+ ],
+ "sample": "ROMEO:\nty remhis kess selteelouce neaman yodd Ihelsteterelo urey h t t beere heth tot s orel s s de hil\nWed tso y or i d we alcos idarthoer nd- mhaf ttoor s wustonodrimf Iiserdott,\nWhesc b ts uwed\n\nRSOCur wanofeprf pirir-O:\nHATooennhe sarfeint o q d fl o I inou ind t h t d m.\nHoinoro y toresthase sthemyhha",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 3.2945424461364747
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 3.1511036014556884
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 2.833087959289551
+   },
+   {
+    "lr": 0.009000000000000001,
+    "factor": 9,
+    "val_loss": 2.819748945236206
+   },
+   {
+    "lr": 0.027,
+    "factor": 27,
+    "val_loss": 2.8327975416183473
+   }
+  ]
+ }
+}

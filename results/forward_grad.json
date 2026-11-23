@@ -1,0 +1,253 @@
+{
+ "rule": "forward_grad",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "Forward-mode JVP along a random direction, (g.v)v as the gradient. Unbiased, very noisy.",
+ "paper": "Baydin et al. 2022, 'Gradients without Backpropagation'",
+ "hp": {
+  "lr": 0.0018000000000000002,
+  "tangents": 1
+ },
+ "test_loss": 3.167057504653931,
+ "best_val": 3.136274299621582,
+ "best_at_s": 300.02,
+ "best_step": 9280,
+ "init_val": 4.216201114654541,
+ "steps": 9280,
+ "forwards": 9280,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.01,
+   "step": 327,
+   "forwards": 327,
+   "val": 3.5823780298233032
+  },
+  {
+   "t": 20.01,
+   "step": 655,
+   "forwards": 655,
+   "val": 3.418085289001465
+  },
+  {
+   "t": 30.03,
+   "step": 969,
+   "forwards": 969,
+   "val": 3.3434803009033205
+  },
+  {
+   "t": 40.04,
+   "step": 1273,
+   "forwards": 1273,
+   "val": 3.3096242427825926
+  },
+  {
+   "t": 50.05,
+   "step": 1581,
+   "forwards": 1581,
+   "val": 3.3113078594207765
+  },
+  {
+   "t": 60.07,
+   "step": 1890,
+   "forwards": 1890,
+   "val": 3.271249294281006
+  },
+  {
+   "t": 70.07,
+   "step": 2198,
+   "forwards": 2198,
+   "val": 3.284331202507019
+  },
+  {
+   "t": 80.07,
+   "step": 2506,
+   "forwards": 2506,
+   "val": 3.294971251487732
+  },
+  {
+   "t": 90.08,
+   "step": 2815,
+   "forwards": 2815,
+   "val": 3.2551754236221315
+  },
+  {
+   "t": 100.08,
+   "step": 3124,
+   "forwards": 3124,
+   "val": 3.2597631931304933
+  },
+  {
+   "t": 110.1,
+   "step": 3433,
+   "forwards": 3433,
+   "val": 3.2687667846679687
+  },
+  {
+   "t": 120.11,
+   "step": 3743,
+   "forwards": 3743,
+   "val": 3.267967176437378
+  },
+  {
+   "t": 130.12,
+   "step": 4053,
+   "forwards": 4053,
+   "val": 3.247993278503418
+  },
+  {
+   "t": 140.14,
+   "step": 4361,
+   "forwards": 4361,
+   "val": 3.2267249584198
+  },
+  {
+   "t": 150.15,
+   "step": 4671,
+   "forwards": 4671,
+   "val": 3.212817120552063
+  },
+  {
+   "t": 160.16,
+   "step": 4980,
+   "forwards": 4980,
+   "val": 3.2074642896652223
+  },
+  {
+   "t": 170.17,
+   "step": 5289,
+   "forwards": 5289,
+   "val": 3.1900360107421877
+  },
+  {
+   "t": 180.2,
+   "step": 5598,
+   "forwards": 5598,
+   "val": 3.174650859832764
+  },
+  {
+   "t": 190.22,
+   "step": 5907,
+   "forwards": 5907,
+   "val": 3.1870527505874633
+  },
+  {
+   "t": 200.23,
+   "step": 6215,
+   "forwards": 6215,
+   "val": 3.193423271179199
+  },
+  {
+   "t": 210.25,
+   "step": 6524,
+   "forwards": 6524,
+   "val": 3.186784601211548
+  },
+  {
+   "t": 220.25,
+   "step": 6833,
+   "forwards": 6833,
+   "val": 3.196572279930115
+  },
+  {
+   "t": 230.28,
+   "step": 7142,
+   "forwards": 7142,
+   "val": 3.1926793575286867
+  },
+  {
+   "t": 240.3,
+   "step": 7451,
+   "forwards": 7451,
+   "val": 3.190479111671448
+  },
+  {
+   "t": 250.31,
+   "step": 7761,
+   "forwards": 7761,
+   "val": 3.17829966545105
+  },
+  {
+   "t": 260.34,
+   "step": 8070,
+   "forwards": 8070,
+   "val": 3.174083042144775
+  },
+  {
+   "t": 270.36,
+   "step": 8380,
+   "forwards": 8380,
+   "val": 3.1708451986312864
+  },
+  {
+   "t": 280.36,
+   "step": 8684,
+   "forwards": 8684,
+   "val": 3.169739103317261
+  },
+  {
+   "t": 290.38,
+   "step": 8985,
+   "forwards": 8985,
+   "val": 3.1539776802062987
+  },
+  {
+   "t": 300.02,
+   "step": 9280,
+   "forwards": 9280,
+   "val": 3.1386237859725954
+  }
+ ],
+ "sample": "ROMEO:\nt\n re h\n\nd t wLselteeloH u neaheorrocd Ig\nlst tgM ccfueoy n fnt bhhre h th thib me el sBeg sehe t t athof ler w k w\n\nahees uare fotr nene th theoor s w yt te ai'f Iioeotot ad t s  an s uz f\n\ne n..Se aIofeorf pe ne mily mooe n t say eiI codele fleomeeinor imkee s t dn se.oinobe y th tot g r s thafe s",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 6.666666666666667e-05,
+    "factor": 0.3333333333333333,
+    "val_loss": 3.8618494129180907
+   },
+   {
+    "lr": 0.0002,
+    "factor": 1,
+    "val_loss": 3.6083261823654174
+   },
+   {
+    "lr": 0.0006000000000000001,
+    "factor": 3,
+    "val_loss": 3.3716033029556276
+   },
+   {
+    "lr": 0.0018000000000000002,
+    "factor": 9,
+    "val_loss": 3.2747779083251953
+   },
+   {
+    "lr": 0.0054,
+    "factor": 27,
+    "val_loss": 3.3607197427749633
+   }
+  ]
+ }
+}
