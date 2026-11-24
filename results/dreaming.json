@@ -1,0 +1,244 @@
+{
+ "rule": "dreaming",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "Wake/sleep Hebbian: strengthen what fires on real text, weaken what fires on the model's own dreams. Readout: real-vs-dreamt delta rule.",
+ "paper": "Hinton & Sejnowski 1983 (Boltzmann machines); Crick & Mitchison 1983 (we dream to forget); Hinton 2022 (FF with model negatives)",
+ "hp": {
+  "lr": 0.0003,
+  "weight_decay": 0.01,
+  "temperature": 1.0
+ },
+ "test_loss": 3.3309361696243287,
+ "best_val": 3.2940184974670412,
+ "best_at_s": 180.13,
+ "best_step": 12970,
+ "init_val": 4.216201114654541,
+ "steps": 21607,
+ "forwards": 43214,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.0,
+   "step": 717,
+   "forwards": 1434,
+   "val": 3.334577178955078
+  },
+  {
+   "t": 20.01,
+   "step": 1434,
+   "forwards": 2868,
+   "val": 3.331799793243408
+  },
+  {
+   "t": 30.02,
+   "step": 2152,
+   "forwards": 4304,
+   "val": 3.3291208505630494
+  },
+  {
+   "t": 40.03,
+   "step": 2871,
+   "forwards": 5742,
+   "val": 3.326937508583069
+  },
+  {
+   "t": 50.04,
+   "step": 3592,
+   "forwards": 7184,
+   "val": 3.3236690282821657
+  },
+  {
+   "t": 60.05,
+   "step": 4316,
+   "forwards": 8632,
+   "val": 3.320538592338562
+  },
+  {
+   "t": 70.06,
+   "step": 5035,
+   "forwards": 10070,
+   "val": 3.318923902511597
+  },
+  {
+   "t": 80.07,
+   "step": 5754,
+   "forwards": 11508,
+   "val": 3.3203822135925294
+  },
+  {
+   "t": 90.08,
+   "step": 6476,
+   "forwards": 12952,
+   "val": 3.317248225212097
+  },
+  {
+   "t": 100.08,
+   "step": 7197,
+   "forwards": 14394,
+   "val": 3.3176857948303224
+  },
+  {
+   "t": 110.09,
+   "step": 7918,
+   "forwards": 15836,
+   "val": 3.317364716529846
+  },
+  {
+   "t": 120.1,
+   "step": 8641,
+   "forwards": 17282,
+   "val": 3.3184784412384034
+  },
+  {
+   "t": 130.11,
+   "step": 9365,
+   "forwards": 18730,
+   "val": 3.3141844511032104
+  },
+  {
+   "t": 140.12,
+   "step": 10088,
+   "forwards": 20176,
+   "val": 3.3098055362701415
+  },
+  {
+   "t": 150.12,
+   "step": 10810,
+   "forwards": 21620,
+   "val": 3.307998299598694
+  },
+  {
+   "t": 160.13,
+   "step": 11530,
+   "forwards": 23060,
+   "val": 3.3050616979599
+  },
+  {
+   "t": 170.13,
+   "step": 12253,
+   "forwards": 24506,
+   "val": 3.298767113685608
+  },
+  {
+   "t": 180.13,
+   "step": 12970,
+   "forwards": 25940,
+   "val": 3.2952452182769774
+  },
+  {
+   "t": 190.14,
+   "step": 13692,
+   "forwards": 27384,
+   "val": 3.29620361328125
+  },
+  {
+   "t": 200.15,
+   "step": 14413,
+   "forwards": 28826,
+   "val": 3.2964428186416628
+  },
+  {
+   "t": 210.16,
+   "step": 15134,
+   "forwards": 30268,
+   "val": 3.297254037857056
+  },
+  {
+   "t": 220.17,
+   "step": 15854,
+   "forwards": 31708,
+   "val": 3.2988160371780397
+  },
+  {
+   "t": 230.18,
+   "step": 16577,
+   "forwards": 33154,
+   "val": 3.2980188131332397
+  },
+  {
+   "t": 240.19,
+   "step": 17298,
+   "forwards": 34596,
+   "val": 3.3006574630737306
+  },
+  {
+   "t": 250.19,
+   "step": 18021,
+   "forwards": 36042,
+   "val": 3.3024036645889283
+  },
+  {
+   "t": 260.19,
+   "step": 18743,
+   "forwards": 37486,
+   "val": 3.3024334192276
+  },
+  {
+   "t": 270.2,
+   "step": 19464,
+   "forwards": 38928,
+   "val": 3.3019107580184937
+  },
+  {
+   "t": 280.2,
+   "step": 20182,
+   "forwards": 40364,
+   "val": 3.303556299209595
+  },
+  {
+   "t": 290.21,
+   "step": 20903,
+   "forwards": 41806,
+   "val": 3.301892948150635
+  },
+  {
+   "t": 300.0,
+   "step": 21607,
+   "forwards": 43214,
+   "val": 3.301027846336365
+  }
+ ],
+ "sample": "ROMEO:\nts remhmsd hewTsnlteWloHca  eahao roid IgelstetgMeco uewygh  nt bherM hstn toi s\neiel sBeg eehi tst atso yler i kpwe ahcesruaaet,oer nen mha  tsooe e n \nt ne ai'  IioeoEotg, t e c an s uY t\nu  nr.S  a\nooeorf pihi\n\nOier mWoe nhr sayfeiIsco eldhel o tei le i kee s o ,n s\nt in\nbS yteoheoEngsr  tthm mh ",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 9.999999999999999e-05,
+    "factor": 0.3333333333333333,
+    "val_loss": 3.3258730363845825
+   },
+   {
+    "lr": 0.0003,
+    "factor": 1,
+    "val_loss": 3.3205287313461302
+   },
+   {
+    "lr": 0.0009,
+    "factor": 3,
+    "val_loss": 3.3294577026367187
+   }
+  ]
+ }
+}

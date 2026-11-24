@@ -1,0 +1,255 @@
+{
+ "rule": "instinct_rats",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "Born wired as a bigram (Hebbian counts), then lab_rats_maze keeps learning on top. Nature, then nurture.",
+ "paper": "wire_together + lab_rats_maze (both this repo)",
+ "hp": {
+  "lr": 3.7037037037037037e-06,
+  "count_steps": 100,
+  "smoothing": 0.1,
+  "scale": 10.0
+ },
+ "test_loss": 2.4977371644973756,
+ "best_val": 2.469708080291748,
+ "best_at_s": 50.05,
+ "best_step": 2850,
+ "init_val": 4.216201114654541,
+ "steps": 16849,
+ "forwards": 33598,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.01,
+   "step": 628,
+   "forwards": 1156,
+   "val": 2.4718809843063356
+  },
+  {
+   "t": 20.02,
+   "step": 1179,
+   "forwards": 2258,
+   "val": 2.4716309309005737
+  },
+  {
+   "t": 30.04,
+   "step": 1733,
+   "forwards": 3366,
+   "val": 2.4715510845184325
+  },
+  {
+   "t": 40.04,
+   "step": 2292,
+   "forwards": 4484,
+   "val": 2.471393656730652
+  },
+  {
+   "t": 50.05,
+   "step": 2850,
+   "forwards": 5600,
+   "val": 2.4712960958480834
+  },
+  {
+   "t": 60.06,
+   "step": 3411,
+   "forwards": 6722,
+   "val": 2.4713048219680784
+  },
+  {
+   "t": 70.06,
+   "step": 3972,
+   "forwards": 7844,
+   "val": 2.471524739265442
+  },
+  {
+   "t": 80.07,
+   "step": 4531,
+   "forwards": 8962,
+   "val": 2.471818995475769
+  },
+  {
+   "t": 90.07,
+   "step": 5092,
+   "forwards": 10084,
+   "val": 2.4721452713012697
+  },
+  {
+   "t": 100.08,
+   "step": 5650,
+   "forwards": 11200,
+   "val": 2.4724425792694094
+  },
+  {
+   "t": 110.09,
+   "step": 6215,
+   "forwards": 12330,
+   "val": 2.472762417793274
+  },
+  {
+   "t": 120.09,
+   "step": 6783,
+   "forwards": 13466,
+   "val": 2.47325484752655
+  },
+  {
+   "t": 130.09,
+   "step": 7345,
+   "forwards": 14590,
+   "val": 2.4737189769744874
+  },
+  {
+   "t": 140.1,
+   "step": 7899,
+   "forwards": 15698,
+   "val": 2.474142861366272
+  },
+  {
+   "t": 150.12,
+   "step": 8461,
+   "forwards": 16822,
+   "val": 2.4745564222335816
+  },
+  {
+   "t": 160.13,
+   "step": 9024,
+   "forwards": 17948,
+   "val": 2.475049448013306
+  },
+  {
+   "t": 170.14,
+   "step": 9587,
+   "forwards": 19074,
+   "val": 2.475521373748779
+  },
+  {
+   "t": 180.15,
+   "step": 10147,
+   "forwards": 20194,
+   "val": 2.476181221008301
+  },
+  {
+   "t": 190.15,
+   "step": 10704,
+   "forwards": 21308,
+   "val": 2.476709222793579
+  },
+  {
+   "t": 200.16,
+   "step": 11264,
+   "forwards": 22428,
+   "val": 2.4773085594177244
+  },
+  {
+   "t": 210.17,
+   "step": 11824,
+   "forwards": 23548,
+   "val": 2.4782926082611083
+  },
+  {
+   "t": 220.17,
+   "step": 12384,
+   "forwards": 24668,
+   "val": 2.4791068553924562
+  },
+  {
+   "t": 230.17,
+   "step": 12949,
+   "forwards": 25798,
+   "val": 2.479923439025879
+  },
+  {
+   "t": 240.18,
+   "step": 13508,
+   "forwards": 26916,
+   "val": 2.480749249458313
+  },
+  {
+   "t": 250.2,
+   "step": 14064,
+   "forwards": 28028,
+   "val": 2.481316018104553
+  },
+  {
+   "t": 260.21,
+   "step": 14622,
+   "forwards": 29144,
+   "val": 2.4818623065948486
+  },
+  {
+   "t": 270.22,
+   "step": 15180,
+   "forwards": 30260,
+   "val": 2.4824545621871947
+  },
+  {
+   "t": 280.24,
+   "step": 15739,
+   "forwards": 31378,
+   "val": 2.4827476978302
+  },
+  {
+   "t": 290.26,
+   "step": 16303,
+   "forwards": 32506,
+   "val": 2.4830778360366823
+  },
+  {
+   "t": 300.01,
+   "step": 16849,
+   "forwards": 33598,
+   "val": 2.4833152055740357
+  }
+ ],
+ "sample": "ROMEO:\nth rememe ke whenllered ca meaman youd INAlste grecoure y hiththerere hath thin berelis s tongilost atho y we w ke e ancot idarthotr nd; my f thed we w y t f aim whiserethind te co n s u.\n\n\nI s h. fo INVe thaithie mily mpofond ssay tint oueld fleome inou ind t he the s t inobe y tonoon g t st hayowa",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 3.3333333333333335e-05,
+    "factor": 0.3333333333333333,
+    "val_loss": 2.470909538269043
+   },
+   {
+    "lr": 0.0001,
+    "factor": 1,
+    "val_loss": 2.470968179702759
+   },
+   {
+    "lr": 0.00030000000000000003,
+    "factor": 3,
+    "val_loss": 2.483021783828735
+   },
+   {
+    "lr": 1.1111111111111112e-05,
+    "factor": 0.1111111111111111,
+    "val_loss": 2.469849662780762
+   },
+   {
+    "lr": 3.7037037037037037e-06,
+    "factor": 0.037037037037037035,
+    "val_loss": 2.469718265533447
+   }
+  ]
+ }
+}

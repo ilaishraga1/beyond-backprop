@@ -1,0 +1,253 @@
+{
+ "rule": "wire_together",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "Pure Hebbian counting: tally which char follows which, write the counts into the weights in closed form. Zero optimisation.",
+ "paper": "Hebb 1949; it is a bigram model (Shannon 1948) wearing a transformer costume",
+ "hp": {
+  "smoothing": 2.7,
+  "recompile_every": 50
+ },
+ "test_loss": 2.4999421548843386,
+ "best_val": 2.4706165266036986,
+ "best_at_s": 50.01,
+ "best_step": 10883,
+ "init_val": 4.216201114654541,
+ "steps": 65165,
+ "forwards": 65165,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.0,
+   "step": 2212,
+   "forwards": 2212,
+   "val": 2.472857856750488
+  },
+  {
+   "t": 20.0,
+   "step": 4396,
+   "forwards": 4396,
+   "val": 2.472648859024048
+  },
+  {
+   "t": 30.0,
+   "step": 6567,
+   "forwards": 6567,
+   "val": 2.4727946519851685
+  },
+  {
+   "t": 40.0,
+   "step": 8720,
+   "forwards": 8720,
+   "val": 2.472754883766174
+  },
+  {
+   "t": 50.01,
+   "step": 10883,
+   "forwards": 10883,
+   "val": 2.4725625038146974
+  },
+  {
+   "t": 60.01,
+   "step": 13064,
+   "forwards": 13064,
+   "val": 2.4725921869277956
+  },
+  {
+   "t": 70.01,
+   "step": 15238,
+   "forwards": 15238,
+   "val": 2.4725818157196047
+  },
+  {
+   "t": 80.01,
+   "step": 17411,
+   "forwards": 17411,
+   "val": 2.4726051568984984
+  },
+  {
+   "t": 90.01,
+   "step": 19588,
+   "forwards": 19588,
+   "val": 2.4726575136184694
+  },
+  {
+   "t": 100.02,
+   "step": 21753,
+   "forwards": 21753,
+   "val": 2.472693395614624
+  },
+  {
+   "t": 110.02,
+   "step": 23924,
+   "forwards": 23924,
+   "val": 2.4727203607559205
+  },
+  {
+   "t": 120.03,
+   "step": 26097,
+   "forwards": 26097,
+   "val": 2.472746753692627
+  },
+  {
+   "t": 130.03,
+   "step": 28278,
+   "forwards": 28278,
+   "val": 2.472719407081604
+  },
+  {
+   "t": 140.03,
+   "step": 30454,
+   "forwards": 30454,
+   "val": 2.472721314430237
+  },
+  {
+   "t": 150.03,
+   "step": 32612,
+   "forwards": 32612,
+   "val": 2.4727614164352416
+  },
+  {
+   "t": 160.03,
+   "step": 34782,
+   "forwards": 34782,
+   "val": 2.4727678537368774
+  },
+  {
+   "t": 170.03,
+   "step": 36958,
+   "forwards": 36958,
+   "val": 2.4727657794952393
+  },
+  {
+   "t": 180.03,
+   "step": 39117,
+   "forwards": 39117,
+   "val": 2.4727628231048584
+  },
+  {
+   "t": 190.04,
+   "step": 41296,
+   "forwards": 41296,
+   "val": 2.472782254219055
+  },
+  {
+   "t": 200.04,
+   "step": 43458,
+   "forwards": 43458,
+   "val": 2.4727957248687744
+  },
+  {
+   "t": 210.04,
+   "step": 45624,
+   "forwards": 45624,
+   "val": 2.4728014707565307
+  },
+  {
+   "t": 220.04,
+   "step": 47808,
+   "forwards": 47808,
+   "val": 2.4728451490402223
+  },
+  {
+   "t": 230.05,
+   "step": 49991,
+   "forwards": 49991,
+   "val": 2.4728484630584715
+  },
+  {
+   "t": 240.05,
+   "step": 52154,
+   "forwards": 52154,
+   "val": 2.472847843170166
+  },
+  {
+   "t": 250.05,
+   "step": 54340,
+   "forwards": 54340,
+   "val": 2.4728477716445925
+  },
+  {
+   "t": 260.05,
+   "step": 56511,
+   "forwards": 56511,
+   "val": 2.472871422767639
+  },
+  {
+   "t": 270.06,
+   "step": 58674,
+   "forwards": 58674,
+   "val": 2.4728652238845825
+  },
+  {
+   "t": 280.06,
+   "step": 60814,
+   "forwards": 60814,
+   "val": 2.4728426218032835
+  },
+  {
+   "t": 290.06,
+   "step": 62983,
+   "forwards": 62983,
+   "val": 2.472816824913025
+  },
+  {
+   "t": 300.0,
+   "step": 65165,
+   "forwards": 65165,
+   "val": 2.472800540924072
+  }
+ ],
+ "sample": "ROMEO:\nth remofe ke whenllerede a meaman youd INAlste grecofurey hiththerere hath thin berelleseanongilost atho y we w ke e ancot idarthorr nd; my f thed we w y t f aim whiserethind te co n s u.\nWhe s h. fo INVI thapllie mely mpofond ssay tint oueld fleome inou ind t he the s t inobe y tonesthast st hayowa",
+ "sweep": {
+  "key": "smoothing",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "smoothing": 0.03333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 2.4712861490249636
+   },
+   {
+    "smoothing": 0.1,
+    "factor": 1,
+    "val_loss": 2.4710251188278196
+   },
+   {
+    "smoothing": 0.30000000000000004,
+    "factor": 3,
+    "val_loss": 2.4708308124542238
+   },
+   {
+    "smoothing": 0.9,
+    "factor": 9,
+    "val_loss": 2.470702314376831
+   },
+   {
+    "smoothing": 2.7,
+    "factor": 27,
+    "val_loss": 2.470629334449768
+   }
+  ]
+ }
+}

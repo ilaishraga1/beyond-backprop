@@ -23,17 +23,20 @@ is *by how much*, and *why*.
 | 2 | `sign_symmetry` | 🪞 modified | 1.675 | +0.047 | yes | 2.0 min | 20,864 | 20,864 | lr=0.001 |
 | 3 | `local_losses` | 🧱 local | 1.743 | +0.114 | yes | 2.7 min | 18,457 | 18,457 | lr=0.002 |
 | 4 | `feedback_alignment` | 🪞 modified | 1.911 | +0.282 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
-| 5 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
-| 6 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.982 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
-| 7 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
-| 8 | `lab_rats_future` | 🚫 none | 2.660 | +1.032 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
-| 9 | `lab_rats_solo` | 🚫 none | 2.692 | +1.064 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
-| 10 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
-| 11 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
-| 12 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
-| 13 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
-| 14 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
-| 15 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
+| 5 | `instinct_rats` | 🚫 none | 2.498 | +0.869 | yes | 0.8 min | 16,849 | 33,598 | lr=3.7e-06 |
+| 6 | `wire_together` | 🚫 none | 2.500 | +0.871 | yes | 0.8 min | 65,165 | 65,165 | smoothing=2.7 |
+| 7 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
+| 8 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.982 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
+| 9 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
+| 10 | `lab_rats_future` | 🚫 none | 2.660 | +1.032 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
+| 11 | `lab_rats_solo` | 🚫 none | 2.692 | +1.064 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
+| 12 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
+| 13 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
+| 14 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
+| 15 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
+| 16 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
+| 17 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
+| 18 | `dreaming` | 🚫 none | 3.331 | +1.702 | no | 3.0 min | 21,607 | 43,214 | lr=0.0003 |
 | | *unigram (letter frequencies only)* | | 3.309 | | | | | | |
 | | *untrained / uniform guess* | | 4.216 | | | | | | |
 
@@ -105,6 +108,24 @@ LENRLEY:
 I not sweear strue:
 I knew farew dam, you of not say, if come defence,
 And the me here, my pown, to the at to the 
+```
+
+**instinct_rats** (test 2.498)
+
+```
+ROMEO:
+th rememe ke whenllered ca meaman youd INAlste grecoure y hiththerere hath thin berelis s tongilost atho y we w ke e ancot idarthotr nd; my f thed we w y t f aim whiserethind te co n s u.
+
+
+I s h. fo INVe thaithie mily mpofond ssay tint oueld fleome inou ind t he the s t inobe y tonoon g t st
+```
+
+**wire_together** (test 2.500)
+
+```
+ROMEO:
+th remofe ke whenllerede a meaman youd INAlste grecofurey hiththerere hath thin berelleseanongilost atho y we w ke e ancot idarthorr nd; my f thed we w y t f aim whiserethind te co n s u.
+Whe s h. fo INVI thapllie mely mpofond ssay tint oueld fleome inou ind t he the s t inobe y tonesthast st
 ```
 
 **lab_rats_maze** (test 2.610)
@@ -245,6 +266,21 @@ ahees uare fotr nene th theoor s w yt te ai'f Iioeotot ad t s  an s uz f
 e n..Se aIofeorf pe ne mily mooe n t say eiI codele fleomeeinor imkee s t dn se.oinobe y th tot g r s 
 ```
 
+**dreaming** (test 3.331)
+
+```
+ROMEO:
+ts remhmsd hewTsnlteWloHca  eahao roid IgelstetgMeco uewygh  nt bherM hstn toi s
+eiel sBeg eehi tst atso yler i kpwe ahcesruaaet,oer nen mha  tsooe e n 
+t ne ai'  IioeoEotg, t e c an s uY t
+u  nr.S  a
+ooeorf pihi
+
+Oier mWoe nhr sayfeiIsco eldhel o tei le i kee s o ,n s
+t in
+bS yteoheoEngsr  t
+```
+
 </details>
 <!-- LEADERBOARD:END -->
 
@@ -267,6 +303,13 @@ e n..Se aIofeorf pe ne mily mooe n t say eiI codele fleomeeinor imkee s t dn se.
   Its gradient estimate lines up with the true gradient at cosine 0.01–0.16 per layer,
   vs ~0.0003 for a MeZO-style random direction. Still +1.0 nats behind backprop, and still
   improving at minute 5: plenty of room in this bracket. Go win it.
+- **📊 …and then plain counting beat all of them.** `wire_together` does no optimisation at all:
+  it tallies which character follows which and writes the counts into the weights in closed
+  form, turning the transformer into an exact bigram model. **2.500, in under a minute**,
+  ahead of every gradient-free *learner* here, Forward-Forward, and the random reservoir.
+  **This is the real bar for the 🚫 bracket:** a rule that can't beat counting letter
+  pairs hasn't learned anything a census couldn't. To beat it, a rule has to make use of
+  *earlier* characters, which means training attention.
 
 ### 🐀 Lab rats lab notebook: three attempted fixes
 
@@ -297,6 +340,28 @@ What the gradient probes showed along the way (cosine of the estimate with the t
   neurons, and block 0's MLP and attention have a tiny share of it. Moving the loss closer
   doesn't change that ratio. Ideas welcome: per-layer noise scaling, low-rank jolts, or
   learning a local *predictor* of the loss change (synthetic-gradient style).
+
+### 🧪 The extreme batch: counting, instincts, and dreams
+
+| rule | the idea | seed 0 | seed 1 | seed 2 | verdict |
+|---|---|---:|---:|---:|---|
+| `wire_together` | "Fire together, wire together", literally: count letter pairs, compile them into the weights. Zero optimisation. | 2.500 | | | 🏆 best 🚫 rule; deterministic, so one run |
+| `instinct_rats` | Born wired as a bigram, then `lab_rats_maze` keeps learning on top. Nature, then nurture. | 2.498 | 2.498 | 2.499 | 🤷 nurture adds nothing |
+| `dreaming` | Awake: strengthen what fires on real text. Asleep: weaken what fires on the model's own dreamt text. | 3.331 | 3.322 | 3.323 | 💀 dreams erase everything |
+
+- **Counting is exact.** The compiled transformer's loss matches a lookup-table bigram to 4 decimals (2.4552 both ways).
+- **Instincts are fragile, then frozen.** The first version had 1-sized one-hots, and lab rats
+  wrecked the wiring within seconds even at lr=1e-6: `ln_f` divides by a tiny std, so any
+  trickle the blocks leaked into the stream got amplified ~11×. Bigger one-hots fix that, since
+  LayerNorm erases scale, but then the blocks barely move the output, and the lr sweep
+  walks the learning rate down to ~0. Either way lab rats can't get past the bigram:
+  doing that needs attention, the one thing it can't train.
+- **"We dream in order to forget"** (Crick & Mitchison 1983), confirmed. The dreaming readout
+  alone gets an honest delta-rule signal and reaches 2.73 (≈ the random reservoir). Switch on
+  the wake/sleep Hebbian in the hidden layers and it collapses to 3.32, worse than letter
+  frequencies, within the first 10 seconds, and never recovers. Contrasting real text
+  against the model's own early dreams (≈ random letters) apparently teaches the features
+  "is this real text?" and nothing about *which* character comes next.
 
 **How to read it**
 - **test loss**: cross-entropy on held-out Shakespeare, nats per character. Lower is better.
@@ -334,6 +399,9 @@ What the gradient probes showed along the way (cosine of the estimate with the t
 | `lab_rats` 🐀 | 🚫 none | **Every token is an experiment.** Jolt every neuron with fresh noise at every token, run ±noise forward passes, and credit each token's loss change to that token's jolt. Each layer then updates Hebbian-style (jolt-credit ⊗ its own input). No backward pass, no weight transport, only a per-token "dopamine" loss signal. | node perturbation (Williams 1992; Fiete & Seung 2006) + per-token credit in a causal LM (the twist tried here) |
 | `lab_rats_maze` 🐀 | 🚫 none | lab_rats + block 0 gets its own next-char readout ("local maze") and is credited mostly by that nearby loss. Best lab_rats so far. | + local readouts à la Nøkland & Eidnes 2019 |
 | `lab_rats_cycle` / `_solo` / `_future` 🐀 | 🚫 none | The other attempted fixes: one block per step, every block separately, cross-token credit for attention. See the lab notebook above. | |
+| `wire_together` 📊 | 🚫 none | No optimisation: count which char follows which, then compile the counts into the weights in closed form (one-hot embeddings, silenced blocks, pseudo-inverse readout). An exact bigram in a transformer costume. | Hebb 1949; Shannon 1948 |
+| `instinct_rats` | 🚫 none | Born wired as that bigram, then `lab_rats_maze` keeps learning on top. | this repo |
+| `dreaming` 💤 | 🚫 none | Wake/sleep Hebbian: strengthen what fires on real text, weaken what fires on the model's own dreams; readout learns real-vs-dreamt next char (the delta rule). | Hinton & Sejnowski 1983; Crick & Mitchison 1983; Hinton 2022 |
 | `hill_climb` | 🚫 none | Jiggle every weight at random; keep it if the loss dropped. The dumbest possible learner, as a floor. | Rechenberg 1973 |
 
 ## Quickstart
