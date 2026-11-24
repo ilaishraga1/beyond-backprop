@@ -1,0 +1,244 @@
+{
+ "rule": "lab_rats_cycle",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "lab_rats, but only one block jolted per step, round-robin: less crosstalk at the same cost, each block updated 1/5 of steps.",
+ "paper": "node perturbation (Williams 1992; Fiete & Seung 2006) + per-token credit in a causal LM (the twist tried here)",
+ "hp": {
+  "lr": 0.001,
+  "sigma": 0.03,
+  "solo": "cycle"
+ },
+ "test_loss": 2.6107635068893433,
+ "best_val": 2.6122329330444334,
+ "best_at_s": 260.12,
+ "best_step": 25007,
+ "init_val": 4.216201114654541,
+ "steps": 28804,
+ "forwards": 57608,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.01,
+   "step": 948,
+   "forwards": 1896,
+   "val": 3.283038878440857
+  },
+  {
+   "t": 20.01,
+   "step": 1897,
+   "forwards": 3794,
+   "val": 3.1869379758834837
+  },
+  {
+   "t": 30.01,
+   "step": 2876,
+   "forwards": 5752,
+   "val": 3.1094069480895996
+  },
+  {
+   "t": 40.01,
+   "step": 3833,
+   "forwards": 7666,
+   "val": 2.8775039672851563
+  },
+  {
+   "t": 50.01,
+   "step": 4803,
+   "forwards": 9606,
+   "val": 2.7799849033355715
+  },
+  {
+   "t": 60.02,
+   "step": 5779,
+   "forwards": 11558,
+   "val": 2.7366817712783815
+  },
+  {
+   "t": 70.03,
+   "step": 6738,
+   "forwards": 13476,
+   "val": 2.714788556098938
+  },
+  {
+   "t": 80.03,
+   "step": 7698,
+   "forwards": 15396,
+   "val": 2.6949419260025023
+  },
+  {
+   "t": 90.03,
+   "step": 8657,
+   "forwards": 17314,
+   "val": 2.6822273969650268
+  },
+  {
+   "t": 100.04,
+   "step": 9615,
+   "forwards": 19230,
+   "val": 2.670441746711731
+  },
+  {
+   "t": 110.04,
+   "step": 10576,
+   "forwards": 21152,
+   "val": 2.6672617197036743
+  },
+  {
+   "t": 120.05,
+   "step": 11554,
+   "forwards": 23108,
+   "val": 2.648484396934509
+  },
+  {
+   "t": 130.06,
+   "step": 12532,
+   "forwards": 25064,
+   "val": 2.6366969108581544
+  },
+  {
+   "t": 140.06,
+   "step": 13509,
+   "forwards": 27018,
+   "val": 2.635444450378418
+  },
+  {
+   "t": 150.07,
+   "step": 14489,
+   "forwards": 28978,
+   "val": 2.630419874191284
+  },
+  {
+   "t": 160.07,
+   "step": 15459,
+   "forwards": 30918,
+   "val": 2.6408856391906737
+  },
+  {
+   "t": 170.08,
+   "step": 16412,
+   "forwards": 32824,
+   "val": 2.631231665611267
+  },
+  {
+   "t": 180.08,
+   "step": 17362,
+   "forwards": 34724,
+   "val": 2.6307835578918457
+  },
+  {
+   "t": 190.08,
+   "step": 18317,
+   "forwards": 36634,
+   "val": 2.6393043041229247
+  },
+  {
+   "t": 200.08,
+   "step": 19273,
+   "forwards": 38546,
+   "val": 2.628690481185913
+  },
+  {
+   "t": 210.09,
+   "step": 20235,
+   "forwards": 40470,
+   "val": 2.622334599494934
+  },
+  {
+   "t": 220.1,
+   "step": 21196,
+   "forwards": 42392,
+   "val": 2.6340407848358156
+  },
+  {
+   "t": 230.1,
+   "step": 22146,
+   "forwards": 44292,
+   "val": 2.6306452989578246
+  },
+  {
+   "t": 240.11,
+   "step": 23092,
+   "forwards": 46184,
+   "val": 2.6241957426071165
+  },
+  {
+   "t": 250.11,
+   "step": 24053,
+   "forwards": 48106,
+   "val": 2.620827865600586
+  },
+  {
+   "t": 260.12,
+   "step": 25007,
+   "forwards": 50014,
+   "val": 2.614956188201904
+  },
+  {
+   "t": 270.13,
+   "step": 25953,
+   "forwards": 51906,
+   "val": 2.622595191001892
+  },
+  {
+   "t": 280.13,
+   "step": 26908,
+   "forwards": 53816,
+   "val": 2.62075674533844
+  },
+  {
+   "t": 290.13,
+   "step": 27840,
+   "forwards": 55680,
+   "val": 2.626450800895691
+  },
+  {
+   "t": 300.0,
+   "step": 28804,
+   "forwards": 57608,
+   "val": 2.6207606554031373
+  }
+ ],
+ "sample": "ROMEO:\nTy re his ke whenlte louca meaman youd INAlste greco atoy h thaverere he?\n\nSou s thelis s ton ilose atho y we w k we alcos idarinder nd; mit thyoo we w yt to atif Iiserdotond te c an s shed\nI s h.S:\nHIUVepranithid mily mooe nd ssay tint ou ld fleome inle ind t s thin s toinsbo y ton tt g t st hald a",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 3.18689416885376
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 2.74085795879364
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 2.7547229671478273
+   }
+  ]
+ }
+}

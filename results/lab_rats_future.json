@@ -1,0 +1,251 @@
+{
+ "rule": "lab_rats_future",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "lab_rats, but attention jolts are credited with the discounted loss change at all *later* tokens (returns-to-go, gamma=0.9).",
+ "paper": "node perturbation (Williams 1992; Fiete & Seung 2006) + per-token credit in a causal LM (the twist tried here)",
+ "hp": {
+  "lr": 0.0003333333333333333,
+  "sigma": 0.03,
+  "solo": "off",
+  "gamma": 0.9,
+  "gamma_on": "attn"
+ },
+ "test_loss": 2.6603622436523438,
+ "best_val": 2.656777205467224,
+ "best_at_s": 260.21,
+ "best_step": 14619,
+ "init_val": 4.216201114654541,
+ "steps": 16840,
+ "forwards": 33680,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.01,
+   "step": 569,
+   "forwards": 1138,
+   "val": 2.928662323951721
+  },
+  {
+   "t": 20.03,
+   "step": 1131,
+   "forwards": 2262,
+   "val": 2.828996253013611
+  },
+  {
+   "t": 30.05,
+   "step": 1692,
+   "forwards": 3384,
+   "val": 2.7834341526031494
+  },
+  {
+   "t": 40.05,
+   "step": 2253,
+   "forwards": 4506,
+   "val": 2.77812819480896
+  },
+  {
+   "t": 50.06,
+   "step": 2818,
+   "forwards": 5636,
+   "val": 2.7606539964675902
+  },
+  {
+   "t": 60.07,
+   "step": 3383,
+   "forwards": 6766,
+   "val": 2.741903042793274
+  },
+  {
+   "t": 70.08,
+   "step": 3948,
+   "forwards": 7896,
+   "val": 2.736872744560242
+  },
+  {
+   "t": 80.08,
+   "step": 4512,
+   "forwards": 9024,
+   "val": 2.729971981048584
+  },
+  {
+   "t": 90.09,
+   "step": 5073,
+   "forwards": 10146,
+   "val": 2.7157406330108644
+  },
+  {
+   "t": 100.1,
+   "step": 5637,
+   "forwards": 11274,
+   "val": 2.718731141090393
+  },
+  {
+   "t": 110.1,
+   "step": 6196,
+   "forwards": 12392,
+   "val": 2.7023124217987062
+  },
+  {
+   "t": 120.12,
+   "step": 6755,
+   "forwards": 13510,
+   "val": 2.7060081005096435
+  },
+  {
+   "t": 130.13,
+   "step": 7317,
+   "forwards": 14634,
+   "val": 2.693142318725586
+  },
+  {
+   "t": 140.13,
+   "step": 7875,
+   "forwards": 15750,
+   "val": 2.691748118400574
+  },
+  {
+   "t": 150.14,
+   "step": 8435,
+   "forwards": 16870,
+   "val": 2.694090962409973
+  },
+  {
+   "t": 160.15,
+   "step": 8997,
+   "forwards": 17994,
+   "val": 2.674170398712158
+  },
+  {
+   "t": 170.16,
+   "step": 9559,
+   "forwards": 19118,
+   "val": 2.6757653951644897
+  },
+  {
+   "t": 180.16,
+   "step": 10120,
+   "forwards": 20240,
+   "val": 2.6760737180709837
+  },
+  {
+   "t": 190.18,
+   "step": 10684,
+   "forwards": 21368,
+   "val": 2.673279333114624
+  },
+  {
+   "t": 200.18,
+   "step": 11246,
+   "forwards": 22492,
+   "val": 2.6743215322494507
+  },
+  {
+   "t": 210.18,
+   "step": 11807,
+   "forwards": 23614,
+   "val": 2.670544981956482
+  },
+  {
+   "t": 220.2,
+   "step": 12371,
+   "forwards": 24742,
+   "val": 2.6756381511688234
+  },
+  {
+   "t": 230.2,
+   "step": 12934,
+   "forwards": 25868,
+   "val": 2.675508999824524
+  },
+  {
+   "t": 240.2,
+   "step": 13496,
+   "forwards": 26992,
+   "val": 2.664994740486145
+  },
+  {
+   "t": 250.21,
+   "step": 14057,
+   "forwards": 28114,
+   "val": 2.6645192384719847
+  },
+  {
+   "t": 260.21,
+   "step": 14619,
+   "forwards": 29238,
+   "val": 2.6576444149017333
+  },
+  {
+   "t": 270.22,
+   "step": 15182,
+   "forwards": 30364,
+   "val": 2.6716006994247437
+  },
+  {
+   "t": 280.23,
+   "step": 15741,
+   "forwards": 31482,
+   "val": 2.6723997354507447
+  },
+  {
+   "t": 290.25,
+   "step": 16294,
+   "forwards": 32588,
+   "val": 2.6621786832809446
+  },
+  {
+   "t": 300.01,
+   "step": 16840,
+   "forwards": 33680,
+   "val": 2.66949520111084
+  }
+ ],
+ "sample": "ROMEO:\nTu remr t ke whselterlouca merador, id Ixtlste ganco urey he ntherere heth thin berelis sgoferilose atho y or it ber ancos idar forr nen met theno we wostour arin Iiserethe,\nO t c an s uwenrur nr.Sevantolorf pirir-milr m,\nennthasareeint ou ld fleome inle ind t s thinms totoube y tonesthasof themed a",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 2.7439498853683473
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 2.811722002029419
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 3.0546050786972048
+   },
+   {
+    "lr": 0.0001111111111111111,
+    "factor": 0.1111111111111111,
+    "val_loss": 2.7810192680358887
+   }
+  ]
+ }
+}

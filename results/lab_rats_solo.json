@@ -1,0 +1,249 @@
+{
+ "rule": "lab_rats_solo",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "lab_rats, but one block jolted per pass pair (5 pairs/step): far less crosstalk, 5x the forwards.",
+ "paper": "node perturbation (Williams 1992; Fiete & Seung 2006) + per-token credit in a causal LM (the twist tried here)",
+ "hp": {
+  "lr": 0.003,
+  "sigma": 0.03,
+  "solo": "each"
+ },
+ "test_loss": 2.6922045707702638,
+ "best_val": 2.6851314449310304,
+ "best_at_s": 300.04,
+ "best_step": 5737,
+ "init_val": 4.216201114654541,
+ "steps": 5737,
+ "forwards": 57370,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.0,
+   "step": 192,
+   "forwards": 1920,
+   "val": 2.8042712211608887
+  },
+  {
+   "t": 20.01,
+   "step": 383,
+   "forwards": 3830,
+   "val": 2.755182909965515
+  },
+  {
+   "t": 30.02,
+   "step": 576,
+   "forwards": 5760,
+   "val": 2.747831416130066
+  },
+  {
+   "t": 40.04,
+   "step": 768,
+   "forwards": 7680,
+   "val": 2.734859013557434
+  },
+  {
+   "t": 50.08,
+   "step": 961,
+   "forwards": 9610,
+   "val": 2.7459452629089354
+  },
+  {
+   "t": 60.13,
+   "step": 1154,
+   "forwards": 11540,
+   "val": 2.7226724863052367
+  },
+  {
+   "t": 70.16,
+   "step": 1348,
+   "forwards": 13480,
+   "val": 2.7679499864578245
+  },
+  {
+   "t": 80.18,
+   "step": 1541,
+   "forwards": 15410,
+   "val": 2.7350062847137453
+  },
+  {
+   "t": 90.21,
+   "step": 1732,
+   "forwards": 17320,
+   "val": 2.7535517692565916
+  },
+  {
+   "t": 100.22,
+   "step": 1922,
+   "forwards": 19220,
+   "val": 2.744207334518433
+  },
+  {
+   "t": 110.23,
+   "step": 2120,
+   "forwards": 21200,
+   "val": 2.7339550495147704
+  },
+  {
+   "t": 120.24,
+   "step": 2313,
+   "forwards": 23130,
+   "val": 2.726055073738098
+  },
+  {
+   "t": 130.24,
+   "step": 2507,
+   "forwards": 25070,
+   "val": 2.740632343292236
+  },
+  {
+   "t": 140.27,
+   "step": 2701,
+   "forwards": 27010,
+   "val": 2.7181877851486207
+  },
+  {
+   "t": 150.28,
+   "step": 2897,
+   "forwards": 28970,
+   "val": 2.723480153083801
+  },
+  {
+   "t": 160.3,
+   "step": 3087,
+   "forwards": 30870,
+   "val": 2.72613525390625
+  },
+  {
+   "t": 170.33,
+   "step": 3280,
+   "forwards": 32800,
+   "val": 2.7016064167022704
+  },
+  {
+   "t": 180.37,
+   "step": 3472,
+   "forwards": 34720,
+   "val": 2.713307499885559
+  },
+  {
+   "t": 190.41,
+   "step": 3659,
+   "forwards": 36590,
+   "val": 2.689142918586731
+  },
+  {
+   "t": 200.45,
+   "step": 3849,
+   "forwards": 38490,
+   "val": 2.741381359100342
+  },
+  {
+   "t": 210.47,
+   "step": 4039,
+   "forwards": 40390,
+   "val": 2.694895529747009
+  },
+  {
+   "t": 220.47,
+   "step": 4227,
+   "forwards": 42270,
+   "val": 2.7031914472579954
+  },
+  {
+   "t": 230.51,
+   "step": 4417,
+   "forwards": 44170,
+   "val": 2.701256513595581
+  },
+  {
+   "t": 240.56,
+   "step": 4608,
+   "forwards": 46080,
+   "val": 2.71583514213562
+  },
+  {
+   "t": 250.56,
+   "step": 4797,
+   "forwards": 47970,
+   "val": 2.7043673276901243
+  },
+  {
+   "t": 260.59,
+   "step": 4984,
+   "forwards": 49840,
+   "val": 2.7162089347839355
+  },
+  {
+   "t": 270.6,
+   "step": 5174,
+   "forwards": 51740,
+   "val": 2.7166354656219482
+  },
+  {
+   "t": 280.62,
+   "step": 5363,
+   "forwards": 53630,
+   "val": 2.714721179008484
+  },
+  {
+   "t": 290.65,
+   "step": 5553,
+   "forwards": 55530,
+   "val": 2.7035866737365724
+  },
+  {
+   "t": 300.04,
+   "step": 5737,
+   "forwards": 57370,
+   "val": 2.686971426010132
+  }
+ ],
+ "sample": "ROMEO:\ntlsremhes ke w selterlouca meroan yoNanthelste gancofuroy h f therere hath thin merelllseg ser mosthathofy we w cher alcesendar;, tallend ham ttoo we w yt to acif Iimertoto,\nONAwc an s uwe\n\n\nRSOCIS:\nHImoe mf pllir mely mooennd seamfeimecomeld fllome inou ime t s thong.\nAminobo y ton the sof tthafen ",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 3.194805426597595
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 2.738001947402954
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 2.7318020915985106
+   },
+   {
+    "lr": 0.009000000000000001,
+    "factor": 9,
+    "val_loss": 2.8968211126327517
+   }
+  ]
+ }
+}

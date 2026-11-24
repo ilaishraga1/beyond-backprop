@@ -23,13 +23,17 @@ is *by how much*, and *why*.
 | 2 | `sign_symmetry` | 🪞 modified | 1.675 | +0.047 | yes | 2.0 min | 20,864 | 20,864 | lr=0.001 |
 | 3 | `local_losses` | 🧱 local | 1.743 | +0.114 | yes | 2.7 min | 18,457 | 18,457 | lr=0.002 |
 | 4 | `feedback_alignment` | 🪞 modified | 1.911 | +0.282 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
-| 5 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
-| 6 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
-| 7 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
-| 8 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
-| 9 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
-| 10 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
-| 11 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
+| 5 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
+| 6 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.982 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
+| 7 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
+| 8 | `lab_rats_future` | 🚫 none | 2.660 | +1.032 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
+| 9 | `lab_rats_solo` | 🚫 none | 2.692 | +1.064 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
+| 10 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
+| 11 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
+| 12 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
+| 13 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
+| 14 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
+| 15 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
 | | *unigram (letter frequencies only)* | | 3.309 | | | | | | |
 | | *untrained / uniform guess* | | 4.216 | | | | | | |
 
@@ -103,6 +107,28 @@ I knew farew dam, you of not say, if come defence,
 And the me here, my pown, to the at to the 
 ```
 
+**lab_rats_maze** (test 2.610)
+
+```
+ROMEO:
+Tu remhis ke whselterlouca meraan youd Iwelste grelo y wy he ntherere heth thin berelousog serid st atho y we w ke e ancot yare fotr nd d han ttoo we w yt to ar'f Iiserethe,
+Whe c b'
+s szen
+I s h. fo Inotorf pifid wily moonond ssareeint ouqld fleome inle ind t s thanc.
+I inobo y tonesthasof t
+```
+
+**lab_rats_cycle** (test 2.611)
+
+```
+ROMEO:
+Ty re his ke whenlte louca meaman youd INAlste greco atoy h thaverere he?
+
+Sou s thelis s ton ilose atho y we w k we alcos idarinder nd; mit thyoo we w yt to atif Iiserdotond te c an s shed
+I s h.S:
+HIUVepranithid mily mooe nd ssay tint ou ld fleome inle ind t s thin s toinsbo y ton tt g t st
+```
+
 **lab_rats** (test 2.650)
 
 ```
@@ -110,6 +136,28 @@ ROMEO:
 Thore hisd hes selte loHou meaman youd Ixtlst t Meco uroy he nt beere heth thin berelis sg serilose atho y we we per ancos iare fofr nd- mit thyoo we w y t f acin Iiserethind tesco n s uwed
 Iur h. f antolorf pif and ly moof nhessay ed t ou ld fleo thinle ind t he the s t in,
 S y ton theg t st
+```
+
+**lab_rats_future** (test 2.660)
+
+```
+ROMEO:
+Tu remr t ke whselterlouca merador, id Ixtlste ganco urey he ntherere heth thin berelis sgoferilose atho y or it ber ancos idar forr nen met theno we wostour arin Iiserethe,
+O t c an s uwenrur nr.Sevantolorf pirir-milr m,
+ennthasareeint ou ld fleome inle ind t s thinms totoube y tonesthasof t
+```
+
+**lab_rats_solo** (test 2.692)
+
+```
+ROMEO:
+tlsremhes ke w selterlouca meroan yoNanthelste gancofuroy h f therere hath thin merelllseg ser mosthathofy we w cher alcesendar;, tallend ham ttoo we w yt to acif Iimertoto,
+ONAwc an s uwe
+
+
+RSOCIS:
+HImoe mf pllir mely mooennd seamfeimecomeld fllome inou ime t s thong.
+Aminobo y ton the sof t
 ```
 
 **forward_forward** (test 2.698)
@@ -213,12 +261,42 @@ e n..Se aIofeorf pe ne mily mooe n t say eiI codele fleomeeinor imkee s t dn se.
 - **The classic no-backward-pass rules all lose to the frozen random network.** ES, MeZO,
   forward-gradient and hill-climbing jiggle *weights*, and one loss number per forward pass
   is hopeless signal for 830k of them.
-- **🐀 `lab_rats` is the first no-backward-pass rule to beat the floor** (2.650 vs 2.716, and 2.651 vs 2.716 on a second seed,
+- **🐀 `lab_rats` is the first no-backward-pass rule to beat the floor** (2.649 mean over 3 seeds vs 2.716,
   and ahead of Forward-Forward). It jiggles *neurons* instead, independently at every one of
   the 4,096 tokens in a batch, so two forward passes run 4,096 tiny experiments at once.
   Its gradient estimate lines up with the true gradient at cosine 0.01–0.16 per layer,
   vs ~0.0003 for a MeZO-style random direction. Still +1.0 nats behind backprop, and still
   improving at minute 5: plenty of room in this bracket. Go win it.
+
+### 🐀 Lab rats lab notebook: three attempted fixes
+
+The diagnosis: lab_rats' later layers get decent signal, but **block 0 gets ~none**
+(cosine ≈ 0 with its true gradient), and attention `qkv` gets ~none in every block.
+Three fixes, each its own rule, each run on 3 seeds (test loss, lower is better):
+
+| rule | the fix | seed 0 | seed 1 | seed 2 | mean | verdict |
+|---|---|---:|---:|---:|---:|---|
+| `lab_rats` | (original) | 2.650 | 2.651 | 2.647 | 2.649 | |
+| `lab_rats_maze` | block 0 gets its own little readout and is credited mostly by that nearby loss (+30% global) | 2.610 | 2.626 | 2.623 | **2.620** | ✅ wins all 3 seeds |
+| `lab_rats_cycle` | jolt one block per step, round-robin: less crosstalk, same cost | 2.611 | 2.662 | 2.610 | 2.628 | 🤷 wins 2 of 3, noisy |
+| `lab_rats_future` | attention jolts credited with the loss change at all *later* tokens (returns-to-go, γ=0.9) | 2.660 | 2.652 | 2.644 | 2.652 | ❌ no gain |
+| `lab_rats_solo` | every block jolted in its own pair of passes (5× cost) | 2.692 | | | | ❌ clean signal, too few steps |
+
+What the gradient probes showed along the way (cosine of the estimate with the true gradient):
+- **Jolting one block at a time** cleans up the *later* layers a lot (readout −0.01 → +0.23,
+  block 3 → +0.14), but block 0 barely moves. Running all 5 blocks separately costs 5× the
+  passes and loses; taking turns keeps the cost and is a coin flip.
+- **Cross-token credit** does partly un-blind attention (block-2 `qkv` −0.03 → +0.06) but
+  pours noise onto layers that only affect their own token (readout 0.67 → 0.14 at γ=1).
+  Restricted to attention, it nets out to nothing.
+- **Local readout for block 0** wins, but *not* the way intended: block 0's attention and MLP
+  weights stay at cosine ≈ 0.01 even against a loss one step away. Only the embedding clearly
+  improves (0.06 → 0.17). Probably the gain is a better-trained embedding. It also starts
+  slower (worse at minute 1) because the readout has to learn first, then overtakes by minute 5.
+- **The real wall:** every token's loss change is one number shared by thousands of jolted
+  neurons, and block 0's MLP and attention have a tiny share of it. Moving the loss closer
+  doesn't change that ratio. Ideas welcome: per-layer noise scaling, low-rank jolts, or
+  learning a local *predictor* of the loss change (synthetic-gradient style).
 
 **How to read it**
 - **test loss**: cross-entropy on held-out Shakespeare, nats per character. Lower is better.
@@ -254,6 +332,8 @@ e n..Se aIofeorf pe ne mily mooe n t say eiI codele fleomeeinor imkee s t dn se.
 | `mezo` | 🚫 none | SPSA: nudge all weights by ±εz, compare two losses, step along z. No autograd, no activation memory. | Spall 1992; Malladi et al. 2023 |
 | `es` | 🚫 none | Evolution strategies: 64 noisy clones evaluated in parallel with `vmap`, ranked, weights drift toward the winners. | Salimans et al. 2017 |
 | `lab_rats` 🐀 | 🚫 none | **Every token is an experiment.** Jolt every neuron with fresh noise at every token, run ±noise forward passes, and credit each token's loss change to that token's jolt. Each layer then updates Hebbian-style (jolt-credit ⊗ its own input). No backward pass, no weight transport, only a per-token "dopamine" loss signal. | node perturbation (Williams 1992; Fiete & Seung 2006) + per-token credit in a causal LM (the twist tried here) |
+| `lab_rats_maze` 🐀 | 🚫 none | lab_rats + block 0 gets its own next-char readout ("local maze") and is credited mostly by that nearby loss. Best lab_rats so far. | + local readouts à la Nøkland & Eidnes 2019 |
+| `lab_rats_cycle` / `_solo` / `_future` 🐀 | 🚫 none | The other attempted fixes: one block per step, every block separately, cross-token credit for attention. See the lab notebook above. | |
 | `hill_climb` | 🚫 none | Jiggle every weight at random; keep it if the loss dropped. The dumbest possible learner, as a floor. | Rechenberg 1973 |
 
 ## Quickstart

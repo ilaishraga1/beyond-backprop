@@ -1,0 +1,248 @@
+{
+ "rule": "lab_rats_maze",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "lab_rats, but block 0 gets its own little next-char readout and is credited mostly by that nearby loss (+30% global).",
+ "paper": "node perturbation (Williams 1992; Fiete & Seung 2006) + per-token credit in a causal LM (the twist tried here)",
+ "hp": {
+  "lr": 0.0003333333333333333,
+  "sigma": 0.03,
+  "solo": "off",
+  "gamma": 0.0,
+  "gamma_on": "attn",
+  "local": 1,
+  "mix": 0.3
+ },
+ "test_loss": 2.609844379425049,
+ "best_val": 2.6125044631958008,
+ "best_at_s": 300.0,
+ "best_step": 16662,
+ "init_val": 4.216201114654541,
+ "steps": 16662,
+ "forwards": 33324,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.01,
+   "step": 564,
+   "forwards": 1128,
+   "val": 2.9538885831832884
+  },
+  {
+   "t": 20.03,
+   "step": 1126,
+   "forwards": 2252,
+   "val": 2.8437039136886595
+  },
+  {
+   "t": 30.04,
+   "step": 1689,
+   "forwards": 3378,
+   "val": 2.8142704486846926
+  },
+  {
+   "t": 40.06,
+   "step": 2253,
+   "forwards": 4506,
+   "val": 2.78443865776062
+  },
+  {
+   "t": 50.06,
+   "step": 2806,
+   "forwards": 5612,
+   "val": 2.763571095466614
+  },
+  {
+   "t": 60.07,
+   "step": 3359,
+   "forwards": 6718,
+   "val": 2.742396831512451
+  },
+  {
+   "t": 70.07,
+   "step": 3914,
+   "forwards": 7828,
+   "val": 2.7265440702438353
+  },
+  {
+   "t": 80.09,
+   "step": 4465,
+   "forwards": 8930,
+   "val": 2.71281578540802
+  },
+  {
+   "t": 90.1,
+   "step": 5019,
+   "forwards": 10038,
+   "val": 2.6955435514450072
+  },
+  {
+   "t": 100.1,
+   "step": 5573,
+   "forwards": 11146,
+   "val": 2.677231550216675
+  },
+  {
+   "t": 110.12,
+   "step": 6126,
+   "forwards": 12252,
+   "val": 2.6779481887817385
+  },
+  {
+   "t": 120.12,
+   "step": 6679,
+   "forwards": 13358,
+   "val": 2.6696177244186403
+  },
+  {
+   "t": 130.13,
+   "step": 7232,
+   "forwards": 14464,
+   "val": 2.657144331932068
+  },
+  {
+   "t": 140.13,
+   "step": 7785,
+   "forwards": 15570,
+   "val": 2.652867889404297
+  },
+  {
+   "t": 150.14,
+   "step": 8343,
+   "forwards": 16686,
+   "val": 2.660986828804016
+  },
+  {
+   "t": 160.15,
+   "step": 8901,
+   "forwards": 17802,
+   "val": 2.654455375671387
+  },
+  {
+   "t": 170.17,
+   "step": 9454,
+   "forwards": 18908,
+   "val": 2.6593725204467775
+  },
+  {
+   "t": 180.18,
+   "step": 10008,
+   "forwards": 20016,
+   "val": 2.6550228595733643
+  },
+  {
+   "t": 190.19,
+   "step": 10564,
+   "forwards": 21128,
+   "val": 2.649183416366577
+  },
+  {
+   "t": 200.19,
+   "step": 11120,
+   "forwards": 22240,
+   "val": 2.652597165107727
+  },
+  {
+   "t": 210.19,
+   "step": 11679,
+   "forwards": 23358,
+   "val": 2.6493822813034056
+  },
+  {
+   "t": 220.2,
+   "step": 12235,
+   "forwards": 24470,
+   "val": 2.649026703834534
+  },
+  {
+   "t": 230.21,
+   "step": 12788,
+   "forwards": 25576,
+   "val": 2.639782166481018
+  },
+  {
+   "t": 240.22,
+   "step": 13343,
+   "forwards": 26686,
+   "val": 2.635434079170227
+  },
+  {
+   "t": 250.23,
+   "step": 13898,
+   "forwards": 27796,
+   "val": 2.6291152238845825
+  },
+  {
+   "t": 260.25,
+   "step": 14457,
+   "forwards": 28914,
+   "val": 2.629325103759766
+  },
+  {
+   "t": 270.25,
+   "step": 15014,
+   "forwards": 30028,
+   "val": 2.618884325027466
+  },
+  {
+   "t": 280.26,
+   "step": 15568,
+   "forwards": 31136,
+   "val": 2.614391231536865
+  },
+  {
+   "t": 290.27,
+   "step": 16122,
+   "forwards": 32244,
+   "val": 2.615760660171509
+  },
+  {
+   "t": 300.0,
+   "step": 16662,
+   "forwards": 33324,
+   "val": 2.6120038986206056
+  }
+ ],
+ "sample": "ROMEO:\nTu remhis ke whselterlouca meraan youd Iwelste grelo y wy he ntherere heth thin berelousog serid st atho y we w ke e ancot yare fotr nd d han ttoo we w yt to ar'f Iiserethe,\nWhe c b'\ns szen\nI s h. fo Inotorf pifid wily moonond ssareeint ouqld fleome inle ind t s thanc.\nI inobo y tonesthasof t hand a",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0001111111111111111,
+    "factor": 0.3333333333333333,
+    "val_loss": 2.784429655075073
+   },
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 1,
+    "val_loss": 2.756714587211609
+   },
+   {
+    "lr": 0.001,
+    "factor": 3,
+    "val_loss": 2.815421233177185
+   }
+  ]
+ }
+}
