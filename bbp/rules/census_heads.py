@@ -1,0 +1,207 @@
+"""CENSUS HEADS: attention trained by asking a census where to look.
+
+Every gradient-free rule so far stalled at or before the bigram, because none
+of them could train attention, and attention is the only way to use anything
+earlier than the current character. This rule trains attention with no
+backward pass at all.
+
+The trick is an EM story. Pretend the next character y_t was "caused" by one
+earlier character x_s (or by nothing beyond the current char x_t). A running
+census of letter triples (current char, char d steps back, next char) says how
+likely each candidate cause is:
+
+    posterior(s | y_t)  ∝  attention(s) * P(y_t | x_t, x_s, offset d) / P(y_t | x_t)   (E-step)
+
+with the head's own current attention as the prior (proper EM: the mixing
+weights are the prior; a uniform prior gives a flat, useless target). That posterior is the attention pattern the head *should* have had for this
+query. The head is nudged toward it with a delta rule on its own scores
+(dS = attention - posterior), turned into Q/K updates by the head's own
+bilinear form (M-step). No signal crosses a layer; nothing runs backward.
+
+The rest of the network is wired, not trained:
+  * stream = [one-hot current char | sinusoidal position | what the heads fetched]
+  * each head's values are a fixed random code of the character it lands on
+  * all other block outputs are zeroed (pass-through)
+  * the readout learns with the delta rule (exact for the last layer)
+
+So the readout sees "current char + whatever the heads fetched", and the only
+hidden thing that learns is *where the heads look*. Head h is barred from the
+nearest h offsets so the heads don't all fetch the same character.
+
+`attn` switches the ablation: "census" (learn), "frozen" (random heads, never
+trained), "wired" (hand-set to look exactly h+1 steps back: the upper bound).
+"""
+import math
+
+import torch
+import torch.nn.functional as F
+
+from . import Rule, register
+
+
+@register
+class CensusHeads(Rule):
+    name = "census_heads"
+    autograd = "none"
+    blurb = "Attention trained without backprop: an EM E-step from a running census of letter triples says which earlier char caused the next one; heads are nudged to look there. Readout: delta rule."
+    paper = "Dempster et al. 1977 (EM); supervised attention (Liu et al. 2016) with a census as the supervisor"
+    defaults = dict(lr=3e-3, heads=2, max_offset=8, smoothing=5.0, beta=1.0, prior="self", sharpen=1.0, attn="census", tok_scale=10.0, refresh=20)
+
+    def __init__(self, model, **hp):
+        super().__init__(model, **hp)
+        cfg = model.cfg
+        self.V, self.C, self.H = cfg.vocab_size, cfg.n_embd, cfg.n_head
+        self.hd = self.C // self.H
+        self.nh = min(int(self.hp["heads"]), self.H)
+        self.D = int(self.hp["max_offset"])
+        dev = model.lm_head.weight.device
+        V, C = self.V, self.C
+        assert C > V + 4, "needs spare stream dims beyond the one-hot chars"
+        self.F = min(7, (C - V) // 4, self.hd // 2)  # sinusoid pairs for position
+        self.p0 = V  # position dims start
+        self.a0 = V + 2 * self.F  # fetched-char dims start
+        self.w = min((C - self.a0) // self.nh, self.hd)  # stream dims per head
+        self._wire(dev)
+
+        self.c1 = torch.zeros(V, V, device=dev)
+        self.c2 = torch.zeros(self.D, V, V, V, device=dev)  # [offset-1, x_s, x_t, y]
+        self.table = torch.zeros(self.D, V, V, V, device=dev)
+        self.k = 0
+        self.caught = {}
+        model.blocks[0].attn.register_forward_hook(lambda m, i, o: self.caught.__setitem__("z", i[0]))
+        model.lm_head.register_forward_hook(lambda m, i, o: self.caught.__setitem__("f", i[0]))
+        qkv = model.blocks[0].attn.qkv
+        params = [model.lm_head.weight] + ([qkv.weight, qkv.bias] if self.hp["attn"] == "census" else [])
+        self.opt = torch.optim.Adam(params, lr=self.hp["lr"])
+
+    # ---------------------------------------------------------------- wiring
+    @torch.no_grad()
+    def _wire(self, dev):
+        m, V, C, hd = self.model, self.V, self.C, self.hd
+        g = torch.Generator().manual_seed(1234)
+        m.tok_emb.weight.zero_()
+        m.tok_emb.weight[:, :V] = self.hp["tok_scale"] * torch.eye(V, device=dev)
+        T = m.cfg.block_size
+        t = torch.arange(T, dtype=torch.float32)
+        periods = 3.0 * (2.0 * T / 3.0) ** (torch.arange(self.F) / max(self.F - 1, 1))
+        self.omega = 2 * math.pi / periods
+        m.pos_emb.weight.zero_()
+        for j in range(self.F):
+            m.pos_emb.weight[:, self.p0 + 2 * j] = torch.cos(self.omega[j] * t).to(dev)
+            m.pos_emb.weight[:, self.p0 + 2 * j + 1] = torch.sin(self.omega[j] * t).to(dev)
+        for blk in m.blocks:
+            for lin in (blk.attn.proj, blk.mlp.proj):
+                lin.weight.zero_()
+                lin.bias.zero_()
+        m.ln_f.weight.fill_(1.0)
+        m.ln_f.bias.zero_()
+        m.lm_head.weight.zero_()
+
+        attn = m.blocks[0].attn
+        W, b = attn.qkv.weight, attn.qkv.bias
+        W[2 * C :].zero_()
+        b[2 * C :].zero_()
+        # LayerNorm turns tok_scale*onehot into roughly sqrt(C)*onehot; scale codes so values are ~N(0,1)
+        zs = math.sqrt(C)
+        for h in range(self.nh):
+            code = torch.randn(self.w, V, generator=g) / zs
+            W[2 * C + h * hd : 2 * C + h * hd + self.w, :V] = code.to(dev)
+            for j in range(self.w):
+                attn.proj.weight[self.a0 + h * self.w + j, h * hd + j] = 1.0
+        if self.hp["attn"] == "wired":
+            self._wire_offsets()
+
+    @torch.no_grad()
+    def _wire_offsets(self, gain=60.0):
+        """Hand-set head h to look exactly h+1 steps back (the upper bound for this design)."""
+        attn, C, hd, F_ = self.model.blocks[0].attn, self.C, self.hd, self.F
+        W, b = attn.qkv.weight, attn.qkv.bias
+        W[: 2 * C].zero_()
+        b[: 2 * C].zero_()
+        for h in range(self.nh):
+            delta = h + 1
+            for j in range(F_):
+                c, s = math.cos(-self.omega[j] * delta), math.sin(-self.omega[j] * delta)
+                pc, ps = self.p0 + 2 * j, self.p0 + 2 * j + 1
+                r = h * hd + 2 * j
+                # q = gain * R(-omega*delta) p_t,  k = p_s   ->  q.k peaks at t - s = delta
+                W[r, pc], W[r, ps] = gain * c, -gain * s
+                W[r + 1, pc], W[r + 1, ps] = gain * s, gain * c
+                W[C + r, pc], W[C + r + 1, ps] = 1.0, 1.0
+
+    # ---------------------------------------------------------------- census
+    @torch.no_grad()
+    def _count(self, x, y):
+        V = self.V
+        self.c1 += torch.bincount((x * V + y).reshape(-1), minlength=V * V).view(V, V).float()
+        for d in range(1, min(self.D, x.size(1) - 1) + 1):
+            idx = (x[:, :-d] * V + x[:, d:]) * V + y[:, d:]
+            self.c2[d - 1] += torch.bincount(idx.reshape(-1), minlength=V ** 3).view(V, V, V).float()
+
+    @torch.no_grad()
+    def _refresh(self):
+        k = self.hp["smoothing"]
+        p_bi = (self.c1 + 0.1) / (self.c1 + 0.1).sum(1, keepdim=True)  # [x_t, y]
+        n = self.c2.sum(-1, keepdim=True)
+        p_tri = (self.c2 + k * p_bi[None, None]) / (n + k)
+        self.table = p_tri.log() - p_bi.log()[None, None]
+
+    # ---------------------------------------------------------------- learning
+    def _teach_heads(self, x, y):
+        z = self.caught["z"]  # (B, T, C): what block 0's attention reads
+        B, T, C = z.shape
+        attn, hd = self.model.blocks[0].attn, self.hd
+        W, bias = attn.qkv.weight, attn.qkv.bias
+        dev = z.device
+        # census log-likelihood ratio of "s caused y_t" for every query t and key s = t - d
+        L = torch.full((B, T, T), float("-inf"), device=dev)
+        ar = torch.arange(T, device=dev)
+        L[:, ar, ar] = 0.0  # "nothing earlier needed": the bigram explanation
+        for d in range(1, min(self.D, T - 1) + 1):
+            t = ar[d:]
+            L[:, t, t - d] = self.table[d - 1][x[:, :-d], x[:, d:], y[:, d:]]
+        gW = torch.zeros_like(W)
+        gb = torch.zeros_like(bias)
+        offs = ar[:, None] - ar[None, :]  # t - s
+        nq = B * T
+        for h in range(self.nh):
+            sl_q, sl_k = slice(h * hd, (h + 1) * hd), slice(C + h * hd, C + (h + 1) * hd)
+            q = z @ W[sl_q].T + bias[sl_q]
+            k = z @ W[sl_k].T + bias[sl_k]
+            S = (q @ k.transpose(1, 2)) / math.sqrt(hd)
+            S = S.masked_fill(offs < 0, float("-inf"))
+            a = S.softmax(-1)
+            Lh = L.masked_fill((offs >= 1) & (offs <= h), float("-inf"))  # head h may not look 1..h back
+            prior = self.hp["sharpen"] * (a + 1e-9).log() if self.hp["prior"] == "self" else 0.0
+            target = (prior + self.hp["beta"] * Lh).softmax(-1)  # E-step: who caused y_t?
+            dS = (a - target) / nq  # delta rule on the head's own scores
+            dq = dS @ k / math.sqrt(hd)
+            dk = dS.transpose(1, 2) @ q / math.sqrt(hd)
+            gW[sl_q] = torch.einsum("btd,btc->dc", dq, z)
+            gW[sl_k] = torch.einsum("btd,btc->dc", dk, z)
+            gb[sl_q], gb[sl_k] = dq.sum((0, 1)), dk.sum((0, 1))
+        W.grad, bias.grad = gW, gb
+
+    @torch.no_grad()
+    def step(self, x, y):
+        self._count(x, y)
+        if self.k % self.hp["refresh"] == 0:
+            self._refresh()
+        self.k += 1
+        logits, loss = self.model(x, y)
+        f = self.caught["f"]
+        N = x.numel()
+        dlogits = (logits.softmax(-1) - F.one_hot(y, self.V).float()) / N  # delta rule
+        self.model.lm_head.weight.grad = torch.einsum("btv,btc->vc", dlogits, f)
+        if self.hp["attn"] == "census":
+            self._teach_heads(x, y)
+        self.opt.step()
+        self.forwards += 1
+        return loss.item()
+
+
+@register
+class CensusHeadsFour(CensusHeads):
+    name = "census_heads_4"
+    blurb = "census_heads with all 4 heads fetching (fewer stream dims each)."
+    defaults = dict(CensusHeads.defaults, heads=4)

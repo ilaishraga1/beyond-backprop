@@ -23,20 +23,22 @@ is *by how much*, and *why*.
 | 2 | `sign_symmetry` | 🪞 modified | 1.675 | +0.047 | yes | 2.0 min | 20,864 | 20,864 | lr=0.001 |
 | 3 | `local_losses` | 🧱 local | 1.743 | +0.114 | yes | 2.7 min | 18,457 | 18,457 | lr=0.002 |
 | 4 | `feedback_alignment` | 🪞 modified | 1.911 | +0.282 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
-| 5 | `instinct_rats` | 🚫 none | 2.498 | +0.869 | yes | 0.8 min | 16,849 | 33,598 | lr=3.7e-06 |
-| 6 | `wire_together` | 🚫 none | 2.500 | +0.871 | yes | 0.8 min | 65,165 | 65,165 | smoothing=2.7 |
-| 7 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
-| 8 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.982 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
-| 9 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
-| 10 | `lab_rats_future` | 🚫 none | 2.660 | +1.032 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
-| 11 | `lab_rats_solo` | 🚫 none | 2.692 | +1.064 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
-| 12 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
-| 13 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
-| 14 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
-| 15 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
-| 16 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
-| 17 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
-| 18 | `dreaming` | 🚫 none | 3.331 | +1.702 | no | 3.0 min | 21,607 | 43,214 | lr=0.0003 |
+| 5 | `census_heads` | 🚫 none | 2.369 | +0.740 | yes | 0.7 min | 31,549 | 31,549 | lr=0.001 |
+| 6 | `census_heads_4` | 🚫 none | 2.408 | +0.780 | yes | 1.5 min | 34,110 | 34,110 | lr=0.001 |
+| 7 | `instinct_rats` | 🚫 none | 2.498 | +0.869 | yes | 0.8 min | 16,849 | 33,598 | lr=3.7e-06 |
+| 8 | `wire_together` | 🚫 none | 2.500 | +0.871 | yes | 0.8 min | 65,165 | 65,165 | smoothing=2.7 |
+| 9 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
+| 10 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.982 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
+| 11 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
+| 12 | `lab_rats_future` | 🚫 none | 2.660 | +1.032 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
+| 13 | `lab_rats_solo` | 🚫 none | 2.692 | +1.064 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
+| 14 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
+| 15 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
+| 16 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
+| 17 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
+| 18 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
+| 19 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
+| 20 | `dreaming` | 🚫 none | 3.331 | +1.702 | no | 3.0 min | 21,607 | 43,214 | lr=0.0003 |
 | | *unigram (letter frequencies only)* | | 3.309 | | | | | | |
 | | *untrained / uniform guess* | | 4.216 | | | | | | |
 
@@ -108,6 +110,32 @@ LENRLEY:
 I not sweear strue:
 I knew farew dam, you of not say, if come defence,
 And the me here, my pown, to the at to the 
+```
+
+**census_heads** (test 2.369)
+
+```
+ROMEO:
+Thy formed hawiselled?
+HERDWerakn woud wotlste gancoure you fot meare hath hou s chelleseane himest atho y or wak we ancesend winder non my f thed we w y tof aim whise tot anches I t s mf the s f. h anofe made fies ily moon norssay,
+II coue d fllome inou ind the thang.
+
+Kingbe y torest cor st
+```
+
+**census_heads_4** (test 2.408)
+
+```
+ROMEO:
+Th rememed har sellered, andearan youd wotlst, grecofured hit therere hath hou s orelisse ton icost.
+
+
+WINTor wake paricos iay thour nond fam thod we w y tof aim whise tot anche co t s upre
+I che. V:
+INooora pif andily moon norssay, int oue d fllome inou ing t t thing.
+
+Kin,
+S y ton on ghe th
 ```
 
 **instinct_rats** (test 2.498)
@@ -310,6 +338,12 @@ bS yteoheoEngsr  t
   **This is the real bar for the 🚫 bracket:** a rule that can't beat counting letter
   pairs hasn't learned anything a census couldn't. To beat it, a rule has to make use of
   *earlier* characters, which means training attention.
+- **🔎 …and then attention learned without a backward pass.** `census_heads` beats counting
+  (**2.369** mean over 3 seeds vs 2.500). Its attention is trained by EM: a running census of
+  letter triples says which earlier character most likely *caused* the next one, and each
+  head is nudged to look there. Same network with the heads frozen: 2.488. So the gain is
+  learned attention, not wiring. It closes ~60% of the gap to hand-wired "look 1 and 2
+  back" heads (2.289). Still +0.74 nats behind backprop.
 
 ### 🐀 Lab rats lab notebook: three attempted fixes
 
@@ -345,7 +379,7 @@ What the gradient probes showed along the way (cosine of the estimate with the t
 
 | rule | the idea | seed 0 | seed 1 | seed 2 | verdict |
 |---|---|---:|---:|---:|---|
-| `wire_together` | "Fire together, wire together", literally: count letter pairs, compile them into the weights. Zero optimisation. | 2.500 | | | 🏆 best 🚫 rule; deterministic, so one run |
+| `wire_together` | "Fire together, wire together", literally: count letter pairs, compile them into the weights. Zero optimisation. | 2.500 | | | 📊 the bar for 🚫 rules (until `census_heads`); deterministic, so one run |
 | `instinct_rats` | Born wired as a bigram, then `lab_rats_maze` keeps learning on top. Nature, then nurture. | 2.498 | 2.498 | 2.499 | 🤷 nurture adds nothing |
 | `dreaming` | Awake: strengthen what fires on real text. Asleep: weaken what fires on the model's own dreamt text. | 3.331 | 3.322 | 3.323 | 💀 dreams erase everything |
 
@@ -362,6 +396,46 @@ What the gradient probes showed along the way (cosine of the estimate with the t
   frequencies, within the first 10 seconds, and never recovers. Contrasting real text
   against the model's own early dreams (≈ random letters) apparently teaches the features
   "is this real text?" and nothing about *which* character comes next.
+
+### 🔎 Census heads: training attention with no backward pass
+
+Every 🚫 rule above stalled at or before the bigram, because none could train attention.
+`census_heads` trains *only* attention (plus the readout), with no gradient crossing a layer:
+
+1. **The stream is wired, not learned:** `[one-hot current char | sinusoidal position | what the heads fetched]`.
+   Each head's values are a fixed random code of the character it lands on; every other block output is zeroed.
+2. **E-step:** a running census of (current char, char *d* back, next char) gives, for each query,
+   the posterior over which earlier position caused the next char:
+   `posterior(s) ∝ attention(s) · P(y | x_t, x_s, d) / P(y | x_t)`.
+3. **M-step:** delta rule on the head's own scores, `dS = attention − posterior`, turned into Q/K
+   updates through the head's bilinear form. A test pins this update to autograd of the
+   equivalent per-head loss (rel. err 2.5e-7), so it's exactly a *local* attention gradient.
+4. **Readout:** the delta rule (exact last-layer gradient, computed by hand).
+
+| variant (`census_heads`, 2 heads, 5 min) | seed 0 | seed 1 | seed 2 | mean |
+|---|---:|---:|---:|---:|
+| heads **frozen** at random init (never trained) | 2.490 | 2.486 | | 2.488 |
+| heads **trained by census EM** | 2.369 | 2.368 | 2.371 | **2.369** |
+| heads **hand-wired** to look exactly 1 and 2 back (upper bound for this design) | 2.288 | 2.290 | | 2.289 |
+| `census_heads_4`: 4 census heads, half the stream dims each | 2.408 | 2.400 | 2.400 | 2.403 |
+
+What the lab notebook showed along the way:
+- **The prior is everything.** With a *uniform* prior (the obvious first version) the target is
+  flat across offsets (0.16, 0.14, 0.12, …). Heads learn a blur, and 29% of their attention
+  stays beyond the census horizon. Using the head's own attention as the prior (what EM
+  actually prescribes: the mixing weights are the prior) sharpens them within 10 s. Head 0
+  ends up 54% on 1-back and 29% on 2-back; head 1 (barred from 1-back) goes 62% on 2-back.
+- **Sharper isn't better.** Raising the census temperature β amplifies noise in the pointwise
+  census and blurs the heads. Raising the prior to a power (rich-get-richer) collapses them
+  onto "look at yourself", the do-nothing bigram option.
+- **The remaining gap is the blend.** EM fits a *mixture*: "the cause is 1-back or 2-back".
+  The readout is log-linear in what the heads fetch, so a 54/29 blend of two characters' codes
+  is worth less to it than a clean one-hot. Hand-wired heads don't blend. Hence 2.37 vs 2.29.
+- **More heads hurt here** because they share 49 stream dims. Four heads get 12-d codes each
+  instead of 24-d, and the readout loses more from the cramped codes than it gains from looking further back.
+- Everything peaks in ~1 minute: the design is capacity-bound (no MLP features, no conjunctions
+  of characters), not signal-bound. Next frontier: learn the *values* and MLP without a backward
+  pass too, so the network can build trigram-like conjunctions instead of adding up evidence.
 
 **How to read it**
 - **test loss**: cross-entropy on held-out Shakespeare, nats per character. Lower is better.

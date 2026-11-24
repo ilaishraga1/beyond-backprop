@@ -1,0 +1,256 @@
+{
+ "rule": "census_heads",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "Attention trained without backprop: an EM E-step from a running census of letter triples says which earlier char caused the next one; heads are nudged to look there. Readout: delta rule.",
+ "paper": "Dempster et al. 1977 (EM); supervised attention (Liu et al. 2016) with a census as the supervisor",
+ "hp": {
+  "lr": 0.001,
+  "heads": 2,
+  "max_offset": 8,
+  "smoothing": 5.0,
+  "beta": 1.0,
+  "prior": "self",
+  "sharpen": 1.0,
+  "attn": "census",
+  "tok_scale": 10.0,
+  "refresh": 20
+ },
+ "test_loss": 2.3688405847549436,
+ "best_val": 2.33865873336792,
+ "best_at_s": 40.01,
+ "best_step": 4041,
+ "init_val": 4.174386978149414,
+ "steps": 31549,
+ "forwards": 31549,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.174386978149414
+  },
+  {
+   "t": 10.0,
+   "step": 1011,
+   "forwards": 1011,
+   "val": 2.354486918449402
+  },
+  {
+   "t": 20.01,
+   "step": 2023,
+   "forwards": 2023,
+   "val": 2.3440519332885743
+  },
+  {
+   "t": 30.01,
+   "step": 3031,
+   "forwards": 3031,
+   "val": 2.3430235147476197
+  },
+  {
+   "t": 40.01,
+   "step": 4041,
+   "forwards": 4041,
+   "val": 2.339612293243408
+  },
+  {
+   "t": 50.01,
+   "step": 5075,
+   "forwards": 5075,
+   "val": 2.3417176485061644
+  },
+  {
+   "t": 60.01,
+   "step": 6081,
+   "forwards": 6081,
+   "val": 2.3422621965408323
+  },
+  {
+   "t": 70.02,
+   "step": 7097,
+   "forwards": 7097,
+   "val": 2.3447202682495116
+  },
+  {
+   "t": 80.02,
+   "step": 8089,
+   "forwards": 8089,
+   "val": 2.344440054893494
+  },
+  {
+   "t": 90.03,
+   "step": 9090,
+   "forwards": 9090,
+   "val": 2.345660948753357
+  },
+  {
+   "t": 100.04,
+   "step": 10095,
+   "forwards": 10095,
+   "val": 2.3440324306488036
+  },
+  {
+   "t": 110.04,
+   "step": 11101,
+   "forwards": 11101,
+   "val": 2.343981170654297
+  },
+  {
+   "t": 120.04,
+   "step": 12102,
+   "forwards": 12102,
+   "val": 2.3485310792922975
+  },
+  {
+   "t": 130.04,
+   "step": 13115,
+   "forwards": 13115,
+   "val": 2.3506300926208494
+  },
+  {
+   "t": 140.04,
+   "step": 14128,
+   "forwards": 14128,
+   "val": 2.3521074533462523
+  },
+  {
+   "t": 150.05,
+   "step": 15067,
+   "forwards": 15067,
+   "val": 2.352996277809143
+  },
+  {
+   "t": 160.05,
+   "step": 16048,
+   "forwards": 16048,
+   "val": 2.353015089035034
+  },
+  {
+   "t": 170.06,
+   "step": 17061,
+   "forwards": 17061,
+   "val": 2.353435826301575
+  },
+  {
+   "t": 180.06,
+   "step": 18066,
+   "forwards": 18066,
+   "val": 2.353127908706665
+  },
+  {
+   "t": 190.07,
+   "step": 19052,
+   "forwards": 19052,
+   "val": 2.3532423973083496
+  },
+  {
+   "t": 200.08,
+   "step": 20052,
+   "forwards": 20052,
+   "val": 2.354478430747986
+  },
+  {
+   "t": 210.08,
+   "step": 21029,
+   "forwards": 21029,
+   "val": 2.3568106412887575
+  },
+  {
+   "t": 220.08,
+   "step": 22020,
+   "forwards": 22020,
+   "val": 2.3515655279159544
+  },
+  {
+   "t": 230.08,
+   "step": 23019,
+   "forwards": 23019,
+   "val": 2.351382350921631
+  },
+  {
+   "t": 240.09,
+   "step": 24251,
+   "forwards": 24251,
+   "val": 2.3580909729003907
+  },
+  {
+   "t": 250.09,
+   "step": 25438,
+   "forwards": 25438,
+   "val": 2.3527987480163572
+  },
+  {
+   "t": 260.1,
+   "step": 26625,
+   "forwards": 26625,
+   "val": 2.35508553981781
+  },
+  {
+   "t": 270.1,
+   "step": 27883,
+   "forwards": 27883,
+   "val": 2.3526777744293215
+  },
+  {
+   "t": 280.1,
+   "step": 29095,
+   "forwards": 29095,
+   "val": 2.3583393573760985
+  },
+  {
+   "t": 290.11,
+   "step": 30311,
+   "forwards": 30311,
+   "val": 2.35774142742157
+  },
+  {
+   "t": 300.0,
+   "step": 31549,
+   "forwards": 31549,
+   "val": 2.3594885587692263
+  }
+ ],
+ "sample": "ROMEO:\nThy formed hawiselled?\nHERDWerakn woud wotlste gancoure you fot meare hath hou s chelleseane himest atho y or wak we ancesend winder non my f thed we w y tof aim whise tot anches I t s mf the s f. h anofe made fies ily moon norssay,\nII coue d fllome inou ind the thang.\n\nKingbe y torest cor sthem mar",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.001,
+    "factor": 0.3333333333333333,
+    "val_loss": 2.3385732412338256
+   },
+   {
+    "lr": 0.003,
+    "factor": 1,
+    "val_loss": 2.3443282222747803
+   },
+   {
+    "lr": 0.009000000000000001,
+    "factor": 3,
+    "val_loss": 2.359018325805664
+   },
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.1111111111111111,
+    "val_loss": 2.338869743347168
+   }
+  ]
+ }
+}

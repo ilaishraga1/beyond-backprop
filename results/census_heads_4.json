@@ -1,0 +1,256 @@
+{
+ "rule": "census_heads_4",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "census_heads with all 4 heads fetching (fewer stream dims each).",
+ "paper": "Dempster et al. 1977 (EM); supervised attention (Liu et al. 2016) with a census as the supervisor",
+ "hp": {
+  "lr": 0.001,
+  "heads": 4,
+  "max_offset": 8,
+  "smoothing": 5.0,
+  "beta": 1.0,
+  "prior": "self",
+  "sharpen": 1.0,
+  "attn": "census",
+  "tok_scale": 10.0,
+  "refresh": 20
+ },
+ "test_loss": 2.408443560600281,
+ "best_val": 2.3678788423538206,
+ "best_at_s": 90.03,
+ "best_step": 10380,
+ "init_val": 4.174386978149414,
+ "steps": 34110,
+ "forwards": 34110,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.174386978149414
+  },
+  {
+   "t": 10.0,
+   "step": 1154,
+   "forwards": 1154,
+   "val": 2.388112449645996
+  },
+  {
+   "t": 20.01,
+   "step": 2305,
+   "forwards": 2305,
+   "val": 2.3759480714797974
+  },
+  {
+   "t": 30.01,
+   "step": 3463,
+   "forwards": 3463,
+   "val": 2.3746220588684084
+  },
+  {
+   "t": 40.01,
+   "step": 4622,
+   "forwards": 4622,
+   "val": 2.3724445104599
+  },
+  {
+   "t": 50.01,
+   "step": 5784,
+   "forwards": 5784,
+   "val": 2.3725706815719603
+  },
+  {
+   "t": 60.02,
+   "step": 6938,
+   "forwards": 6938,
+   "val": 2.373527693748474
+  },
+  {
+   "t": 70.03,
+   "step": 8095,
+   "forwards": 8095,
+   "val": 2.373616075515747
+  },
+  {
+   "t": 80.03,
+   "step": 9248,
+   "forwards": 9248,
+   "val": 2.3717414140701294
+  },
+  {
+   "t": 90.03,
+   "step": 10380,
+   "forwards": 10380,
+   "val": 2.3714999198913573
+  },
+  {
+   "t": 100.04,
+   "step": 11499,
+   "forwards": 11499,
+   "val": 2.3739938735961914
+  },
+  {
+   "t": 110.04,
+   "step": 12613,
+   "forwards": 12613,
+   "val": 2.371809196472168
+  },
+  {
+   "t": 120.05,
+   "step": 13760,
+   "forwards": 13760,
+   "val": 2.3754714012145994
+  },
+  {
+   "t": 130.05,
+   "step": 14902,
+   "forwards": 14902,
+   "val": 2.3774059534072878
+  },
+  {
+   "t": 140.06,
+   "step": 16046,
+   "forwards": 16046,
+   "val": 2.3775696992874145
+  },
+  {
+   "t": 150.07,
+   "step": 17194,
+   "forwards": 17194,
+   "val": 2.3776031494140626
+  },
+  {
+   "t": 160.07,
+   "step": 18338,
+   "forwards": 18338,
+   "val": 2.3817080736160277
+  },
+  {
+   "t": 170.08,
+   "step": 19486,
+   "forwards": 19486,
+   "val": 2.3771239519119263
+  },
+  {
+   "t": 180.08,
+   "step": 20630,
+   "forwards": 20630,
+   "val": 2.3761890649795534
+  },
+  {
+   "t": 190.09,
+   "step": 21775,
+   "forwards": 21775,
+   "val": 2.375871419906616
+  },
+  {
+   "t": 200.09,
+   "step": 22922,
+   "forwards": 22922,
+   "val": 2.3752791404724123
+  },
+  {
+   "t": 210.1,
+   "step": 24072,
+   "forwards": 24072,
+   "val": 2.378830623626709
+  },
+  {
+   "t": 220.1,
+   "step": 25125,
+   "forwards": 25125,
+   "val": 2.3790735721588137
+  },
+  {
+   "t": 230.1,
+   "step": 26202,
+   "forwards": 26202,
+   "val": 2.3786383628845216
+  },
+  {
+   "t": 240.11,
+   "step": 27320,
+   "forwards": 27320,
+   "val": 2.3791445016860964
+  },
+  {
+   "t": 250.12,
+   "step": 28412,
+   "forwards": 28412,
+   "val": 2.378637266159058
+  },
+  {
+   "t": 260.12,
+   "step": 29533,
+   "forwards": 29533,
+   "val": 2.374773931503296
+  },
+  {
+   "t": 270.12,
+   "step": 30672,
+   "forwards": 30672,
+   "val": 2.3783188581466677
+  },
+  {
+   "t": 280.13,
+   "step": 31821,
+   "forwards": 31821,
+   "val": 2.379159379005432
+  },
+  {
+   "t": 290.13,
+   "step": 32966,
+   "forwards": 32966,
+   "val": 2.380666732788086
+  },
+  {
+   "t": 300.0,
+   "step": 34110,
+   "forwards": 34110,
+   "val": 2.3797527074813845
+  }
+ ],
+ "sample": "ROMEO:\nTh rememed har sellered, andearan youd wotlst, grecofured hit therere hath hou s orelisse ton icost.\n\n\nWINTor wake paricos iay thour nond fam thod we w y tof aim whise tot anche co t s upre\nI che. V:\nINooora pif andily moon norssay, int oue d fllome inou ing t t thing.\n\nKin,\nS y ton on ghe the my ha",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.001,
+    "factor": 0.3333333333333333,
+    "val_loss": 2.367535562515259
+   },
+   {
+    "lr": 0.003,
+    "factor": 1,
+    "val_loss": 2.372318787574768
+   },
+   {
+    "lr": 0.009000000000000001,
+    "factor": 3,
+    "val_loss": 2.383237738609314
+   },
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.1111111111111111,
+    "val_loss": 2.367799849510193
+   }
+  ]
+ }
+}
