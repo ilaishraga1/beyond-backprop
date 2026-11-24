@@ -63,10 +63,11 @@ def plot(rows):
     except ImportError:
         return None
     fig, ax = plt.subplots(figsize=(9, 5.2), dpi=130)
-    for r in rows:
+    colors = plt.cm.tab20(range(20))
+    for i, r in enumerate(rows):
         c = r["curve"]
         ls = {"none": ":", "local": "--", "modified": "-.", "full": "-"}[r["autograd"]]
-        ax.plot([p["t"] / 60 for p in c], [p["val"] for p in c], ls, lw=2, label=r["rule"])
+        ax.plot([p["t"] / 60 for p in c], [p["val"] for p in c], ls, lw=2, label=r["rule"], color=colors[i % 20])
     ax.axhline(rows[0]["unigram_loss"], color="grey", lw=1)
     ax.text(0.02, rows[0]["unigram_loss"] + 0.03, "unigram floor", color="grey", fontsize=8)
     ax.set_xlabel("training time (min)")
