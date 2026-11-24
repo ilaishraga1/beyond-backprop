@@ -23,12 +23,13 @@ is *by how much*, and *why*.
 | 2 | `sign_symmetry` | 🪞 modified | 1.675 | +0.047 | yes | 2.0 min | 20,864 | 20,864 | lr=0.001 |
 | 3 | `local_losses` | 🧱 local | 1.743 | +0.114 | yes | 2.7 min | 18,457 | 18,457 | lr=0.002 |
 | 4 | `feedback_alignment` | 🪞 modified | 1.911 | +0.282 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
-| 5 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
-| 6 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
-| 7 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
-| 8 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
-| 9 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
-| 10 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
+| 5 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
+| 6 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
+| 7 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
+| 8 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
+| 9 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
+| 10 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
+| 11 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
 | | *unigram (letter frequencies only)* | | 3.309 | | | | | | |
 | | *untrained / uniform guess* | | 4.216 | | | | | | |
 
@@ -100,6 +101,15 @@ LENRLEY:
 I not sweear strue:
 I knew farew dam, you of not say, if come defence,
 And the me here, my pown, to the at to the 
+```
+
+**lab_rats** (test 2.650)
+
+```
+ROMEO:
+Thore hisd hes selte loHou meaman youd Ixtlst t Meco uroy he nt beere heth thin berelis sg serilose atho y we we per ancos iare fofr nd- mit thyoo we w y t f acin Iiserethind tesco n s uwed
+Iur h. f antolorf pif and ly moof nhessay ed t ou ld fleo thinle ind t he the s t in,
+S y ton theg t st
 ```
 
 **forward_forward** (test 2.698)
@@ -200,9 +210,15 @@ e n..Se aIofeorf pe ne mily mooe n t say eiI codele fleomeeinor imkee s t dn se.
   just slower, because the forward weights first have to "align" with it.
 - **Forward-Forward only barely beats a frozen random network** (2.698 vs 2.716): its blocks
   learn something, but almost none of it helps predict the next character.
-- **Every rule with no backward pass at all loses to the frozen random network.** ES and
-  MeZO are still improving at minute 5, though; this is the bracket where longer budgets
-  and better ideas have the most room. Go win it.
+- **The classic no-backward-pass rules all lose to the frozen random network.** ES, MeZO,
+  forward-gradient and hill-climbing jiggle *weights*, and one loss number per forward pass
+  is hopeless signal for 830k of them.
+- **🐀 `lab_rats` is the first no-backward-pass rule to beat the floor** (2.650 vs 2.716, and 2.651 vs 2.716 on a second seed,
+  and ahead of Forward-Forward). It jiggles *neurons* instead, independently at every one of
+  the 4,096 tokens in a batch, so two forward passes run 4,096 tiny experiments at once.
+  Its gradient estimate lines up with the true gradient at cosine 0.01–0.16 per layer,
+  vs ~0.0003 for a MeZO-style random direction. Still +1.0 nats behind backprop, and still
+  improving at minute 5: plenty of room in this bracket. Go win it.
 
 **How to read it**
 - **test loss**: cross-entropy on held-out Shakespeare, nats per character. Lower is better.
@@ -237,6 +253,7 @@ e n..Se aIofeorf pe ne mily mooe n t say eiI codele fleomeeinor imkee s t dn se.
 | `forward_grad` | 🚫 none | One forward-mode JVP along a random direction v gives (∇L·v); use (∇L·v)v as the gradient. Unbiased, hugely noisy. | Baydin et al. 2022 |
 | `mezo` | 🚫 none | SPSA: nudge all weights by ±εz, compare two losses, step along z. No autograd, no activation memory. | Spall 1992; Malladi et al. 2023 |
 | `es` | 🚫 none | Evolution strategies: 64 noisy clones evaluated in parallel with `vmap`, ranked, weights drift toward the winners. | Salimans et al. 2017 |
+| `lab_rats` 🐀 | 🚫 none | **Every token is an experiment.** Jolt every neuron with fresh noise at every token, run ±noise forward passes, and credit each token's loss change to that token's jolt. Each layer then updates Hebbian-style (jolt-credit ⊗ its own input). No backward pass, no weight transport, only a per-token "dopamine" loss signal. | node perturbation (Williams 1992; Fiete & Seung 2006) + per-token credit in a causal LM (the twist tried here) |
 | `hill_climb` | 🚫 none | Jiggle every weight at random; keep it if the loss dropped. The dumbest possible learner, as a floor. | Rechenberg 1973 |
 
 ## Quickstart

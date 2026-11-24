@@ -1,0 +1,248 @@
+{
+ "rule": "lab_rats",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "Jolt every neuron at every token, 4,096 parallel experiments per batch; per-token loss change -> Hebbian outer-product updates.",
+ "paper": "node perturbation (Williams 1992; Fiete & Seung 2006) + per-token credit (this repo)",
+ "hp": {
+  "lr": 0.0003333333333333333,
+  "sigma": 0.03
+ },
+ "test_loss": 2.649857187271118,
+ "best_val": 2.6514772176742554,
+ "best_at_s": 280.22,
+ "best_step": 15483,
+ "init_val": 4.216201114654541,
+ "steps": 16558,
+ "forwards": 33116,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.0,
+   "step": 552,
+   "forwards": 1104,
+   "val": 2.932831907272339
+  },
+  {
+   "t": 20.01,
+   "step": 1103,
+   "forwards": 2206,
+   "val": 2.831806755065918
+  },
+  {
+   "t": 30.02,
+   "step": 1654,
+   "forwards": 3308,
+   "val": 2.792728614807129
+  },
+  {
+   "t": 40.03,
+   "step": 2206,
+   "forwards": 4412,
+   "val": 2.7611527919769285
+  },
+  {
+   "t": 50.03,
+   "step": 2758,
+   "forwards": 5516,
+   "val": 2.735693597793579
+  },
+  {
+   "t": 60.04,
+   "step": 3313,
+   "forwards": 6626,
+   "val": 2.7261317491531374
+  },
+  {
+   "t": 70.05,
+   "step": 3865,
+   "forwards": 7730,
+   "val": 2.7245941400527953
+  },
+  {
+   "t": 80.06,
+   "step": 4417,
+   "forwards": 8834,
+   "val": 2.7209898233413696
+  },
+  {
+   "t": 90.07,
+   "step": 4970,
+   "forwards": 9940,
+   "val": 2.707853889465332
+  },
+  {
+   "t": 100.09,
+   "step": 5525,
+   "forwards": 11050,
+   "val": 2.7084690809249876
+  },
+  {
+   "t": 110.09,
+   "step": 6080,
+   "forwards": 12160,
+   "val": 2.697208857536316
+  },
+  {
+   "t": 120.1,
+   "step": 6632,
+   "forwards": 13264,
+   "val": 2.685840535163879
+  },
+  {
+   "t": 130.1,
+   "step": 7187,
+   "forwards": 14374,
+   "val": 2.695808839797974
+  },
+  {
+   "t": 140.11,
+   "step": 7739,
+   "forwards": 15478,
+   "val": 2.6885014533996583
+  },
+  {
+   "t": 150.11,
+   "step": 8290,
+   "forwards": 16580,
+   "val": 2.6834557056427
+  },
+  {
+   "t": 160.12,
+   "step": 8842,
+   "forwards": 17684,
+   "val": 2.687074398994446
+  },
+  {
+   "t": 170.13,
+   "step": 9400,
+   "forwards": 18800,
+   "val": 2.6729429960250854
+  },
+  {
+   "t": 180.14,
+   "step": 9952,
+   "forwards": 19904,
+   "val": 2.6687217712402345
+  },
+  {
+   "t": 190.15,
+   "step": 10504,
+   "forwards": 21008,
+   "val": 2.670016646385193
+  },
+  {
+   "t": 200.15,
+   "step": 11058,
+   "forwards": 22116,
+   "val": 2.6653596639633177
+  },
+  {
+   "t": 210.17,
+   "step": 11613,
+   "forwards": 23226,
+   "val": 2.6772425413131713
+  },
+  {
+   "t": 220.17,
+   "step": 12167,
+   "forwards": 24334,
+   "val": 2.6665069341659544
+  },
+  {
+   "t": 230.17,
+   "step": 12723,
+   "forwards": 25446,
+   "val": 2.6548067331314087
+  },
+  {
+   "t": 240.17,
+   "step": 13274,
+   "forwards": 26548,
+   "val": 2.66238420009613
+  },
+  {
+   "t": 250.19,
+   "step": 13829,
+   "forwards": 27658,
+   "val": 2.661830687522888
+  },
+  {
+   "t": 260.2,
+   "step": 14380,
+   "forwards": 28760,
+   "val": 2.66103253364563
+  },
+  {
+   "t": 270.2,
+   "step": 14932,
+   "forwards": 29864,
+   "val": 2.6594240427017213
+  },
+  {
+   "t": 280.22,
+   "step": 15483,
+   "forwards": 30966,
+   "val": 2.6506789922714233
+  },
+  {
+   "t": 290.22,
+   "step": 16014,
+   "forwards": 32028,
+   "val": 2.658584141731262
+  },
+  {
+   "t": 300.02,
+   "step": 16558,
+   "forwards": 33116,
+   "val": 2.652696681022644
+  }
+ ],
+ "sample": "ROMEO:\nThore hisd hes selte loHou meaman youd Ixtlst t Meco uroy he nt beere heth thin berelis sg serilose atho y we we per ancos iare fofr nd- mit thyoo we w y t f acin Iiserethind tesco n s uwed\nIur h. f antolorf pif and ly moof nhessay ed t ou ld fleo thinle ind t he the s t in,\nS y ton theg t st hald a",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 2.727989287376404
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 2.79862832069397
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 3.1025129747390747
+   },
+   {
+    "lr": 0.0001111111111111111,
+    "factor": 0.1111111111111111,
+    "val_loss": 2.7816517543792725
+   }
+  ]
+ }
+}
