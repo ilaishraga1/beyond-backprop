@@ -1,7 +1,7 @@
 {
  "rule": "census_heads_4",
  "tag": "",
- "autograd": "none",
+ "autograd": "local",
  "blurb": "census_heads with all 4 heads fetching (fewer stream dims each).",
  "paper": "Dempster et al. 1977 (EM); supervised attention (Liu et al. 2016) with a census as the supervisor",
  "hp": {

@@ -23,8 +23,8 @@ is *by how much*, and *why*.
 | 2 | `sign_symmetry` | 🪞 modified | 1.675 | +0.047 | yes | 2.0 min | 20,864 | 20,864 | lr=0.001 |
 | 3 | `local_losses` | 🧱 local | 1.743 | +0.114 | yes | 2.7 min | 18,457 | 18,457 | lr=0.002 |
 | 4 | `feedback_alignment` | 🪞 modified | 1.911 | +0.282 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
-| 5 | `census_heads` | 🚫 none | 2.369 | +0.740 | yes | 0.7 min | 31,549 | 31,549 | lr=0.001 |
-| 6 | `census_heads_4` | 🚫 none | 2.408 | +0.780 | yes | 1.5 min | 34,110 | 34,110 | lr=0.001 |
+| 5 | `census_heads` | 🧱 local | 2.369 | +0.740 | yes | 0.7 min | 31,549 | 31,549 | lr=0.001 |
+| 6 | `census_heads_4` | 🧱 local | 2.408 | +0.780 | yes | 1.5 min | 34,110 | 34,110 | lr=0.001 |
 | 7 | `instinct_rats` | 🚫 none | 2.498 | +0.869 | yes | 0.8 min | 16,849 | 33,598 | lr=3.7e-06 |
 | 8 | `wire_together` | 🚫 none | 2.500 | +0.871 | yes | 0.8 min | 65,165 | 65,165 | smoothing=2.7 |
 | 9 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
@@ -338,12 +338,11 @@ bS yteoheoEngsr  t
   **This is the real bar for the 🚫 bracket:** a rule that can't beat counting letter
   pairs hasn't learned anything a census couldn't. To beat it, a rule has to make use of
   *earlier* characters, which means training attention.
-- **🔎 …and then attention learned without a backward pass.** `census_heads` beats counting
-  (**2.369** mean over 3 seeds vs 2.500). Its attention is trained by EM: a running census of
-  letter triples says which earlier character most likely *caused* the next one, and each
-  head is nudged to look there. Same network with the heads frozen: 2.488. So the gain is
-  learned attention, not wiring. It closes ~60% of the gap to hand-wired "look 1 and 2
-  back" heads (2.289). Still +0.74 nats behind backprop.
+- **🔎 A census can teach attention with a layer-local rule.** `census_heads` scores **2.369**
+  (3 seeds) vs 2.488 for the same network with frozen heads and 2.500 for counting. It never
+  calls autograd, but its Q/K update is the chain rule hand-written inside one layer, so it is
+  🧱 local. It was first published here as 🚫 none; that was wrong, and counting
+  is still the bar for the 🚫 bracket.
 
 ### 🐀 Lab rats lab notebook: three attempted fixes
 
@@ -379,7 +378,7 @@ What the gradient probes showed along the way (cosine of the estimate with the t
 
 | rule | the idea | seed 0 | seed 1 | seed 2 | verdict |
 |---|---|---:|---:|---:|---|
-| `wire_together` | "Fire together, wire together", literally: count letter pairs, compile them into the weights. Zero optimisation. | 2.500 | | | 📊 the bar for 🚫 rules (until `census_heads`); deterministic, so one run |
+| `wire_together` | "Fire together, wire together", literally: count letter pairs, compile them into the weights. Zero optimisation. | 2.500 | | | 📊 the bar for 🚫 rules; deterministic, so one run |
 | `instinct_rats` | Born wired as a bigram, then `lab_rats_maze` keeps learning on top. Nature, then nurture. | 2.498 | 2.498 | 2.499 | 🤷 nurture adds nothing |
 | `dreaming` | Awake: strengthen what fires on real text. Asleep: weaken what fires on the model's own dreamt text. | 3.331 | 3.322 | 3.323 | 💀 dreams erase everything |
 
@@ -397,10 +396,9 @@ What the gradient probes showed along the way (cosine of the estimate with the t
   against the model's own early dreams (≈ random letters) apparently teaches the features
   "is this real text?" and nothing about *which* character comes next.
 
-### 🔎 Census heads: training attention with no backward pass
+### 🔎 Census heads: training attention with a layer-local rule
 
-Every 🚫 rule above stalled at or before the bigram, because none could train attention.
-`census_heads` trains *only* attention (plus the readout), with no gradient crossing a layer:
+`census_heads` trains *only* attention (plus the readout), with no error signal crossing a layer:
 
 1. **The stream is wired, not learned:** `[one-hot current char | sinusoidal position | what the heads fetched]`.
    Each head's values are a fixed random code of the character it lands on; every other block output is zeroed.
@@ -409,33 +407,28 @@ Every 🚫 rule above stalled at or before the bigram, because none could train 
    `posterior(s) ∝ attention(s) · P(y | x_t, x_s, d) / P(y | x_t)`.
 3. **M-step:** delta rule on the head's own scores, `dS = attention − posterior`, turned into Q/K
    updates through the head's bilinear form. A test pins this update to autograd of the
-   equivalent per-head loss (rel. err 2.5e-7), so it's exactly a *local* attention gradient.
+   equivalent per-head loss, so it is exactly a *local* attention gradient (hence 🧱, not 🚫).
 4. **Readout:** the delta rule (exact last-layer gradient, computed by hand).
 
 | variant (`census_heads`, 2 heads, 5 min) | seed 0 | seed 1 | seed 2 | mean |
 |---|---:|---:|---:|---:|
 | heads **frozen** at random init (never trained) | 2.490 | 2.486 | | 2.488 |
 | heads **trained by census EM** | 2.369 | 2.368 | 2.371 | **2.369** |
-| heads **hand-wired** to look exactly 1 and 2 back (upper bound for this design) | 2.288 | 2.290 | | 2.289 |
+| heads **hand-wired** to look exactly 1 and 2 back (a reference, not a proven bound) | 2.288 | 2.290 | | 2.289 |
 | `census_heads_4`: 4 census heads, half the stream dims each | 2.408 | 2.400 | 2.400 | 2.403 |
 
-What the lab notebook showed along the way:
-- **The prior is everything.** With a *uniform* prior (the obvious first version) the target is
-  flat across offsets (0.16, 0.14, 0.12, …). Heads learn a blur, and 29% of their attention
-  stays beyond the census horizon. Using the head's own attention as the prior (what EM
-  actually prescribes: the mixing weights are the prior) sharpens them within 10 s. Head 0
-  ends up 54% on 1-back and 29% on 2-back; head 1 (barred from 1-back) goes 62% on 2-back.
-- **Sharper isn't better.** Raising the census temperature β amplifies noise in the pointwise
-  census and blurs the heads. Raising the prior to a power (rich-get-richer) collapses them
-  onto "look at yourself", the do-nothing bigram option.
-- **The remaining gap is the blend.** EM fits a *mixture*: "the cause is 1-back or 2-back".
-  The readout is log-linear in what the heads fetch, so a 54/29 blend of two characters' codes
-  is worth less to it than a clean one-hot. Hand-wired heads don't blend. Hence 2.37 vs 2.29.
-- **More heads hurt here** because they share 49 stream dims. Four heads get 12-d codes each
-  instead of 24-d, and the readout loses more from the cramped codes than it gains from looking further back.
-- Everything peaks in ~1 minute: the design is capacity-bound (no MLP features, no conjunctions
-  of characters), not signal-bound. Next frontier: learn the *values* and MLP without a backward
-  pass too, so the network can build trigram-like conjunctions instead of adding up evidence.
+**Corrections to the first published version of this section (commit 0e0ded8):**
+- It was labelled 🚫 none. It is 🧱 local: the guard only catches autograd, and this update is the
+  chain rule hand-written inside one attention layer.
+- It said the self-prior was essential. A uniform prior gives blurrier attention but the same loss
+  (val 2.339 / test 2.370 in one 1-minute run, vs 2.339 / 2.369 in 5 minutes). Sharper-looking
+  attention did not mean a better model. A seeded comparison is still to be run.
+- It said 29% of attention fell beyond the census horizon. That number counted everything more
+  than 5 back; the horizon is 8.
+- It explained the gap to the hand-wired heads as "blending", the 4-head result as cramped codes,
+  and the early plateau as a capacity limit. Those are untested guesses.
+- Hand-wired heads are a reference, not a proven upper bound.
+- Value codes are fixed across seeds, so the spread between seeds understates the real variance.
 
 **How to read it**
 - **test loss**: cross-entropy on held-out Shakespeare, nats per character. Lower is better.
@@ -476,6 +469,7 @@ What the lab notebook showed along the way:
 | `wire_together` 📊 | 🚫 none | No optimisation: count which char follows which, then compile the counts into the weights in closed form (one-hot embeddings, silenced blocks, pseudo-inverse readout). An exact bigram in a transformer costume. | Hebb 1949; Shannon 1948 |
 | `instinct_rats` | 🚫 none | Born wired as that bigram, then `lab_rats_maze` keeps learning on top. | this repo |
 | `dreaming` 💤 | 🚫 none | Wake/sleep Hebbian: strengthen what fires on real text, weaken what fires on the model's own dreams; readout learns real-vs-dreamt next char (the delta rule). | Hinton & Sejnowski 1983; Crick & Mitchison 1983; Hinton 2022 |
+| `census_heads` / `_4` 🔎 | 🧱 local | **Attention taught by a census.** Running letter-triple counts say which earlier char best explains the next one (E-step); each head's scores move toward that posterior (M-step). Wired stream, fixed random value codes, delta-rule readout. Hand-written, layer-local gradients. | Dempster et al. 1977 (EM); Liu et al. 2016 (supervised attention) |
 | `hill_climb` | 🚫 none | Jiggle every weight at random; keep it if the loss dropped. The dumbest possible learner, as a floor. | Rechenberg 1973 |
 
 ## Quickstart

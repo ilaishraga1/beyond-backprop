@@ -3,7 +3,9 @@
 Every gradient-free rule so far stalled at or before the bigram, because none
 of them could train attention, and attention is the only way to use anything
 earlier than the current character. This rule trains attention with no
-backward pass at all.
+error signal crossing a layer. It never calls autograd, but the Q/K update is
+the chain rule written out by hand inside one attention layer (a test checks it
+equals autograd), so it is labelled "local", not "none".
 
 The trick is an EM story. Pretend the next character y_t was "caused" by one
 earlier character x_s (or by nothing beyond the current char x_t). A running
@@ -13,10 +15,10 @@ likely each candidate cause is:
     posterior(s | y_t)  ∝  attention(s) * P(y_t | x_t, x_s, offset d) / P(y_t | x_t)   (E-step)
 
 with the head's own current attention as the prior (proper EM: the mixing
-weights are the prior; a uniform prior gives a flat, useless target). That posterior is the attention pattern the head *should* have had for this
+weights are the prior; prior="uniform" is the ablation). That posterior is the attention pattern the head *should* have had for this
 query. The head is nudged toward it with a delta rule on its own scores
 (dS = attention - posterior), turned into Q/K updates by the head's own
-bilinear form (M-step). No signal crosses a layer; nothing runs backward.
+bilinear form (M-step).
 
 The rest of the network is wired, not trained:
   * stream = [one-hot current char | sinusoidal position | what the heads fetched]
@@ -29,7 +31,7 @@ hidden thing that learns is *where the heads look*. Head h is barred from the
 nearest h offsets so the heads don't all fetch the same character.
 
 `attn` switches the ablation: "census" (learn), "frozen" (random heads, never
-trained), "wired" (hand-set to look exactly h+1 steps back: the upper bound).
+trained), "wired" (hand-set to look exactly h+1 steps back: a reference, not a proven bound).
 """
 import math
 
@@ -42,8 +44,8 @@ from . import Rule, register
 @register
 class CensusHeads(Rule):
     name = "census_heads"
-    autograd = "none"
-    blurb = "Attention trained without backprop: an EM E-step from a running census of letter triples says which earlier char caused the next one; heads are nudged to look there. Readout: delta rule."
+    autograd = "local"  # hand-written, but it IS the chain rule inside one attention layer
+    blurb = "Attention trained by a layer-local rule: an EM E-step from a running census of letter triples says which earlier char caused the next one; heads are nudged to look there. Readout: delta rule."
     paper = "Dempster et al. 1977 (EM); supervised attention (Liu et al. 2016) with a census as the supervisor"
     defaults = dict(lr=3e-3, heads=2, max_offset=8, smoothing=5.0, beta=1.0, prior="self", sharpen=1.0, attn="census", tok_scale=10.0, refresh=20)
 
@@ -113,7 +115,7 @@ class CensusHeads(Rule):
 
     @torch.no_grad()
     def _wire_offsets(self, gain=60.0):
-        """Hand-set head h to look exactly h+1 steps back (the upper bound for this design)."""
+        """Hand-set head h to look exactly h+1 steps back (a reference point)."""
         attn, C, hd, F_ = self.model.blocks[0].attn, self.C, self.hd, self.F
         W, b = attn.qkv.weight, attn.qkv.bias
         W[: 2 * C].zero_()

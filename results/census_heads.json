@@ -1,7 +1,7 @@
 {
  "rule": "census_heads",
  "tag": "",
- "autograd": "none",
+ "autograd": "local",
  "blurb": "Attention trained without backprop: an EM E-step from a running census of letter triples says which earlier char caused the next one; heads are nudged to look there. Readout: delta rule.",
  "paper": "Dempster et al. 1977 (EM); supervised attention (Liu et al. 2016) with a census as the supervisor",
  "hp": {
