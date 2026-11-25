@@ -1,0 +1,247 @@
+{
+ "rule": "mirror_window",
+ "tag": "",
+ "autograd": "modified",
+ "blurb": "Hand-wired copy heads show 2,048 neurons the last few chars. Output weights: delta rule. Input weights: error through a separate matrix that receives the same Hebbian updates as its forward twin (no weight copying).",
+ "paper": "Kolen & Pollack 1994; Akrout et al. 2019; Bengio et al. 2003 (fixed-window neural LM)",
+ "hp": {
+  "lr": 0.001,
+  "feedback": "mirror",
+  "extra": 1,
+  "gain": 0.3,
+  "fade": 0.75,
+  "half": 8000
+ },
+ "test_loss": 1.7734812808036804,
+ "best_val": 1.6014325881004334,
+ "best_at_s": 300.0,
+ "best_step": 32860,
+ "init_val": 4.174386978149414,
+ "steps": 32860,
+ "forwards": 32860,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.174386978149414
+  },
+  {
+   "t": 10.0,
+   "step": 1096,
+   "forwards": 1096,
+   "val": 1.8538763761520385
+  },
+  {
+   "t": 20.0,
+   "step": 2185,
+   "forwards": 2185,
+   "val": 1.7618954539299012
+  },
+  {
+   "t": 30.01,
+   "step": 3279,
+   "forwards": 3279,
+   "val": 1.7190282940864563
+  },
+  {
+   "t": 40.02,
+   "step": 4376,
+   "forwards": 4376,
+   "val": 1.6982287049293519
+  },
+  {
+   "t": 50.02,
+   "step": 5464,
+   "forwards": 5464,
+   "val": 1.6777860164642333
+  },
+  {
+   "t": 60.03,
+   "step": 6562,
+   "forwards": 6562,
+   "val": 1.6635210752487182
+  },
+  {
+   "t": 70.04,
+   "step": 7661,
+   "forwards": 7661,
+   "val": 1.6525114893913269
+  },
+  {
+   "t": 80.04,
+   "step": 8753,
+   "forwards": 8753,
+   "val": 1.6437654495239258
+  },
+  {
+   "t": 90.05,
+   "step": 9846,
+   "forwards": 9846,
+   "val": 1.6403101682662964
+  },
+  {
+   "t": 100.05,
+   "step": 10945,
+   "forwards": 10945,
+   "val": 1.6312397241592407
+  },
+  {
+   "t": 110.05,
+   "step": 12041,
+   "forwards": 12041,
+   "val": 1.6328063130378723
+  },
+  {
+   "t": 120.06,
+   "step": 13119,
+   "forwards": 13119,
+   "val": 1.6238511085510254
+  },
+  {
+   "t": 130.07,
+   "step": 14202,
+   "forwards": 14202,
+   "val": 1.6209396958351134
+  },
+  {
+   "t": 140.07,
+   "step": 15296,
+   "forwards": 15296,
+   "val": 1.6234952807426453
+  },
+  {
+   "t": 150.08,
+   "step": 16388,
+   "forwards": 16388,
+   "val": 1.621526265144348
+  },
+  {
+   "t": 160.08,
+   "step": 17488,
+   "forwards": 17488,
+   "val": 1.6183192610740662
+  },
+  {
+   "t": 170.09,
+   "step": 18588,
+   "forwards": 18588,
+   "val": 1.6117985486984252
+  },
+  {
+   "t": 180.09,
+   "step": 19684,
+   "forwards": 19684,
+   "val": 1.614464783668518
+  },
+  {
+   "t": 190.09,
+   "step": 20780,
+   "forwards": 20780,
+   "val": 1.6104693770408631
+  },
+  {
+   "t": 200.09,
+   "step": 21882,
+   "forwards": 21882,
+   "val": 1.6063610792160035
+  },
+  {
+   "t": 210.09,
+   "step": 22992,
+   "forwards": 22992,
+   "val": 1.6096449613571167
+  },
+  {
+   "t": 220.1,
+   "step": 24093,
+   "forwards": 24093,
+   "val": 1.6068785429000854
+  },
+  {
+   "t": 230.1,
+   "step": 25184,
+   "forwards": 25184,
+   "val": 1.6087988495826722
+  },
+  {
+   "t": 240.11,
+   "step": 26282,
+   "forwards": 26282,
+   "val": 1.606175422668457
+  },
+  {
+   "t": 250.11,
+   "step": 27386,
+   "forwards": 27386,
+   "val": 1.6051855325698852
+  },
+  {
+   "t": 260.12,
+   "step": 28492,
+   "forwards": 28492,
+   "val": 1.604831051826477
+  },
+  {
+   "t": 270.12,
+   "step": 29596,
+   "forwards": 29596,
+   "val": 1.6048402667045594
+  },
+  {
+   "t": 280.13,
+   "step": 30687,
+   "forwards": 30687,
+   "val": 1.604336178302765
+  },
+  {
+   "t": 290.14,
+   "step": 31777,
+   "forwards": 31777,
+   "val": 1.6040199875831604
+  },
+  {
+   "t": 300.0,
+   "step": 32860,
+   "forwards": 32860,
+   "val": 1.6036279439926147
+  }
+ ],
+ "sample": "ROMEO:\nThou makes here net it on the hand,\nAnd gelse, gay pourness to waker shall not so hell!\nThese is something or wakes me common with a nent have soon purpose of impricient to death. Hark not\nEnesse. Shall I be purse will my hence say, if the light of will be confess in sin: but I cannot now? why deser",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 1.7476012134552001
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 1.6652191257476807
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 1.666147892475128
+   }
+  ]
+ }
+}

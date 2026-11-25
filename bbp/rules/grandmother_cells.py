@@ -36,7 +36,8 @@ class CellModel:
     K, U, A = 200.0, 20.0, 5.0  # constant pair, logit unit, activation of a firing cell
 
     @torch.no_grad()
-    def __init__(self, model):
+    def __init__(self, model, extra=0):
+        """extra: copy heads beyond block 0's, placed in later blocks (grandmother_cells uses none)."""
         cfg = model.cfg
         self.model, self.V, self.C, self.H = model, cfg.vocab_size, cfg.n_embd, cfg.n_head
         self.hd, self.dev = self.C // self.H, model.lm_head.weight.device
@@ -45,7 +46,7 @@ class CellModel:
         words = [[1.0 if i in s else -1.0 for i in range(self.b)]
                  for s in itertools.islice(itertools.combinations(range(self.b), self.b // 2), V)]
         self.code = torch.tensor(words)  # (V, b), every row sums to 0
-        self.np_ = next(n for n in range(self.H, -1, -1) if self.b * (1 + n) + 6 + 2 + V <= C)
+        self.np_ = next(n for n in range(self.H + extra, -1, -1) if self.b * (1 + n) + 6 + 2 + V <= C)
         self.F = min(7, hd // 2, (C - V - 2 - self.b * (1 + self.np_)) // 2)
         self.N = self.np_ + 1  # longest string a cell can hold
         self.p0 = self.b * self.N
@@ -65,17 +66,18 @@ class CellModel:
             model.pos_emb.weight[:, self.p0 + 2 * j] = torch.cos(om[j] * t).to(self.dev)
             model.pos_emb.weight[:, self.p0 + 2 * j + 1] = torch.sin(om[j] * t).to(self.dev)
         model.pos_emb.weight[:, self.k0], model.pos_emb.weight[:, self.k0 + 1] = self.K, -self.K
-        att = model.blocks[0].attn
-        W, gain = att.qkv.weight, 200.0 * math.sqrt(hd)
-        for h in range(self.np_):  # head h copies the char h+1 back
+        gain = 200.0 * math.sqrt(hd)
+        for back in range(self.np_):  # copy the char back+1 back (H heads per block)
+            att, h = model.blocks[back // self.H].attn, back % self.H
+            W = att.qkv.weight
             for j in range(self.F):
-                c, s = math.cos(-om[j] * (h + 1)), math.sin(-om[j] * (h + 1))
+                c, s = math.cos(-om[j] * (back + 1)), math.sin(-om[j] * (back + 1))
                 r, pc, ps = h * hd + 2 * j, self.p0 + 2 * j, self.p0 + 2 * j + 1
                 W[r, pc], W[r, ps], W[r + 1, pc], W[r + 1, ps] = [self.sd * gain * v for v in (c, -s, s, c)]
                 W[C + r, pc] = W[C + r + 1, ps] = self.sd
             for i in range(self.b):
                 W[2 * C + h * hd + i, i] = self.sd
-                att.proj.weight[self.b * (1 + h) + i, h * hd + i] = 1.0
+                att.proj.weight[self.b * (1 + back) + i, h * hd + i] = 1.0
         model.lm_head.weight[:, self.l0:self.l0 + V] = self.U * self.sd * torch.eye(V, device=self.dev)
         self.n_fc = model.blocks[0].mlp.fc.out_features
         self.n_cells = self.n_fc * len(model.blocks)

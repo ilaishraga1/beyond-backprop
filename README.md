@@ -19,37 +19,74 @@ is *by how much*, and *why*.
 <!-- LEADERBOARD:START -->
 | # | rule | autograd | test loss ↓ | vs backprop | beats random reservoir? | best ckpt at | steps | fwd passes | tuned |
 |---|------|----------|-----------:|------------:|:--:|------:|------:|-----------:|-------|
-| 1 | `backprop` | ✅ full | 1.629 | +0.000 | yes | 1.0 min | 23,871 | 23,871 | lr=0.00067 |
-| 2 | `sign_symmetry` | 🪞 modified | 1.675 | +0.047 | yes | 2.0 min | 20,864 | 20,864 | lr=0.001 |
-| 3 | `local_losses` | 🧱 local | 1.743 | +0.114 | yes | 2.7 min | 18,457 | 18,457 | lr=0.002 |
-| 4 | `grandmother_cells` | 🚫 none | 1.899 | +0.270 | yes | 0.3 min | 68,804 | 68,804 | kappa=12 |
-| 5 | `natural_selection` | 🧱 local | 1.905 | +0.277 | yes | 1.2 min | 53,307 | 53,307 | lr=0.001 |
-| 6 | `feedback_alignment` | 🪞 modified | 1.911 | +0.282 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
-| 7 | `census_mlp` | 🧱 local | 1.954 | +0.326 | yes | 4.7 min | 31,602 | 31,602 | lr=0.001 |
-| 8 | `census_heads` | 🧱 local | 2.369 | +0.740 | yes | 0.7 min | 31,549 | 31,549 | lr=0.001 |
-| 9 | `census_heads_4` | 🧱 local | 2.408 | +0.780 | yes | 1.5 min | 34,110 | 34,110 | lr=0.001 |
-| 10 | `instinct_rats` | 🚫 none | 2.498 | +0.869 | yes | 0.8 min | 16,849 | 33,598 | lr=3.7e-06 |
-| 11 | `wire_together` | 🚫 none | 2.500 | +0.871 | yes | 0.8 min | 65,165 | 65,165 | smoothing=2.7 |
-| 12 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
-| 13 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.982 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
-| 14 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
-| 15 | `lab_rats_future` | 🚫 none | 2.660 | +1.032 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
-| 16 | `lab_rats_solo` | 🚫 none | 2.692 | +1.064 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
-| 17 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
-| 18 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
-| 19 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
-| 20 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
-| 21 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
-| 22 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
-| 23 | `dreaming` | 🧱 local | 3.331 | +1.702 | no | 3.0 min | 21,607 | 43,214 | lr=0.0003 |
+| 1 | `mirror_neurons (reg)` | 🪞 modified | 1.540 | -0.088 | yes | 4.5 min | 20,674 | 20,674 |  |
+| 2 | `backprop (reg)` | ✅ full | 1.551 | -0.078 | yes | 4.8 min | 23,347 | 23,347 |  |
+| 3 | `backprop` | ✅ full | 1.629 | +0.000 | yes | 1.0 min | 23,871 | 23,871 | lr=0.00067 |
+| 4 | `mirror_neurons` | 🪞 modified | 1.638 | +0.009 | yes | 1.7 min | 20,526 | 20,526 | lr=0.001 |
+| 5 | `sign_symmetry` | 🪞 modified | 1.675 | +0.047 | yes | 2.0 min | 20,864 | 20,864 | lr=0.001 |
+| 6 | `local_losses` | 🧱 local | 1.743 | +0.114 | yes | 2.7 min | 18,457 | 18,457 | lr=0.002 |
+| 7 | `mirror_window` | 🪞 modified | 1.773 | +0.145 | yes | 5.0 min | 32,860 | 32,860 | lr=0.001 |
+| 8 | `grandmother_cells` | 🚫 none | 1.899 | +0.270 | yes | 0.3 min | 68,804 | 68,804 | kappa=12 |
+| 9 | `natural_selection` | 🧱 local | 1.905 | +0.277 | yes | 1.2 min | 53,307 | 53,307 | lr=0.001 |
+| 10 | `feedback_alignment` | 🪞 modified | 1.911 | +0.282 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
+| 11 | `census_mlp` | 🧱 local | 1.954 | +0.326 | yes | 4.7 min | 31,602 | 31,602 | lr=0.001 |
+| 12 | `census_heads` | 🧱 local | 2.369 | +0.740 | yes | 0.7 min | 31,549 | 31,549 | lr=0.001 |
+| 13 | `census_heads_4` | 🧱 local | 2.408 | +0.780 | yes | 1.5 min | 34,110 | 34,110 | lr=0.001 |
+| 14 | `instinct_rats` | 🚫 none | 2.498 | +0.869 | yes | 0.8 min | 16,849 | 33,598 | lr=3.7e-06 |
+| 15 | `wire_together` | 🚫 none | 2.500 | +0.871 | yes | 0.8 min | 65,165 | 65,165 | smoothing=2.7 |
+| 16 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
+| 17 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.982 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
+| 18 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
+| 19 | `lab_rats_future` | 🚫 none | 2.660 | +1.032 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
+| 20 | `lab_rats_solo` | 🚫 none | 2.692 | +1.064 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
+| 21 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
+| 22 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
+| 23 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
+| 24 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
+| 25 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
+| 26 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
+| 27 | `dreaming` | 🧱 local | 3.331 | +1.702 | no | 3.0 min | 21,607 | 43,214 | lr=0.0003 |
 | | *unigram (letter frequencies only)* | | 3.309 | | | | | | |
 | | *untrained / uniform guess* | | 4.216 | | | | | | |
 
-<sub>0.83M-param char GPT (4 layers, d=128, ctx 128), batch 32, TinyShakespeare, 5 min of training time per rule on `mps`, loss in nats/char. Early stopping: each rule's best checkpoint by val loss is scored on a held-out test split. Each rule's `tuned` knob got a 3-point sweep first.</sub>
+<sub>0.83M-param char GPT (4 layers, d=128, ctx 128), batch 32, TinyShakespeare, 5 min of training time per rule on `mps`, loss in nats/char. Early stopping: each rule's best checkpoint by val loss is scored on a held-out test split. Each rule's `tuned` knob got a 3-point sweep first. Rows tagged (reg) add the same regularisation to both rules: compare them with each other, not with the untagged rows or the `vs backprop` column.</sub>
 
 ![loss curves](results/curves.png)
 
 <details><summary>What each rule's model writes after its run (prompt <code>ROMEO:</code>)</summary>
+
+**mirror_neurons** (test 1.540)
+
+```
+ROMEO:
+Thou must know so? fair can earth you.
+I think you courtesy to your master hours
+Are so says him so.
+
+CORIOLANUS:
+A man of your fatal and hands
+How speak to drink yields, the people's nuze,
+I shall fall to faith and look of no side,
+And one danger than a commody of his point:
+Ay, one that fra
+```
+
+**backprop** (test 1.551)
+
+```
+ROMEO:
+Thou mhss know sell me on my good words,
+Also than his wife from here hear to be
+A bloody of him; that's your way were comes;
+And truly devour too well out of the king?
+
+LEONTES:
+I never stay not. So I fear, it is milk.
+Would they fear to queen to this reign.
+
+JULIET:
+Their bones one that fea
+```
 
 **backprop** (test 1.629)
 
@@ -63,6 +100,25 @@ I hold yet for his files foes, the maring of mercy,
 Their still to their seating of the queen.
 
 ME
+```
+
+**mirror_neurons** (test 1.638)
+
+```
+ROMEO:
+That mouse have not indeed near of all the strenger
+As will forget it hath good to his foot.
+
+PRINCE:
+No your ways and come and forrest-plated to you:
+Potricy in this head--
+
+JULIET:
+By which she.
+
+QUEEN ELIZABETH:
+Alas, I snow it for thou livest: I am sure
+To send you to bed, your potuous st
 ```
 
 **sign_symmetry** (test 1.675)
@@ -97,6 +153,16 @@ I seek that the Lancaster,
 I shall be my pray thee--
 Whom on not say that of me for my in
 This medicitizens. Boy! Fare not to the 
+```
+
+**mirror_window** (test 1.773)
+
+```
+ROMEO:
+Thou makes here net it on the hand,
+And gelse, gay pourness to waker shall not so hell!
+These is something or wakes me common with a nent have soon purpose of impricient to death. Hark not
+Enesse. Shall I be purse will my hence say, if the light of will be confess in sin: but I cannot now? wh
 ```
 
 **grandmother_cells** (test 1.899)
@@ -399,9 +465,16 @@ bS yteoheoEngsr  t
   help.** `natural_selection` (🧱 local) scores **1.896** over 3 seeds. Killing the *useless* cells
   matters a lot (random deaths: 2.068). Births at surprising places: 1.896 vs 1.902 at random
   places, which is inside the noise.
-- **A plain 5-gram table still beats most of this board.** Backoff tables score 2.504 / 2.113 /
-  1.865 / 1.782 on test for 2- to 5-grams (`scripts/ngram_reference.py`, smoothing not tuned).
-  Only backprop, sign symmetry and local losses beat the 5-gram.
+- **🪞 `mirror_neurons` beats the 5-gram table**, untuned (1.806) and tuned (1.702). No 🚫 rule beats
+  either; `local_losses` (1.743) beats the untuned one and sign symmetry (1.675) both. Its backward
+  weights start random and receive the same update as their forward twins, so no weight is ever
+  copied. 1.641 over 3 seeds, 0.008 behind backprop (1.633), where fixed random feedback got 1.911.
+  With regularisation both reach about **1.55** (mirror 1.544, backprop 1.551): a tie. Details below.
+- **Plain tables are a higher bar than this README used to say.** Untuned 5-gram: 1.806 on the
+  arena's own windows. With smoothing tuned on val: 5-gram 1.702, 9- and 10-gram about **1.615**,
+  better than unregularised backprop (1.629 to 1.639). See the table in the mirror section.
+  (An earlier version quoted 2.504 / 2.113 / 1.865 / 1.782 for 2- to 5-grams: untuned, and scored on
+  continuous text instead of 128-char windows.)
 
 ### 🐀 Lab rats lab notebook: three attempted fixes
 
@@ -529,10 +602,10 @@ No gradient, no error signal. It counts for 2,000 batches, then stops learning.
 | | test |
 |---|---:|
 | **grandmother_cells** (seeds 0 / 1 / 2) | 1.899 / 1.899 / 1.903 |
-| bigram table (`wire_together` is this) | 2.504 |
-| trigram table | 2.113 |
-| 4-gram table (11,228 contexts) | 1.865 |
-| 5-gram table (48,539 contexts) | 1.782 |
+| bigram table, untuned (`wire_together` is this) | 2.508 |
+| trigram table, untuned | 2.122 |
+| 4-gram table, untuned / tuned (11,228 contexts) | 1.885 / 1.838 |
+| 5-gram table, untuned / tuned (48,539 contexts) | 1.806 / 1.702 |
 
 - It sits between the 3- and 4-gram tables because it has 2,048 neurons, not 11,228 contexts. This
   is compression of a table, and a table with no size limit does better.
@@ -564,8 +637,67 @@ by an error gradient. Label 🧱 local: the delta rule is the one-layer readout 
   (val 1.804) from 65 single characters.
 - `gen_every`, `cull` and the surprise switch were chosen on val in a small 1-minute seed-0 sweep;
   `lr` in the standard sweep. The ablations reuse those settings without their own sweep.
-- Like `grandmother_cells` it uses hand-wired copy heads, and the plain 4-gram table (1.865) beats
+- Like `grandmother_cells` it uses hand-wired copy heads, and the plain 4-gram table (1.885 untuned, 1.838 tuned) beats
   it. It reaches the same loss as counting by trial and error, not a better one.
+
+### 🪞 Mirror neurons: beating the 5-gram table
+
+**The bar.** Plain n-gram tables, scored on exactly the arena's windows (`scripts/ngram_reference.py`),
+smoothing (Witten-Bell) tuned on val. They have unlimited memory, up to 780k (context, next) pairs, and
+do not fit in this 0.83M-parameter model, so they are a reference, not a contender:
+
+| order | untuned (k=4) | tuned |
+|---|---:|---:|
+| 4 | 1.885 | 1.838 |
+| 5 | 1.806 | 1.702 |
+| 6 | 1.838 | 1.649 |
+| 7 | 1.899 | 1.633 |
+| 8 | 1.965 | 1.616 |
+| 9 | 2.019 | 1.614 |
+| 10 | 2.061 | 1.615 |
+
+**The rule.** `feedback_alignment` sends the error back through *fixed* random matrices. In
+`mirror_neurons` those matrices are separate and random at birth, but plastic: each gets the same
+Hebbian product (error x activity) as the forward synapse joining the same two neurons. Nothing is
+copied. The idea is Kolen & Pollack (1994) and Akrout et al. (2019), not ours. It is an end-to-end
+backward pass with a learned stand-in for Wᵀ, so 🪞 modified, not 🚫.
+
+| test loss, 5 min | seed 0 | seed 1 | seed 2 | mean |
+|---|---:|---:|---:|---:|
+| `backprop` | 1.629 | 1.630 | 1.639 | **1.633** |
+| **`mirror_neurons`** | 1.638 | 1.645 | 1.639 | **1.641** |
+| control: backward weights frozen (feedback alignment) | 1.898 | | | |
+| `backprop (reg)` | 1.551 | 1.548 | 1.553 | **1.551** |
+| **`mirror_neurons (reg)`** | 1.540 | 1.544 | 1.549 | **1.544** |
+
+- **Why it works, measured:** the cosine between each layer's backward and forward weights climbs
+  0.00 → 0.48 → 0.68 → 0.82 → 0.90 at steps 0 / 500 / 1,000 / 2,000 / 4,000. With the mirror off it
+  reaches only 0.18.
+- **`(reg)` is a fair-ish pair, not a win for mirror.** Learning-rate halving every 3,000 steps, weight
+  decay 0.2, and 5% of input characters replaced by noise. I picked those settings on a small
+  val-only screen of `mirror_neurons`, seed 0, 3 minutes; backprop's best in the same screen was
+  10% noise without extra weight decay (val 1.446 vs 1.449 as run). Both keep their old `lr`.
+  Mirror wins all three seed pairs by about 0.007, smaller than the bias from that selection: call it a tie.
+- **What beat the table was the regularisation.** Without it neither rule beats the best table
+  (1.614); with it both do (1.54 and 1.55).
+
+**`mirror_window`**: the same trick with hand-wired copy heads showing 2,048 neurons the last 6
+characters, output weights by the delta rule, input weights by mirrored feedback.
+
+| `mirror_window` (seeds 0 / 1 / 2) | test |
+|---|---:|
+| **mirror feedback** | 1.774 / 1.784 / 1.780 (mean **1.779**) |
+| fixed random feedback (seed 0) | 1.804 |
+| exact feedback: plain backprop on this net (seed 0) | 1.773 |
+| input weights frozen (seed 0) | 1.961 |
+
+It beats the untuned 5-gram (1.806), not the tuned one (1.702). Mirrored feedback matches exact
+backprop within noise, so the learning rule is not what holds this net back. What does (width,
+overfitting, the hand-wired window) is untested: a tuned table with the same 6 characters gets 1.633.
+
+*Did not work:* compiling decision trees into neurons (val 1.79 vs 1.81 for suffix cells, so
+counting-only is still far from 1.70), starting the neurons from those trees (diverged or val 1.69),
+hidden dropout (val 1.73). Each one seed, val only, in a standalone prototype.
 
 **How to read it**
 - **test loss**: cross-entropy on held-out Shakespeare, nats per character. Lower is better.
@@ -593,6 +725,8 @@ by an error gradient. Label 🧱 local: the delta rule is the one-layer readout 
 |------|----------|----------|------|
 | `backprop` | ✅ full | The baseline. AdamW. | Rumelhart, Hinton & Williams 1986 |
 | `feedback_alignment` | 🪞 modified | The backward pass sends errors through **fixed random matrices** instead of Wᵀ. Somehow the forward weights learn to "align" with them. | Lillicrap et al. 2016 |
+| `mirror_neurons` 🪞 | 🪞 modified | Backward weights are separate and start random, but get the same Hebbian update as their forward twins, so they drift into alignment without copying. | Kolen & Pollack 1994; Akrout et al. 2019 |
+| `mirror_window` 🪞 | 🪞 modified | Mirrored feedback on one hidden layer of 2,048 neurons that see the last 6 chars through hand-wired copy heads. | + Bengio et al. 2003 |
 | `sign_symmetry` | 🪞 modified | Backward pass through `sign(W)`: the feedback knows the signs of the weights but not their size. | Liao, Leibo & Poggio 2016 |
 | `local_losses` | 🧱 local | Every block gets its own tiny next-char readout and learns greedily. Gradients never cross a block boundary. | Belilovsky et al. 2019; Nøkland & Eidnes 2019 |
 | `forward_forward` | 🧱 local | Hinton's FF for a causal LM: each block learns high "goodness" on real text, low on text with swapped chars. The readout is a probe on top. | Hinton 2022 |

@@ -1,0 +1,245 @@
+{
+ "rule": "mirror_neurons",
+ "tag": "",
+ "autograd": "modified",
+ "blurb": "Separate, random-born backward weights that receive the same Hebbian update as their forward twins, so they drift into alignment without any weight being copied.",
+ "paper": "Kolen & Pollack 1994; Akrout et al. 2019 (weight mirrors)",
+ "hp": {
+  "lr": 0.001,
+  "weight_decay": 0.01,
+  "scale": 1.0,
+  "mirror": true
+ },
+ "test_loss": 1.6376757097244263,
+ "best_val": 1.490768232345581,
+ "best_at_s": 100.07,
+ "best_step": 6903,
+ "init_val": 4.216201114654541,
+ "steps": 20526,
+ "forwards": 20526,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.01,
+   "step": 704,
+   "forwards": 704,
+   "val": 1.9989894509315491
+  },
+  {
+   "t": 20.02,
+   "step": 1405,
+   "forwards": 1405,
+   "val": 1.7186774969100953
+  },
+  {
+   "t": 30.03,
+   "step": 2100,
+   "forwards": 2100,
+   "val": 1.6085161089897155
+  },
+  {
+   "t": 40.03,
+   "step": 2793,
+   "forwards": 2793,
+   "val": 1.5531968235969544
+  },
+  {
+   "t": 50.03,
+   "step": 3486,
+   "forwards": 3486,
+   "val": 1.5342905879020692
+  },
+  {
+   "t": 60.03,
+   "step": 4166,
+   "forwards": 4166,
+   "val": 1.5155731081962585
+  },
+  {
+   "t": 70.04,
+   "step": 4835,
+   "forwards": 4835,
+   "val": 1.5066936254501342
+  },
+  {
+   "t": 80.05,
+   "step": 5529,
+   "forwards": 5529,
+   "val": 1.4984580516815185
+  },
+  {
+   "t": 90.06,
+   "step": 6218,
+   "forwards": 6218,
+   "val": 1.497066581249237
+  },
+  {
+   "t": 100.07,
+   "step": 6903,
+   "forwards": 6903,
+   "val": 1.493734645843506
+  },
+  {
+   "t": 110.08,
+   "step": 7581,
+   "forwards": 7581,
+   "val": 1.5031405448913575
+  },
+  {
+   "t": 120.1,
+   "step": 8269,
+   "forwards": 8269,
+   "val": 1.5126862406730652
+  },
+  {
+   "t": 130.11,
+   "step": 8958,
+   "forwards": 8958,
+   "val": 1.5045788168907166
+  },
+  {
+   "t": 140.12,
+   "step": 9634,
+   "forwards": 9634,
+   "val": 1.5135799527168274
+  },
+  {
+   "t": 150.12,
+   "step": 10322,
+   "forwards": 10322,
+   "val": 1.5303415417671205
+  },
+  {
+   "t": 160.12,
+   "step": 11008,
+   "forwards": 11008,
+   "val": 1.5391631126403809
+  },
+  {
+   "t": 170.13,
+   "step": 11688,
+   "forwards": 11688,
+   "val": 1.5627024173736572
+  },
+  {
+   "t": 180.14,
+   "step": 12364,
+   "forwards": 12364,
+   "val": 1.5643071174621581
+  },
+  {
+   "t": 190.14,
+   "step": 13036,
+   "forwards": 13036,
+   "val": 1.57870352268219
+  },
+  {
+   "t": 200.15,
+   "step": 13727,
+   "forwards": 13727,
+   "val": 1.6017014026641845
+  },
+  {
+   "t": 210.17,
+   "step": 14420,
+   "forwards": 14420,
+   "val": 1.6070727586746216
+  },
+  {
+   "t": 220.17,
+   "step": 15094,
+   "forwards": 15094,
+   "val": 1.6234097123146056
+  },
+  {
+   "t": 230.18,
+   "step": 15763,
+   "forwards": 15763,
+   "val": 1.6357454657554626
+  },
+  {
+   "t": 240.19,
+   "step": 16447,
+   "forwards": 16447,
+   "val": 1.6617169976234436
+  },
+  {
+   "t": 250.2,
+   "step": 17124,
+   "forwards": 17124,
+   "val": 1.6696815729141234
+  },
+  {
+   "t": 260.21,
+   "step": 17795,
+   "forwards": 17795,
+   "val": 1.6826098084449768
+  },
+  {
+   "t": 270.22,
+   "step": 18478,
+   "forwards": 18478,
+   "val": 1.6876619696617126
+  },
+  {
+   "t": 280.23,
+   "step": 19172,
+   "forwards": 19172,
+   "val": 1.7136147379875184
+  },
+  {
+   "t": 290.23,
+   "step": 19852,
+   "forwards": 19852,
+   "val": 1.731290090084076
+  },
+  {
+   "t": 300.01,
+   "step": 20526,
+   "forwards": 20526,
+   "val": 1.7282710194587707
+  }
+ ],
+ "sample": "ROMEO:\nThat mouse have not indeed near of all the strenger\nAs will forget it hath good to his foot.\n\nPRINCE:\nNo your ways and come and forrest-plated to you:\nPotricy in this head--\n\nJULIET:\nBy which she.\n\nQUEEN ELIZABETH:\nAlas, I snow it for thou livest: I am sure\nTo send you to bed, your potuous standing ",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 1.6249945211410521
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 1.5100026607513428
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 1.5660483741760254
+   }
+  ]
+ }
+}

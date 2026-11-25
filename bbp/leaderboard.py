@@ -50,7 +50,7 @@ def table(rows) -> str:
         out.append(
             f"<sub>{r0['params']/1e6:.2f}M-param char GPT ({r0['model']['n_layer']} layers, d={r0['model']['n_embd']}, "
             f"ctx {r0['model']['block_size']}), batch {r0['batch_size']}, TinyShakespeare, {r0['budget_minutes']:g} min of "
-            f"training time per rule on `{r0['device']}`, loss in nats/char. Early stopping: each rule's best checkpoint by val loss is scored on a held-out test split. Each rule's `tuned` knob got a 3-point sweep first.</sub>"
+            f"training time per rule on `{r0['device']}`, loss in nats/char. Early stopping: each rule's best checkpoint by val loss is scored on a held-out test split. Each rule's `tuned` knob got a 3-point sweep first. Rows tagged (reg) add the same regularisation to both rules: compare them with each other, not with the untagged rows or the `vs backprop` column.</sub>"
         )
     return "\n".join(out)
 
