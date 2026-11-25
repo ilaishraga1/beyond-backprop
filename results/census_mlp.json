@@ -1,0 +1,261 @@
+{
+ "rule": "census_mlp",
+ "tag": "",
+ "autograd": "local",
+ "blurb": "census_heads + block-1 MLP trained by direct feedback alignment (output error broadcast through fixed random matrices) so it can learn character conjunctions.",
+ "paper": "N\u00f8kland 2016 (direct feedback alignment) + census_heads (this repo)",
+ "hp": {
+  "lr": 0.001,
+  "heads": 2,
+  "max_offset": 8,
+  "smoothing": 5.0,
+  "beta": 1.0,
+  "prior": "self",
+  "sharpen": 1.0,
+  "attn": "census",
+  "tok_scale": 10.0,
+  "refresh": 20,
+  "feedback": "dfa",
+  "ln_aware": true,
+  "n_mlp": 1,
+  "fc_std": 0.1,
+  "proj_std": 0.02
+ },
+ "test_loss": 1.9542551708221436,
+ "best_val": 1.8364936709403992,
+ "best_at_s": 280.16,
+ "best_step": 29483,
+ "init_val": 4.174386978149414,
+ "steps": 31602,
+ "forwards": 31602,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.174386978149414
+  },
+  {
+   "t": 10.01,
+   "step": 1117,
+   "forwards": 1117,
+   "val": 2.0609779596328734
+  },
+  {
+   "t": 20.01,
+   "step": 2212,
+   "forwards": 2212,
+   "val": 1.9687873125076294
+  },
+  {
+   "t": 30.02,
+   "step": 3311,
+   "forwards": 3311,
+   "val": 1.93743999004364
+  },
+  {
+   "t": 40.02,
+   "step": 4392,
+   "forwards": 4392,
+   "val": 1.916294527053833
+  },
+  {
+   "t": 50.03,
+   "step": 5504,
+   "forwards": 5504,
+   "val": 1.9011129021644593
+  },
+  {
+   "t": 60.04,
+   "step": 6578,
+   "forwards": 6578,
+   "val": 1.89849773645401
+  },
+  {
+   "t": 70.04,
+   "step": 7644,
+   "forwards": 7644,
+   "val": 1.8720536828041077
+  },
+  {
+   "t": 80.04,
+   "step": 8715,
+   "forwards": 8715,
+   "val": 1.881666362285614
+  },
+  {
+   "t": 90.05,
+   "step": 9792,
+   "forwards": 9792,
+   "val": 1.8716398239135743
+  },
+  {
+   "t": 100.05,
+   "step": 10857,
+   "forwards": 10857,
+   "val": 1.8541019797325133
+  },
+  {
+   "t": 110.06,
+   "step": 11955,
+   "forwards": 11955,
+   "val": 1.8616032004356384
+  },
+  {
+   "t": 120.06,
+   "step": 13053,
+   "forwards": 13053,
+   "val": 1.8535449385643006
+  },
+  {
+   "t": 130.07,
+   "step": 14116,
+   "forwards": 14116,
+   "val": 1.8562554597854615
+  },
+  {
+   "t": 140.07,
+   "step": 15191,
+   "forwards": 15191,
+   "val": 1.8570716023445129
+  },
+  {
+   "t": 150.08,
+   "step": 16239,
+   "forwards": 16239,
+   "val": 1.8564134597778321
+  },
+  {
+   "t": 160.08,
+   "step": 17272,
+   "forwards": 17272,
+   "val": 1.8509753108024598
+  },
+  {
+   "t": 170.09,
+   "step": 18256,
+   "forwards": 18256,
+   "val": 1.8491434454917908
+  },
+  {
+   "t": 180.09,
+   "step": 19289,
+   "forwards": 19289,
+   "val": 1.8477985620498658
+  },
+  {
+   "t": 190.1,
+   "step": 20335,
+   "forwards": 20335,
+   "val": 1.8430983781814576
+  },
+  {
+   "t": 200.11,
+   "step": 21392,
+   "forwards": 21392,
+   "val": 1.8518265247344972
+  },
+  {
+   "t": 210.11,
+   "step": 22446,
+   "forwards": 22446,
+   "val": 1.8407217502593993
+  },
+  {
+   "t": 220.12,
+   "step": 23432,
+   "forwards": 23432,
+   "val": 1.8365120768547059
+  },
+  {
+   "t": 230.13,
+   "step": 24435,
+   "forwards": 24435,
+   "val": 1.8454588413238526
+  },
+  {
+   "t": 240.14,
+   "step": 25411,
+   "forwards": 25411,
+   "val": 1.8335383892059327
+  },
+  {
+   "t": 250.14,
+   "step": 26454,
+   "forwards": 26454,
+   "val": 1.8333513498306275
+  },
+  {
+   "t": 260.14,
+   "step": 27428,
+   "forwards": 27428,
+   "val": 1.8385236024856568
+  },
+  {
+   "t": 270.15,
+   "step": 28472,
+   "forwards": 28472,
+   "val": 1.836983335018158
+  },
+  {
+   "t": 280.16,
+   "step": 29483,
+   "forwards": 29483,
+   "val": 1.8291917800903321
+  },
+  {
+   "t": 290.16,
+   "step": 30554,
+   "forwards": 30554,
+   "val": 1.8317100167274476
+  },
+  {
+   "t": 300.0,
+   "step": 31602,
+   "forwards": 31602,
+   "val": 1.8346244812011718
+  }
+ ],
+ "sample": "ROMEO:\nThorerhood her selfeelook iner,\nAnd id I to the My ory with that here hath thin this seembleeath\nsteath, your wake a man:\nWhat thee, nd the fitsed we with to acar I meeto the he connot sweet the man and ented this filk.\nWoen hear you at of me forond in this me thou,\nAs to bed, young on the stop you ",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.001,
+    "factor": 0.3333333333333333,
+    "val_loss": 1.894469678401947
+   },
+   {
+    "lr": 0.003,
+    "factor": 1,
+    "val_loss": 1.8982135725021363
+   },
+   {
+    "lr": 0.009000000000000001,
+    "factor": 3,
+    "val_loss": 1.915363712310791
+   },
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.1111111111111111,
+    "val_loss": 1.9504828453063965
+   }
+  ]
+ }
+}

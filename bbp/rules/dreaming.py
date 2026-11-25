@@ -29,7 +29,7 @@ from . import Rule, register
 @register
 class Dreaming(Rule):
     name = "dreaming"
-    autograd = "none"
+    autograd = "local"  # sampled, but its readout IS the last-layer gradient (same standard as reservoir)
     blurb = "Wake/sleep Hebbian: strengthen what fires on real text, weaken what fires on the model's own dreams. Readout: real-vs-dreamt delta rule."
     paper = "Hinton & Sejnowski 1983 (Boltzmann machines); Crick & Mitchison 1983 (we dream to forget); Hinton 2022 (FF with model negatives)"
     defaults = dict(lr=3e-4, weight_decay=0.01, temperature=1.0, dream_hidden=True)

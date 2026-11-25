@@ -22,23 +22,26 @@ is *by how much*, and *why*.
 | 1 | `backprop` | ✅ full | 1.629 | +0.000 | yes | 1.0 min | 23,871 | 23,871 | lr=0.00067 |
 | 2 | `sign_symmetry` | 🪞 modified | 1.675 | +0.047 | yes | 2.0 min | 20,864 | 20,864 | lr=0.001 |
 | 3 | `local_losses` | 🧱 local | 1.743 | +0.114 | yes | 2.7 min | 18,457 | 18,457 | lr=0.002 |
-| 4 | `feedback_alignment` | 🪞 modified | 1.911 | +0.282 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
-| 5 | `census_heads` | 🧱 local | 2.369 | +0.740 | yes | 0.7 min | 31,549 | 31,549 | lr=0.001 |
-| 6 | `census_heads_4` | 🧱 local | 2.408 | +0.780 | yes | 1.5 min | 34,110 | 34,110 | lr=0.001 |
-| 7 | `instinct_rats` | 🚫 none | 2.498 | +0.869 | yes | 0.8 min | 16,849 | 33,598 | lr=3.7e-06 |
-| 8 | `wire_together` | 🚫 none | 2.500 | +0.871 | yes | 0.8 min | 65,165 | 65,165 | smoothing=2.7 |
-| 9 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
-| 10 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.982 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
-| 11 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
-| 12 | `lab_rats_future` | 🚫 none | 2.660 | +1.032 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
-| 13 | `lab_rats_solo` | 🚫 none | 2.692 | +1.064 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
-| 14 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
-| 15 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
-| 16 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
-| 17 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
-| 18 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
-| 19 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
-| 20 | `dreaming` | 🚫 none | 3.331 | +1.702 | no | 3.0 min | 21,607 | 43,214 | lr=0.0003 |
+| 4 | `grandmother_cells` | 🚫 none | 1.899 | +0.270 | yes | 0.3 min | 68,804 | 68,804 | kappa=12 |
+| 5 | `natural_selection` | 🧱 local | 1.905 | +0.277 | yes | 1.2 min | 53,307 | 53,307 | lr=0.001 |
+| 6 | `feedback_alignment` | 🪞 modified | 1.911 | +0.282 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
+| 7 | `census_mlp` | 🧱 local | 1.954 | +0.326 | yes | 4.7 min | 31,602 | 31,602 | lr=0.001 |
+| 8 | `census_heads` | 🧱 local | 2.369 | +0.740 | yes | 0.7 min | 31,549 | 31,549 | lr=0.001 |
+| 9 | `census_heads_4` | 🧱 local | 2.408 | +0.780 | yes | 1.5 min | 34,110 | 34,110 | lr=0.001 |
+| 10 | `instinct_rats` | 🚫 none | 2.498 | +0.869 | yes | 0.8 min | 16,849 | 33,598 | lr=3.7e-06 |
+| 11 | `wire_together` | 🚫 none | 2.500 | +0.871 | yes | 0.8 min | 65,165 | 65,165 | smoothing=2.7 |
+| 12 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
+| 13 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.982 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
+| 14 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
+| 15 | `lab_rats_future` | 🚫 none | 2.660 | +1.032 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
+| 16 | `lab_rats_solo` | 🚫 none | 2.692 | +1.064 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
+| 17 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
+| 18 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
+| 19 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
+| 20 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
+| 21 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
+| 22 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
+| 23 | `dreaming` | 🧱 local | 3.331 | +1.702 | no | 3.0 min | 21,607 | 43,214 | lr=0.0003 |
 | | *unigram (letter frequencies only)* | | 3.309 | | | | | | |
 | | *untrained / uniform guess* | | 4.216 | | | | | | |
 
@@ -96,6 +99,40 @@ Whom on not say that of me for my in
 This medicitizens. Boy! Fare not to the 
 ```
 
+**grandmother_cells** (test 1.899)
+
+```
+ROMEO:
+That more it when?
+
+WARWICKINGHAMILLA:
+I to the Mespeak you for bear? hath thin to have many him; that of to his perman.
+
+COMILLA:
+A not my father we why marraight is hither.
+
+DUCHI king.
+
+FRIAR LAUREY:
+To fair in mily mood not say, if to queen I much let's me thou,
+As to bed, your for the st
+```
+
+**natural_selection** (test 1.905)
+
+```
+ROMEO:
+Thy, my sever:
+Hell me Hear ears!
+
+LADUMBAle feere courself that here hath thin to blooke of him; that of to yieldeen herself
+And trunkn my father well you for mindious the duke contring.
+
+FRRENCESTER:
+There it is milk moot, hearty, if the light of with the me thou,
+As to bed, then to make ha
+```
+
 **feedback_alignment** (test 1.911)
 
 ```
@@ -110,6 +147,18 @@ LENRLEY:
 I not sweear strue:
 I knew farew dam, you of not say, if come defence,
 And the me here, my pown, to the at to the 
+```
+
+**census_mlp** (test 1.954)
+
+```
+ROMEO:
+Thorerhood her selfeelook iner,
+And id I to the My ory with that here hath thin this seembleeath
+steath, your wake a man:
+What thee, nd the fitsed we with to acar I meeto the he connot sweet the man and ented this filk.
+Woen hear you at of me forond in this me thou,
+As to bed, young on the st
 ```
 
 **census_heads** (test 2.369)
@@ -343,6 +392,16 @@ bS yteoheoEngsr  t
   calls autograd, but its Q/K update is the chain rule hand-written inside one layer, so it is
   🧱 local. It was first published here as 🚫 none; that was wrong, and counting
   is still the bar for the 🚫 bracket.
+- **👵 The bar moved, by counting more.** `grandmother_cells` (🚫 none) scores **1.900** over 3
+  seeds by giving each MLP neuron one string to remember. It is n-gram counting compiled into
+  the weights, with hand-wired attention, so it is a better *counter*, not a better learner.
+- **🧬 Neurons that die and breed work; being choosy about where they are born does not obviously
+  help.** `natural_selection` (🧱 local) scores **1.896** over 3 seeds. Killing the *useless* cells
+  matters a lot (random deaths: 2.068). Births at surprising places: 1.896 vs 1.902 at random
+  places, which is inside the noise.
+- **A plain 5-gram table still beats most of this board.** Backoff tables score 2.504 / 2.113 /
+  1.865 / 1.782 on test for 2- to 5-grams (`scripts/ngram_reference.py`, smoothing not tuned).
+  Only backprop, sign symmetry and local losses beat the 5-gram.
 
 ### 🐀 Lab rats lab notebook: three attempted fixes
 
@@ -395,6 +454,7 @@ What the gradient probes showed along the way (cosine of the estimate with the t
   frequencies, within the first 10 seconds, and never recovers. Contrasting real text
   against the model's own early dreams (≈ random letters) apparently teaches the features
   "is this real text?" and nothing about *which* character comes next.
+  (Relabelled 🚫 → 🧱: its readout is the delta rule, held to the same standard as `reservoir`.)
 
 ### 🔎 Census heads: training attention with a layer-local rule
 
@@ -420,15 +480,92 @@ What the gradient probes showed along the way (cosine of the estimate with the t
 **Corrections to the first published version of this section (commit 0e0ded8):**
 - It was labelled 🚫 none. It is 🧱 local: the guard only catches autograd, and this update is the
   chain rule hand-written inside one attention layer.
-- It said the self-prior was essential. A uniform prior gives blurrier attention but the same loss
-  (val 2.339 / test 2.370 in one 1-minute run, vs 2.339 / 2.369 in 5 minutes). Sharper-looking
-  attention did not mean a better model. A seeded comparison is still to be run.
+- It said the self-prior was essential. It is not: over 3 seeds and 5 minutes each, a uniform prior
+  scores 2.368 / 2.367 / 2.366, the self-prior 2.369 / 2.368 / 2.371. Sharper-looking attention did
+  not mean a better model.
 - It said 29% of attention fell beyond the census horizon. That number counted everything more
   than 5 back; the horizon is 8.
 - It explained the gap to the hand-wired heads as "blending", the 4-head result as cramped codes,
   and the early plateau as a capacity limit. Those are untested guesses.
 - Hand-wired heads are a reference, not a proven upper bound.
 - Value codes are fixed across seeds, so the spread between seeds understates the real variance.
+
+### 🧠 Census MLP: census heads plus a hidden layer taught by random feedback
+
+`census_heads` can only *add up* evidence from the current and fetched characters. `census_mlp` adds
+one MLP trained by direct feedback alignment (the output error, broadcast through fixed random
+matrices). Label: 🧱 local, and that is a judgement call. Nothing is backpropagated from block to
+block, but a global error is broadcast, and it goes through `ln_f`'s hand-written Jacobian.
+
+| variant (5 min) | seed 0 | seed 1 | seed 2 | mean |
+|---|---:|---:|---:|---:|
+| **census_mlp** (2 census heads + 1 DFA MLP) | 1.954 | 1.965 | 1.964 | **1.961** |
+| heads frozen at random init | 2.440 | 2.439 | | 2.440 |
+| heads hand-wired to 1 and 2 back | 1.871 | | | |
+| MLP frozen (heads and readout only) | 2.363 | | | |
+| uniform prior instead of self-prior | 2.071 | | | |
+| no `ln_f` correction on the feedback | 2.230 | | | |
+| exact feedback instead of random (*diagnostic*, hand-written backprop) | 1.937 | | | |
+| 4 heads instead of 2 | 1.976 | | | |
+
+- The MLP is what takes `census_heads` from 2.369 to about 1.96, and *where the heads look* matters
+  as much as the MLP. Both parts are needed.
+- Replacing random feedback with the exact error gains only 0.017 on test (one seed), though val
+  improves more, 1.837 to 1.775. So how much random feedback costs is unsettled.
+- The uniform prior hurts here (2.071 vs 1.954, one seed) though it makes no difference to
+  `census_heads`. Do not lean on one seed.
+- 2-minute runs: 1 / 2 / 4 stacked MLPs score 1.966 / 1.984 / 2.024. Deeper did not help.
+- It loses to `local_losses` (1.743). It also trails `natural_selection` (1.896), but that rule is
+  given hand-wired copy heads; with its own heads hand-wired, `census_mlp` gets 1.871 (one seed).
+
+### 👵 Grandmother cells: one neuron per memory
+
+Head h is **hand-wired** to copy the character h+1 back. Each MLP neuron is an AND-gate for one
+recent string ("the ", "ROME"). Counting decides which strings get one of 2,048 neurons (most
+log-likelihood gained over the one-char-shorter string), and each neuron adds
+`log P(next | string) − log P(next | shorter string)`, so the cells along a suffix chain telescope.
+No gradient, no error signal. It counts for 2,000 batches, then stops learning.
+
+| | test |
+|---|---:|
+| **grandmother_cells** (seeds 0 / 1 / 2) | 1.899 / 1.899 / 1.903 |
+| bigram table (`wire_together` is this) | 2.504 |
+| trigram table | 2.113 |
+| 4-gram table (11,228 contexts) | 1.865 |
+| 5-gram table (48,539 contexts) | 1.782 |
+
+- It sits between the 3- and 4-gram tables because it has 2,048 neurons, not 11,228 contexts. This
+  is compression of a table, and a table with no size limit does better.
+- `kappa=12` was picked by the same 1-minute sweep every rule gets.
+- The smoothing constant assumes a corpus of about 1M characters.
+- Cells misfire on the first 4 positions of a window, where the copied characters do not exist yet.
+  Known, not fixed, small effect on the average.
+- Seed changes the batches counted, not the wiring, so the spread understates the real variance.
+
+### 🧬 Natural selection: neurons that die and breed
+
+Starts with 65 single-character neurons. Output weights follow the delta rule. Every 50 steps the
+5% of cells that move the logits least are killed, and mutants of living cells (one more character
+constraint, or one fewer) take their places. Which strings the hidden neurons detect is never set
+by an error gradient. Label 🧱 local: the delta rule is the one-layer readout gradient.
+
+| variant | seed 0 | seed 1 | seed 2 | mean |
+|---|---:|---:|---:|---:|
+| **natural_selection** (surprise births, useless cells die) | 1.905 | 1.903 | 1.879 | **1.896** |
+| births at random places | 1.910 | 1.901 | 1.895 | 1.902 |
+| **deaths at random** | 2.072 | 2.063 | 2.068 | 2.068 |
+| no evolution (2 min; 65 fixed cells, so about a bigram) | 2.499 | | | |
+| start from a full `grandmother_cells` network | 1.931 | | | |
+
+- **Selection is doing real work:** random deaths cost 0.17. Evolution takes it from 2.50 to 1.90.
+- **The "born where it is surprised" idea is not established.** The gap to random births (0.006) is
+  inside the seed-to-seed spread (0.03), and the sign flips on seed 1.
+- Starting from a counted network did not help: test 1.931 (val 1.799), one seed, vs test 1.905
+  (val 1.804) from 65 single characters.
+- `gen_every`, `cull` and the surprise switch were chosen on val in a small 1-minute seed-0 sweep;
+  `lr` in the standard sweep. The ablations reuse those settings without their own sweep.
+- Like `grandmother_cells` it uses hand-wired copy heads, and the plain 4-gram table (1.865) beats
+  it. It reaches the same loss as counting by trial and error, not a better one.
 
 **How to read it**
 - **test loss**: cross-entropy on held-out Shakespeare, nats per character. Lower is better.
@@ -468,8 +605,11 @@ What the gradient probes showed along the way (cosine of the estimate with the t
 | `lab_rats_cycle` / `_solo` / `_future` 🐀 | 🚫 none | The other attempted fixes: one block per step, every block separately, cross-token credit for attention. See the lab notebook above. | |
 | `wire_together` 📊 | 🚫 none | No optimisation: count which char follows which, then compile the counts into the weights in closed form (one-hot embeddings, silenced blocks, pseudo-inverse readout). An exact bigram in a transformer costume. | Hebb 1949; Shannon 1948 |
 | `instinct_rats` | 🚫 none | Born wired as that bigram, then `lab_rats_maze` keeps learning on top. | this repo |
-| `dreaming` 💤 | 🚫 none | Wake/sleep Hebbian: strengthen what fires on real text, weaken what fires on the model's own dreams; readout learns real-vs-dreamt next char (the delta rule). | Hinton & Sejnowski 1983; Crick & Mitchison 1983; Hinton 2022 |
+| `dreaming` 💤 | 🧱 local | Wake/sleep Hebbian: strengthen what fires on real text, weaken what fires on the model's own dreams; readout learns real-vs-dreamt next char (the delta rule). | Hinton & Sejnowski 1983; Crick & Mitchison 1983; Hinton 2022 |
 | `census_heads` / `_4` 🔎 | 🧱 local | **Attention taught by a census.** Running letter-triple counts say which earlier char best explains the next one (E-step); each head's scores move toward that posterior (M-step). Wired stream, fixed random value codes, delta-rule readout. Hand-written, layer-local gradients. | Dempster et al. 1977 (EM); Liu et al. 2016 (supervised attention) |
+| `census_mlp` 🧠 | 🧱 local | `census_heads` plus one MLP trained by direct feedback alignment, so it can learn character conjunctions. | Nøkland 2016 |
+| `grandmother_cells` 👵 | 🚫 none | One neuron per memory: each MLP cell fires for one recent string, chosen and wired by counting. Copy heads are hand-wired. | Lettvin's grandmother cell; Cleary & Witten 1984 (PPM); Willems et al. 1995 |
+| `natural_selection` 🧬 | 🧱 local | Cells that do the least die, mutants of the living are born, output weights follow the delta rule. Hand-wired copy heads. | Edelman 1987; Fahlman & Lebiere 1990; Widrow & Hoff 1960 |
 | `hill_climb` | 🚫 none | Jiggle every weight at random; keep it if the loss dropped. The dumbest possible learner, as a floor. | Rechenberg 1973 |
 
 ## Quickstart
@@ -523,7 +663,6 @@ open a PR with your result JSON.
 - **Predictive coding**: every layer predicts the one below; learning = minimising local prediction errors (Rao & Ballard 1999; Whittington & Bogacz 2017)
 - **Target propagation / difference target prop**: learned inverses send *targets*, not gradients, down the network (Lee et al. 2015)
 - **Equilibrium propagation**: nudge the output, let the network settle, learn from the difference between the two equilibria (Scellier & Bengio 2017)
-- **Direct feedback alignment**: random projections of the output error go straight to every layer (Nøkland 2016)
 - **PEPITA**: a second forward pass with the error added to the *input* (Dellaferrera & Kreiman 2022)
 - **Synthetic gradients**: each layer learns to *predict* its own gradient (Jaderberg et al. 2017)
 - **NoProp**: each block learns to denoise a label embedding, diffusion style, with no forward or backward propagation through the stack (Li, Teh & Pascanu 2025)

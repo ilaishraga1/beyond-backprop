@@ -207,3 +207,104 @@ class CensusHeadsFour(CensusHeads):
     name = "census_heads_4"
     blurb = "census_heads with all 4 heads fetching (fewer stream dims each)."
     defaults = dict(CensusHeads.defaults, heads=4)
+
+
+def _gelu_grad(a):
+    """d/da of exact (erf) GELU."""
+    return 0.5 * (1.0 + torch.erf(a / math.sqrt(2.0))) + a * torch.exp(-0.5 * a * a) / math.sqrt(2.0 * math.pi)
+
+
+@register
+class CensusMLP(CensusHeads):
+    """census_heads + an MLP that learns to combine characters, by direct feedback alignment.
+
+    census_heads can only *add up* evidence: the readout is linear in "current char" and
+    "fetched char", so it can't express "t then h -> e" any better than "t -> ?" plus "h -> ?".
+    A trigram needs conjunctions, and conjunctions need a hidden layer.
+
+    The MLP(s) (blocks 0.. n_mlp-1) read the stream (current char + what the heads fetched) and writes back
+    into it. It learns with DFA: each token's output error (p - onehot(y)) is broadcast to
+    the MLP through FIXED RANDOM matrices, one for its hidden layer and one for its output,
+    and each layer does error (x) its own input. No weight transport. With `ln_aware` the random
+    output error is also passed through ln_f's Jacobian, a small hand-written backward step
+    through one parameter-free normalisation, so this is "local", not "none". The readout learns to align with the random feedback, not the other way round.
+
+    `feedback` switches the ablation:
+      "dfa"    - the rule (fixed random feedback)
+      "frozen" - random MLP never trained (readout + heads only)
+      "exact"  - DIAGNOSTIC ONLY: the true error for the MLP, hand-computed back through
+                 lm_head and ln_f (weight transport). Shows what DFA leaves on the table.
+    """
+    name = "census_mlp"
+    blurb = "census_heads + block-1 MLP trained by direct feedback alignment (output error broadcast through fixed random matrices) so it can learn character conjunctions."
+    paper = "Nøkland 2016 (direct feedback alignment) + census_heads (this repo)"
+    defaults = dict(CensusHeads.defaults, feedback="dfa", ln_aware=True, n_mlp=1, fc_std=0.1, proj_std=0.02)
+
+    def __init__(self, model, **hp):
+        super().__init__(model, **hp)
+        dev = model.lm_head.weight.device
+        g = torch.Generator().manual_seed(4321)
+        self.mlps = [model.blocks[i].mlp for i in range(min(int(self.hp["n_mlp"]), len(model.blocks)))]
+        self.B = []
+        for j, mlp in enumerate(self.mlps):
+            with torch.no_grad():
+                mlp.fc.weight.copy_(torch.randn(mlp.fc.weight.shape, generator=g).to(dev) * self.hp["fc_std"])
+                mlp.fc.bias.zero_()
+                if self.hp["feedback"] == "frozen":
+                    mlp.proj.weight.copy_(torch.randn(mlp.proj.weight.shape, generator=g).to(dev) * self.hp["proj_std"])
+            Hd = mlp.fc.out_features
+            self.B.append(((torch.randn(self.V, Hd, generator=g) / math.sqrt(self.V)).to(dev),
+                           (torch.randn(self.V, self.C, generator=g) / math.sqrt(self.V)).to(dev)))
+            mlp.fc.register_forward_hook(lambda m, i, o, j=j: self.caught.update({("u", j): i[0], ("a", j): o}))
+            if self.hp["feedback"] != "frozen":
+                self.opt.add_param_group({"params": list(mlp.parameters())})
+        model.ln_f.register_forward_hook(lambda m, i, o: self.caught.__setitem__("s", i[0]))
+
+    def _ln_back(self, g, x, ln):
+        """Hand-written LayerNorm backward. ln=None: just the normalisation (no learned weights)."""
+        eps = ln.eps if ln is not None else 1e-5
+        if ln is not None:
+            g = g * ln.weight
+        mu = x.mean(-1, keepdim=True)
+        sd = torch.sqrt(x.var(-1, unbiased=False, keepdim=True) + eps)
+        xh = (x - mu) / sd
+        return (g - g.mean(-1, keepdim=True) - xh * (g * xh).mean(-1, keepdim=True)) / sd
+
+    @torch.no_grad()
+    def step(self, x, y):
+        self._count(x, y)
+        if self.k % self.hp["refresh"] == 0:
+            self._refresh()
+        self.k += 1
+        logits, loss = self.model(x, y)
+        f = self.caught["f"]
+        err = (logits.softmax(-1) - F.one_hot(y, self.V).float()) / x.numel()
+        self.model.lm_head.weight.grad = torch.einsum("btv,btc->vc", err, f)
+        if self.hp["attn"] == "census":
+            self._teach_heads(x, y)
+        fb = self.hp["feedback"]
+        if fb != "frozen":
+            e_exact = None
+            for j in reversed(range(len(self.mlps))):
+                mlp, (B_hid, B_out) = self.mlps[j], self.B[j]
+                u, a = self.caught[("u", j)], self.caught[("a", j)]
+                h = F.gelu(a)
+                if fb == "dfa":
+                    e_out = err @ B_out
+                    if self.hp["ln_aware"]:  # LayerNorm ignores the size of the stream, so drop the "grow" part
+                        e_out = self._ln_back(e_out, self.caught["s"], None)
+                    e_hid = (err @ B_hid) * _gelu_grad(a)
+                elif fb == "exact":  # residual stream: every MLP sees the same stream error (diagnostic, 1 MLP exact)
+                    if e_exact is None:
+                        e_exact = self._ln_back(err @ self.model.lm_head.weight, self.caught["s"], self.model.ln_f)
+                    e_out = e_exact
+                    e_hid = (e_out @ mlp.proj.weight) * _gelu_grad(a)
+                else:
+                    raise ValueError(fb)
+                mlp.proj.weight.grad = torch.einsum("btc,bth->ch", e_out, h)
+                mlp.proj.bias.grad = e_out.sum((0, 1))
+                mlp.fc.weight.grad = torch.einsum("bth,btc->hc", e_hid, u)
+                mlp.fc.bias.grad = e_hid.sum((0, 1))
+        self.opt.step()
+        self.forwards += 1
+        return loss.item()

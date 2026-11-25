@@ -1,0 +1,249 @@
+{
+ "rule": "grandmother_cells",
+ "tag": "",
+ "autograd": "none",
+ "blurb": "One neuron per memory: each MLP neuron fires for one specific recent string, hired by counting, wired to add what that string says beyond the shorter one. No gradients, no error signal. Copy heads are hand-wired.",
+ "paper": "Lettvin's grandmother cell; Cleary & Witten 1984 (PPM); Willems et al. 1995 (context trees)",
+ "hp": {
+  "kappa": 12.0,
+  "count_steps": 2000,
+  "max_len": 9
+ },
+ "test_loss": 1.8987056612968445,
+ "best_val": 1.8112484788894654,
+ "best_at_s": 20.0,
+ "best_step": 4115,
+ "init_val": 4.174386978149414,
+ "steps": 68804,
+ "forwards": 68804,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.174386978149414
+  },
+  {
+   "t": 10.0,
+   "step": 1998,
+   "forwards": 1998,
+   "val": 1.8136197447776794
+  },
+  {
+   "t": 20.0,
+   "step": 4115,
+   "forwards": 4115,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 30.01,
+   "step": 6451,
+   "forwards": 6451,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 40.01,
+   "step": 8790,
+   "forwards": 8790,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 50.01,
+   "step": 11083,
+   "forwards": 11083,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 60.02,
+   "step": 13357,
+   "forwards": 13357,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 70.02,
+   "step": 15653,
+   "forwards": 15653,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 80.02,
+   "step": 17954,
+   "forwards": 17954,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 90.02,
+   "step": 20266,
+   "forwards": 20266,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 100.02,
+   "step": 22589,
+   "forwards": 22589,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 110.02,
+   "step": 24893,
+   "forwards": 24893,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 120.03,
+   "step": 27186,
+   "forwards": 27186,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 130.03,
+   "step": 29491,
+   "forwards": 29491,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 140.03,
+   "step": 31815,
+   "forwards": 31815,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 150.03,
+   "step": 34141,
+   "forwards": 34141,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 160.04,
+   "step": 36461,
+   "forwards": 36461,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 170.04,
+   "step": 38758,
+   "forwards": 38758,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 180.04,
+   "step": 41062,
+   "forwards": 41062,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 190.04,
+   "step": 43384,
+   "forwards": 43384,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 200.05,
+   "step": 45712,
+   "forwards": 45712,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 210.05,
+   "step": 48038,
+   "forwards": 48038,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 220.05,
+   "step": 50339,
+   "forwards": 50339,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 230.06,
+   "step": 52637,
+   "forwards": 52637,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 240.06,
+   "step": 54954,
+   "forwards": 54954,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 250.06,
+   "step": 57273,
+   "forwards": 57273,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 260.06,
+   "step": 59622,
+   "forwards": 59622,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 270.07,
+   "step": 61928,
+   "forwards": 61928,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 280.07,
+   "step": 64222,
+   "forwards": 64222,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 290.07,
+   "step": 66525,
+   "forwards": 66525,
+   "val": 1.810025191307068
+  },
+  {
+   "t": 300.0,
+   "step": 68804,
+   "forwards": 68804,
+   "val": 1.810025191307068
+  }
+ ],
+ "sample": "ROMEO:\nThat more it when?\n\nWARWICKINGHAMILLA:\nI to the Mespeak you for bear? hath thin to have many him; that of to his perman.\n\nCOMILLA:\nA not my father we why marraight is hither.\n\nDUCHI king.\n\nFRIAR LAUREY:\nTo fair in mily mood not say, if to queen I much let's me thou,\nAs to bed, your for the stand mar",
+ "sweep": {
+  "key": "kappa",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "kappa": 1.3333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 1.829499397277832
+   },
+   {
+    "kappa": 4.0,
+    "factor": 1,
+    "val_loss": 1.8185766530036926
+   },
+   {
+    "kappa": 12.0,
+    "factor": 3,
+    "val_loss": 1.8112484788894654
+   },
+   {
+    "kappa": 36.0,
+    "factor": 9,
+    "val_loss": 1.813864941596985
+   }
+  ]
+ }
+}
