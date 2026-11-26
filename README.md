@@ -814,6 +814,26 @@ fit in a 0.83M-parameter model. So let the table *teach* the network instead.
 - **Unreliable backward synapses in `mirror_neurons`**: fresh noise on the feedback weights at
   every step (0.5 × their std) lowers val from 1.493 to 1.476 (2 min, seed 0). Twice the noise
   gives 1.600; dropping 30% or 60% of feedback synapses gives 1.503 and 1.662. Not taken further.
+- **A screening split that behaves like test** (`bbp/proxy.py`). Hold out *Richard II* from the
+  middle of train (24 speakers, only 4 seen elsewhere in train), train on the rest and pick
+  checkpoints on it. Real val and test stay untouched. Backprop + teacher's seed spread there is
+  ±0.003 (1.455 / 1.460 / 1.454), tighter than test's ±0.01.
+- **More credit rules, screened on that split** (all with the counting teacher, 4 min, seed 0;
+  backprop 1.456):
+
+  | rule | proxy loss |
+  |---|---:|
+  | `noisy_backprop`: error jittered at every block boundary, sigma 0.5 / 1.0 | 1.456 / 1.469 |
+  | low-rank feedback: error sent back only through each W's top 16 / 48 directions | 1.594 / 1.472 |
+  | `winner_credit`: only the k most driven MLP neurons per token get error, k = 64 / 192 | 1.788 / 1.505 |
+  | `sam`, rho 0.15 / 0.3 / 0.6 | **1.449** / 1.456 / 1.581 |
+  | mirror-credit SAM (sharpness-aware, no weight transport), lr 1e-3 / 2e-3 | 1.454 / 1.453 |
+
+  Structure (low rank, winners only) costs a lot. Noise and sharpness are worth at most 0.007.
+- **The two best ones on test, with the teacher:** `sam` over 6 seeds **1.578** vs backprop
+  **1.583**. It wins 4 of 6 seed pairs, but paired t ≈ −0.7, so it is not a win. Mirror-credit SAM,
+  3 seeds: 1.586 / 1.579 / 1.597 (**1.587**) vs backprop's 1.589 / 1.586 / 1.580 on the same seeds.
+  Resolving a 0.006 gap at this seed spread would take about 40 seed pairs.
 - **A faster mirror.** The feedback weights now get their update in place instead of from a second
   AdamW. It is the same update (a test checks it matches to 1e-6), but mirror is still about 12%
   slower per step than backprop, because of its custom linear layer.
@@ -851,6 +871,8 @@ way, 1.560 vs 1.567, while the 3-seed means go backprop's way, 1.584 vs 1.553.)
 | `taught_mirror` 📚 | 🪞 modified | A smoothed 9-gram table, built by counting the batches it sees (leave-one-out, no gradients), teaches a `mirror_neurons` student: 30% of the loss is the table's distribution. | Kolen & Pollack 1994; Witten & Bell 1991; Hinton et al. 2015 |
 | `sam` | 🪞 modified | Sharpness-aware: each update is the gradient taken a small step uphill, which steers toward wide minima. Two backward passes. | Foret et al. 2021 |
 | `backdrop` | 🪞 modified | Backprop whose error is dropped for a random fraction of tokens at every block boundary on the way down; the forward pass is untouched. | Golkar & Cranmer 2018 |
+| `noisy_backprop` | 🪞 modified | Backprop whose error gets fresh noise every time it crosses a block boundary on the way down. | gradient-noise injection (Neelakantan et al. 2015) |
+| `winner_credit` | 🪞 modified | Backprop where only the k most driven hidden neurons in each MLP get any error. | k-winners-take-all |
 | `mirror_window` 🪞 | 🪞 modified | Mirrored feedback on one hidden layer of 2,048 neurons that see the last 6 chars through hand-wired copy heads. | + Bengio et al. 2003 |
 | `sign_symmetry` | 🪞 modified | Backward pass through `sign(W)`: the feedback knows the signs of the weights but not their size. | Liao, Leibo & Poggio 2016 |
 | `local_losses` | 🧱 local | Every block gets its own tiny next-char readout and learns greedily. Gradients never cross a block boundary. | Belilovsky et al. 2019; Nøkland & Eidnes 2019 |

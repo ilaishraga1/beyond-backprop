@@ -213,3 +213,16 @@ def test_kneser_ney_teacher_is_a_distribution():
     for loo in (True, False):
         p = T(x, y, loo=loo)
         assert (p >= 0).all() and torch.allclose(p.sum(-1), torch.ones(x.shape), atol=1e-5)
+
+
+def test_proxy_split_holds_out_a_play_and_never_touches_val_or_test():
+    import bbp.proxy as proxy
+    from bbp.data import DATA_DIR, CharData
+    if not (DATA_DIR / "tinyshakespeare.txt").exists():
+        pytest.skip("needs the dataset")
+    real = CharData(16, "cpu")
+    p = proxy.ProxyData(16, "cpu")
+    n = sum(len(v) for v in real.splits.values())
+    assert len(p.splits["train"]) + len(p.splits["val"]) == len(real.splits["train"])
+    lo = int(n * proxy.LO)
+    assert torch.equal(p.splits["val"][:100], real.splits["train"][lo:lo + 100])

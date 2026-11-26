@@ -28,7 +28,7 @@ class MirrorNeurons(Rule):
     autograd = "modified"
     blurb = "Separate, random-born backward weights that receive the same Hebbian update as their forward twins, so they drift into alignment without any weight being copied."
     paper = "Kolen & Pollack 1994; Akrout et al. 2019 (weight mirrors)"
-    defaults = dict(lr=1e-3, weight_decay=0.01, scale=1.0, mirror=True, half=0, noise=0.0, bdrop=0.0, fnoise=0.0, fdrop=0.0, born="random")
+    defaults = dict(lr=1e-3, weight_decay=0.01, scale=1.0, mirror=True, half=0, noise=0.0, bdrop=0.0, fnoise=0.0, fdrop=0.0, born="random", frank=0, frank_every=25, rho=0.0)
 
     def __init__(self, model, **hp):
         super().__init__(model, **hp)
@@ -46,18 +46,39 @@ class MirrorNeurons(Rule):
 
     def step(self, x, y):
         x0, x = x, regularise(self, [self.opt], x)
+        if self.hp["frank"]:  # optional: feedback = the forward weights cut to their top-k directions
+            self._k = getattr(self, "_k", -1) + 1
+            if self._k % int(self.hp["frank_every"]) == 0:
+                self._lowrank(int(self.hp["frank"]))
         jolt = self._jolt()  # optional: unreliable backward synapses for this one step (B is only read going back)
         xa, ya = add_dreams(self, x, y)  # optional dreamed text, off by default
+        nudge = None
+        if self.hp["rho"]:  # optional sharpness-aware step, taken with mirror credit (no weight transport)
+            T = getattr(self, "teacher", None)
+            if not self.hp.get("teach") or (T is not None and T.ready):  # wait for the table if taught
+                logits, l0 = self.model(xa, ya)
+                l0 = teach(self, x0, y, logits, l0)
+                self.opt.zero_grad(set_to_none=True)
+                l0.backward()
+                with torch.no_grad():
+                    ps = [p for p in self.model.parameters() if p.grad is not None]
+                    g = [p.grad for p in ps]
+                    norm = torch.linalg.vector_norm(torch.stack([torch.linalg.vector_norm(t) for t in g]))
+                    nudge = (ps, torch._foreach_mul(g, (self.hp["rho"] / (norm + 1e-12)).item()))
+                    torch._foreach_add_(ps, nudge[1])
+                self.forwards += 1
         logits, loss = self.model(xa, ya)
         loss = teach(self, x0, y, logits, loss)  # optional counting teacher, off by default
         self.opt.zero_grad(set_to_none=True)
         loss.backward()
         with torch.no_grad():
+            if nudge is not None:
+                torch._foreach_sub_(nudge[0], nudge[1])
             if jolt is not None:
                 torch._foreach_sub_(self.B, jolt)
             before = torch._foreach_mul(self.W, 1.0) if self.hp["mirror"] else None
             self.opt.step()
-            if self.hp["mirror"]:
+            if self.hp["mirror"] and not self.hp["frank"]:
                 # Each backward weight gets exactly the AdamW update its forward twin got
                 # (same gradient -> same Adam moments -> same step), with its own decay:
                 #   B <- B(1 - lr*wd) - lr*u  ==  B + dW - lr*wd*(B - W_before)
@@ -67,6 +88,12 @@ class MirrorNeurons(Rule):
                 torch._foreach_add_(self.B, gap, alpha=-lr_wd)
         self.forwards += 1
         return loss.item()
+
+    @torch.no_grad()
+    def _lowrank(self, k):
+        for w, b in zip(self.W, self.B):
+            U, S, Vh = torch.linalg.svd(w.detach().float().cpu(), full_matrices=False)
+            b.copy_(((U[:, :k] * S[:k]) @ Vh[:k]).to(b.device))
 
     @torch.no_grad()
     def _jolt(self):
