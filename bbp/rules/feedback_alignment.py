@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 
 from . import Rule, register
+from ._teacher import teach
 
 
 class _FALinearFn(torch.autograd.Function):
@@ -55,7 +56,7 @@ def swap_linears(module: nn.Module, mode: str, scale: float):
 class _FABase(Rule):
     autograd = "modified"
     mode = "random"
-    defaults = dict(lr=1e-3, weight_decay=0.01, scale=1.0)
+    defaults = dict(lr=1e-3, weight_decay=0.01, scale=1.0, teach=0.0)
 
     def __init__(self, model, **hp):
         super().__init__(model, **hp)
@@ -63,7 +64,8 @@ class _FABase(Rule):
         self.opt = torch.optim.AdamW(model.parameters(), lr=self.hp["lr"], weight_decay=self.hp["weight_decay"])
 
     def step(self, x, y):
-        _, loss = self.model(x, y)
+        logits, loss = self.model(x, y)
+        loss = teach(self, x, y, logits, loss)  # optional counting teacher, off by default
         self.opt.zero_grad(set_to_none=True)
         loss.backward()
         self.opt.step()

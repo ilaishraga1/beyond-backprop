@@ -6,15 +6,17 @@
  "paper": "Rumelhart, Hinton & Williams 1986",
  "hp": {
   "lr": 0.0006666666666666666,
-  "weight_decay": 0.01
+  "weight_decay": 0.01,
+  "half": 0,
+  "noise": 0.0
  },
- "test_loss": 1.6285193371772766,
- "best_val": 1.4872431421279908,
- "best_at_s": 60.05,
- "best_step": 4779,
+ "test_loss": 1.6376875591278077,
+ "best_val": 1.4935312962532044,
+ "best_at_s": 80.03,
+ "best_step": 6248,
  "init_val": 4.216201114654541,
- "steps": 23871,
- "forwards": 23871,
+ "steps": 23574,
+ "forwards": 23574,
  "train_seconds": 300.0,
  "budget_minutes": 5.0,
  "device": "mps",
@@ -38,187 +40,187 @@
    "val": 4.216201114654541
   },
   {
-   "t": 10.01,
-   "step": 797,
-   "forwards": 797,
-   "val": 1.910034430027008
+   "t": 10.0,
+   "step": 778,
+   "forwards": 778,
+   "val": 1.9006106376647949
   },
   {
-   "t": 20.01,
-   "step": 1586,
-   "forwards": 1586,
-   "val": 1.6493727087974548
+   "t": 20.0,
+   "step": 1557,
+   "forwards": 1557,
+   "val": 1.6574460744857789
   },
   {
-   "t": 30.02,
-   "step": 2394,
-   "forwards": 2394,
-   "val": 1.5598407983779907
+   "t": 30.0,
+   "step": 2332,
+   "forwards": 2332,
+   "val": 1.569708526134491
   },
   {
-   "t": 40.03,
-   "step": 3191,
-   "forwards": 3191,
-   "val": 1.523178493976593
+   "t": 40.01,
+   "step": 3108,
+   "forwards": 3108,
+   "val": 1.5318968296051025
   },
   {
-   "t": 50.04,
-   "step": 3977,
-   "forwards": 3977,
-   "val": 1.4999414205551147
+   "t": 50.02,
+   "step": 3893,
+   "forwards": 3893,
+   "val": 1.5057804346084596
   },
   {
-   "t": 60.05,
-   "step": 4779,
-   "forwards": 4779,
-   "val": 1.4871960043907166
+   "t": 60.02,
+   "step": 4679,
+   "forwards": 4679,
+   "val": 1.5017302632331848
   },
   {
-   "t": 70.06,
-   "step": 5588,
-   "forwards": 5588,
-   "val": 1.5016935229301454
+   "t": 70.02,
+   "step": 5463,
+   "forwards": 5463,
+   "val": 1.4967673659324645
   },
   {
-   "t": 80.06,
-   "step": 6395,
-   "forwards": 6395,
-   "val": 1.4889874696731566
+   "t": 80.03,
+   "step": 6248,
+   "forwards": 6248,
+   "val": 1.49499454498291
   },
   {
-   "t": 90.07,
-   "step": 7184,
-   "forwards": 7184,
-   "val": 1.5074143767356873
+   "t": 90.04,
+   "step": 7032,
+   "forwards": 7032,
+   "val": 1.4987281799316405
   },
   {
-   "t": 100.08,
-   "step": 7978,
-   "forwards": 7978,
-   "val": 1.502982997894287
+   "t": 100.04,
+   "step": 7819,
+   "forwards": 7819,
+   "val": 1.5076183080673218
   },
   {
-   "t": 110.1,
-   "step": 8772,
-   "forwards": 8772,
-   "val": 1.5111608386039734
+   "t": 110.05,
+   "step": 8603,
+   "forwards": 8603,
+   "val": 1.5194257855415345
   },
   {
-   "t": 120.1,
-   "step": 9561,
-   "forwards": 9561,
-   "val": 1.530541229248047
+   "t": 120.05,
+   "step": 9386,
+   "forwards": 9386,
+   "val": 1.5215194463729858
   },
   {
-   "t": 130.11,
-   "step": 10351,
-   "forwards": 10351,
-   "val": 1.5409971833229066
+   "t": 130.05,
+   "step": 10151,
+   "forwards": 10151,
+   "val": 1.5347150087356567
   },
   {
-   "t": 140.11,
-   "step": 11147,
-   "forwards": 11147,
-   "val": 1.5528037071228027
+   "t": 140.07,
+   "step": 10938,
+   "forwards": 10938,
+   "val": 1.5331295609474183
   },
   {
-   "t": 150.11,
-   "step": 11962,
-   "forwards": 11962,
-   "val": 1.5687592148780822
+   "t": 150.07,
+   "step": 11724,
+   "forwards": 11724,
+   "val": 1.5669376730918885
   },
   {
-   "t": 160.12,
-   "step": 12766,
-   "forwards": 12766,
-   "val": 1.580437922477722
+   "t": 160.08,
+   "step": 12506,
+   "forwards": 12506,
+   "val": 1.581157910823822
   },
   {
-   "t": 170.12,
-   "step": 13567,
-   "forwards": 13567,
-   "val": 1.6014470100402831
+   "t": 170.1,
+   "step": 13286,
+   "forwards": 13286,
+   "val": 1.592983853816986
   },
   {
-   "t": 180.12,
-   "step": 14368,
-   "forwards": 14368,
-   "val": 1.6018728017807007
+   "t": 180.1,
+   "step": 14066,
+   "forwards": 14066,
+   "val": 1.6005038261413573
   },
   {
-   "t": 190.13,
-   "step": 15159,
-   "forwards": 15159,
-   "val": 1.6280396223068236
+   "t": 190.11,
+   "step": 14842,
+   "forwards": 14842,
+   "val": 1.6215091586112975
   },
   {
-   "t": 200.13,
-   "step": 15950,
-   "forwards": 15950,
-   "val": 1.6525251746177674
+   "t": 200.11,
+   "step": 15610,
+   "forwards": 15610,
+   "val": 1.628204309940338
   },
   {
-   "t": 210.13,
-   "step": 16743,
-   "forwards": 16743,
-   "val": 1.6607043147087097
+   "t": 210.12,
+   "step": 16408,
+   "forwards": 16408,
+   "val": 1.6521551966667176
   },
   {
-   "t": 220.14,
-   "step": 17541,
-   "forwards": 17541,
-   "val": 1.685961079597473
+   "t": 220.12,
+   "step": 17206,
+   "forwards": 17206,
+   "val": 1.6736541509628295
   },
   {
-   "t": 230.15,
-   "step": 18336,
-   "forwards": 18336,
-   "val": 1.7024417161941527
+   "t": 230.14,
+   "step": 18004,
+   "forwards": 18004,
+   "val": 1.692185628414154
   },
   {
-   "t": 240.15,
-   "step": 19129,
-   "forwards": 19129,
-   "val": 1.7227984070777893
+   "t": 240.14,
+   "step": 18801,
+   "forwards": 18801,
+   "val": 1.7127562403678893
   },
   {
-   "t": 250.16,
-   "step": 19923,
-   "forwards": 19923,
-   "val": 1.7489874362945557
+   "t": 250.14,
+   "step": 19599,
+   "forwards": 19599,
+   "val": 1.7202211141586303
   },
   {
-   "t": 260.17,
-   "step": 20716,
-   "forwards": 20716,
-   "val": 1.7581067323684691
+   "t": 260.15,
+   "step": 20396,
+   "forwards": 20396,
+   "val": 1.7364081382751464
   },
   {
-   "t": 270.17,
-   "step": 21508,
-   "forwards": 21508,
-   "val": 1.7580034852027893
+   "t": 270.15,
+   "step": 21193,
+   "forwards": 21193,
+   "val": 1.7541365504264832
   },
   {
-   "t": 280.18,
-   "step": 22299,
-   "forwards": 22299,
-   "val": 1.7817708492279052
+   "t": 280.16,
+   "step": 21991,
+   "forwards": 21991,
+   "val": 1.7835986971855164
   },
   {
-   "t": 290.19,
-   "step": 23093,
-   "forwards": 23093,
-   "val": 1.8204272627830504
+   "t": 290.17,
+   "step": 22789,
+   "forwards": 22789,
+   "val": 1.7937274813652038
   },
   {
-   "t": 300.0,
-   "step": 23871,
-   "forwards": 23871,
-   "val": 1.8325539350509643
+   "t": 300.01,
+   "step": 23574,
+   "forwards": 23574,
+   "val": 1.8169771909713746
   }
  ],
- "sample": "ROMEO:\nThou must have sell me of your holy daughter,\nBecause to give thee that the house is son?\nTo him stands, your way, and come already, no; my\nfather we will not carriied to the head and her fruit,\nI hold yet for his files foes, the maring of mercy,\nTheir still to their seating of the queen.\n\nMENENIUS:",
+ "sample": "ROMEO:\nThy father had seem it sounded,\nAnd then to the Mowbray you from herm hear homes\nAnd seem to him; that our wedits we are.\nWhat thou, no; my father wept stand and will his\nHad he control'zed up thy fortune banish'd--\nWhom I say, say 'tis out doth of with thee.\n\nJULIET:\nThou shalt to thy confession, a",
  "sweep": {
   "key": "lr",
   "minutes": 1.0,
@@ -226,22 +228,22 @@
    {
     "lr": 0.0006666666666666666,
     "factor": 0.3333333333333333,
-    "val_loss": 1.4925557017326354
+    "val_loss": 1.498356237411499
    },
    {
     "lr": 0.002,
     "factor": 1,
-    "val_loss": 1.5051941561698914
+    "val_loss": 1.5016438794136047
    },
    {
     "lr": 0.006,
     "factor": 3,
-    "val_loss": 2.512076597213745
+    "val_loss": 2.480648775100708
    },
    {
     "lr": 0.0002222222222222222,
     "factor": 0.1111111111111111,
-    "val_loss": 1.5599595618247986
+    "val_loss": 1.556974663734436
    }
   ]
  }

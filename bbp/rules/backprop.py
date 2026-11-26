@@ -3,6 +3,7 @@ import torch
 
 from . import Rule, register
 from ._regularise import regularise
+from ._teacher import add_dreams, teach
 
 
 @register
@@ -18,8 +19,10 @@ class Backprop(Rule):
         self.opt = torch.optim.AdamW(model.parameters(), lr=self.hp["lr"], weight_decay=self.hp["weight_decay"])
 
     def step(self, x, y):
-        x = regularise(self, [self.opt], x)
-        _, loss = self.model(x, y)
+        x0, x = x, regularise(self, [self.opt], x)
+        xa, ya = add_dreams(self, x, y)  # optional dreamed text, off by default
+        logits, loss = self.model(xa, ya)
+        loss = teach(self, x0, y, logits, loss)  # optional counting teacher, off by default
         self.opt.zero_grad(set_to_none=True)
         loss.backward()
         self.opt.step()

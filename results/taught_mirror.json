@@ -1,0 +1,254 @@
+{
+ "rule": "taught_mirror",
+ "tag": "",
+ "autograd": "modified",
+ "blurb": "mirror_neurons learning 30% from a smoothed 9-gram table it builds by counting the batches it sees (leave-one-out); no weight copied, no gradient in the teacher.",
+ "paper": "Kolen & Pollack 1994 (mirror); Witten & Bell 1991 (smoothing); Hinton et al. 2015 (soft targets)",
+ "hp": {
+  "lr": 0.001,
+  "weight_decay": 0.01,
+  "scale": 1.0,
+  "mirror": true,
+  "half": 0,
+  "noise": 0.0,
+  "bdrop": 0.0,
+  "fnoise": 0.0,
+  "fdrop": 0.0,
+  "teach": 0.3,
+  "beta": 16.0,
+  "order": 9,
+  "count_steps": 1500
+ },
+ "test_loss": 1.6091617965698242,
+ "best_val": 1.4519363522529602,
+ "best_at_s": 120.09,
+ "best_step": 7429,
+ "init_val": 4.216201114654541,
+ "steps": 18312,
+ "forwards": 18312,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.01,
+   "step": 684,
+   "forwards": 684,
+   "val": 1.9895097374916078
+  },
+  {
+   "t": 20.02,
+   "step": 1365,
+   "forwards": 1365,
+   "val": 1.7221418619155884
+  },
+  {
+   "t": 30.02,
+   "step": 1980,
+   "forwards": 1980,
+   "val": 1.6032008409500123
+  },
+  {
+   "t": 40.03,
+   "step": 2585,
+   "forwards": 2585,
+   "val": 1.554710614681244
+  },
+  {
+   "t": 50.03,
+   "step": 3190,
+   "forwards": 3190,
+   "val": 1.517770516872406
+  },
+  {
+   "t": 60.04,
+   "step": 3799,
+   "forwards": 3799,
+   "val": 1.4903692245483398
+  },
+  {
+   "t": 70.05,
+   "step": 4404,
+   "forwards": 4404,
+   "val": 1.4882804870605468
+  },
+  {
+   "t": 80.06,
+   "step": 5009,
+   "forwards": 5009,
+   "val": 1.474897813796997
+  },
+  {
+   "t": 90.06,
+   "step": 5613,
+   "forwards": 5613,
+   "val": 1.4627525448799132
+  },
+  {
+   "t": 100.07,
+   "step": 6217,
+   "forwards": 6217,
+   "val": 1.4570302724838258
+  },
+  {
+   "t": 110.07,
+   "step": 6822,
+   "forwards": 6822,
+   "val": 1.4638067841529847
+  },
+  {
+   "t": 120.09,
+   "step": 7429,
+   "forwards": 7429,
+   "val": 1.451590347290039
+  },
+  {
+   "t": 130.09,
+   "step": 8034,
+   "forwards": 8034,
+   "val": 1.4600003123283387
+  },
+  {
+   "t": 140.11,
+   "step": 8640,
+   "forwards": 8640,
+   "val": 1.4615077376365662
+  },
+  {
+   "t": 150.12,
+   "step": 9245,
+   "forwards": 9245,
+   "val": 1.4563599228858948
+  },
+  {
+   "t": 160.12,
+   "step": 9850,
+   "forwards": 9850,
+   "val": 1.4530253291130066
+  },
+  {
+   "t": 170.13,
+   "step": 10455,
+   "forwards": 10455,
+   "val": 1.458752739429474
+  },
+  {
+   "t": 180.14,
+   "step": 11062,
+   "forwards": 11062,
+   "val": 1.4535925388336182
+  },
+  {
+   "t": 190.15,
+   "step": 11667,
+   "forwards": 11667,
+   "val": 1.4524989128112793
+  },
+  {
+   "t": 200.16,
+   "step": 12271,
+   "forwards": 12271,
+   "val": 1.4632164359092712
+  },
+  {
+   "t": 210.17,
+   "step": 12877,
+   "forwards": 12877,
+   "val": 1.463135802745819
+  },
+  {
+   "t": 220.18,
+   "step": 13482,
+   "forwards": 13482,
+   "val": 1.468910777568817
+  },
+  {
+   "t": 230.19,
+   "step": 14087,
+   "forwards": 14087,
+   "val": 1.474927258491516
+  },
+  {
+   "t": 240.2,
+   "step": 14694,
+   "forwards": 14694,
+   "val": 1.4750065445899962
+  },
+  {
+   "t": 250.21,
+   "step": 15299,
+   "forwards": 15299,
+   "val": 1.4858907222747804
+  },
+  {
+   "t": 260.22,
+   "step": 15904,
+   "forwards": 15904,
+   "val": 1.4846380829811097
+  },
+  {
+   "t": 270.22,
+   "step": 16508,
+   "forwards": 16508,
+   "val": 1.4842849731445313
+  },
+  {
+   "t": 280.23,
+   "step": 17114,
+   "forwards": 17114,
+   "val": 1.4929301500320435
+  },
+  {
+   "t": 290.24,
+   "step": 17719,
+   "forwards": 17719,
+   "val": 1.485569953918457
+  },
+  {
+   "t": 300.0,
+   "step": 18312,
+   "forwards": 18312,
+   "val": 1.4954630136489868
+  }
+ ],
+ "sample": "ROMEO:\nThou make the Lord of God and hand,\nAnd gels me to courselves:\nI have heard of so hell!\nThese worse at once reit permit of your fortune; my father well.\n\nRICHARD:\nI see the duke contrive.\n\nFRIAR LAURENCE:\nSay this will be hence in fears of lovely mend me in me.\n\nGREGORY:\nSo, Sir Lord England the mar",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0003333333333333333,
+    "factor": 0.3333333333333333,
+    "val_loss": 1.6241872525215149
+   },
+   {
+    "lr": 0.001,
+    "factor": 1,
+    "val_loss": 1.4964643955230712
+   },
+   {
+    "lr": 0.003,
+    "factor": 3,
+    "val_loss": 1.590187861919403
+   }
+  ]
+ }
+}

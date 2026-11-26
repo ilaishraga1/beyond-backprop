@@ -19,87 +19,73 @@ is *by how much*, and *why*.
 <!-- LEADERBOARD:START -->
 | # | rule | autograd | test loss ↓ | vs backprop | beats random reservoir? | best ckpt at | steps | fwd passes | tuned |
 |---|------|----------|-----------:|------------:|:--:|------:|------:|-----------:|-------|
-| 1 | `mirror_neurons (reg)` | 🪞 modified | 1.540 | -0.088 | yes | 4.5 min | 20,674 | 20,674 |  |
-| 2 | `backprop (reg)` | ✅ full | 1.551 | -0.078 | yes | 4.8 min | 23,347 | 23,347 |  |
-| 3 | `backprop` | ✅ full | 1.629 | +0.000 | yes | 1.0 min | 23,871 | 23,871 | lr=0.00067 |
-| 4 | `mirror_neurons` | 🪞 modified | 1.638 | +0.009 | yes | 1.7 min | 20,526 | 20,526 | lr=0.001 |
-| 5 | `sign_symmetry` | 🪞 modified | 1.675 | +0.047 | yes | 2.0 min | 20,864 | 20,864 | lr=0.001 |
-| 6 | `local_losses` | 🧱 local | 1.743 | +0.114 | yes | 2.7 min | 18,457 | 18,457 | lr=0.002 |
-| 7 | `mirror_window` | 🪞 modified | 1.773 | +0.145 | yes | 5.0 min | 32,860 | 32,860 | lr=0.001 |
-| 8 | `grandmother_cells` | 🚫 none | 1.899 | +0.270 | yes | 0.3 min | 68,804 | 68,804 | kappa=12 |
-| 9 | `natural_selection` | 🧱 local | 1.905 | +0.277 | yes | 1.2 min | 53,307 | 53,307 | lr=0.001 |
-| 10 | `feedback_alignment` | 🪞 modified | 1.911 | +0.282 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
-| 11 | `census_mlp` | 🧱 local | 1.954 | +0.326 | yes | 4.7 min | 31,602 | 31,602 | lr=0.001 |
-| 12 | `census_heads` | 🧱 local | 2.369 | +0.740 | yes | 0.7 min | 31,549 | 31,549 | lr=0.001 |
-| 13 | `census_heads_4` | 🧱 local | 2.408 | +0.780 | yes | 1.5 min | 34,110 | 34,110 | lr=0.001 |
-| 14 | `instinct_rats` | 🚫 none | 2.498 | +0.869 | yes | 0.8 min | 16,849 | 33,598 | lr=3.7e-06 |
-| 15 | `wire_together` | 🚫 none | 2.500 | +0.871 | yes | 0.8 min | 65,165 | 65,165 | smoothing=2.7 |
-| 16 | `lab_rats_maze` | 🚫 none | 2.610 | +0.981 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
-| 17 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.982 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
-| 18 | `lab_rats` | 🚫 none | 2.650 | +1.021 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
-| 19 | `lab_rats_future` | 🚫 none | 2.660 | +1.032 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
-| 20 | `lab_rats_solo` | 🚫 none | 2.692 | +1.064 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
-| 21 | `forward_forward` | 🧱 local | 2.698 | +1.069 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
-| 22 | `reservoir` | 🧱 local | 2.716 | +1.088 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
-| 23 | `es` | 🚫 none | 2.788 | +1.160 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
-| 24 | `mezo` | 🚫 none | 2.818 | +1.190 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
-| 25 | `hill_climb` | 🚫 none | 3.153 | +1.524 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
-| 26 | `forward_grad` | 🚫 none | 3.167 | +1.539 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
-| 27 | `dreaming` | 🧱 local | 3.331 | +1.702 | no | 3.0 min | 21,607 | 43,214 | lr=0.0003 |
+| 1 | `backprop (taught)` | ✅ full | 1.578 | -0.059 | yes | 2.0 min | 20,483 | 20,483 |  |
+| 2 | `taught_mirror` | 🪞 modified | 1.609 | -0.029 | yes | 2.0 min | 18,312 | 18,312 | lr=0.001 |
+| 3 | `mirror_neurons` | 🪞 modified | 1.638 | -0.000 | yes | 1.7 min | 20,526 | 20,526 | lr=0.001 |
+| 4 | `backprop` | ✅ full | 1.638 | +0.000 | yes | 1.3 min | 23,574 | 23,574 | lr=0.00067 |
+| 5 | `sam` | 🪞 modified | 1.652 | +0.014 | yes | 3.7 min | 11,718 | 23,436 | lr=0.002 |
+| 6 | `sign_symmetry` | 🪞 modified | 1.675 | +0.037 | yes | 2.0 min | 20,864 | 20,864 | lr=0.001 |
+| 7 | `local_losses` | 🧱 local | 1.743 | +0.105 | yes | 2.7 min | 18,457 | 18,457 | lr=0.002 |
+| 8 | `mirror_window` | 🪞 modified | 1.773 | +0.136 | yes | 5.0 min | 32,860 | 32,860 | lr=0.001 |
+| 9 | `grandmother_cells` | 🚫 none | 1.899 | +0.261 | yes | 0.3 min | 68,804 | 68,804 | kappa=12 |
+| 10 | `natural_selection` | 🧱 local | 1.905 | +0.268 | yes | 1.2 min | 53,307 | 53,307 | lr=0.001 |
+| 11 | `feedback_alignment` | 🪞 modified | 1.911 | +0.273 | yes | 4.5 min | 21,233 | 21,233 | lr=0.001 |
+| 12 | `census_mlp` | 🧱 local | 1.954 | +0.317 | yes | 4.7 min | 31,602 | 31,602 | lr=0.001 |
+| 13 | `census_heads` | 🧱 local | 2.369 | +0.731 | yes | 0.7 min | 31,549 | 31,549 | lr=0.001 |
+| 14 | `census_heads_4` | 🧱 local | 2.408 | +0.771 | yes | 1.5 min | 34,110 | 34,110 | lr=0.001 |
+| 15 | `instinct_rats` | 🚫 none | 2.498 | +0.860 | yes | 0.8 min | 16,849 | 33,598 | lr=3.7e-06 |
+| 16 | `wire_together` | 🚫 none | 2.500 | +0.862 | yes | 0.8 min | 65,165 | 65,165 | smoothing=2.7 |
+| 17 | `lab_rats_maze` | 🚫 none | 2.610 | +0.972 | yes | 5.0 min | 16,662 | 33,324 | lr=0.00033 |
+| 18 | `lab_rats_cycle` | 🚫 none | 2.611 | +0.973 | yes | 4.3 min | 28,804 | 57,608 | lr=0.001 |
+| 19 | `lab_rats` | 🚫 none | 2.650 | +1.012 | yes | 4.7 min | 16,558 | 33,116 | lr=0.00033 |
+| 20 | `lab_rats_future` | 🚫 none | 2.660 | +1.023 | yes | 4.3 min | 16,840 | 33,680 | lr=0.00033 |
+| 21 | `lab_rats_solo` | 🚫 none | 2.692 | +1.055 | yes | 5.0 min | 5,737 | 57,370 | lr=0.003 |
+| 22 | `forward_forward` | 🧱 local | 2.698 | +1.060 | yes | 4.3 min | 10,107 | 20,214 | lr=0.009 |
+| 23 | `reservoir` | 🧱 local | 2.716 | +1.079 | — | 3.8 min | 52,867 | 52,867 | lr=0.003 |
+| 24 | `es` | 🚫 none | 2.788 | +1.151 | no | 5.0 min | 895 | 57,280 | lr=0.003 |
+| 25 | `mezo` | 🚫 none | 2.818 | +1.181 | no | 5.0 min | 25,747 | 51,494 | lr=0.0009 |
+| 26 | `hill_climb` | 🚫 none | 3.153 | +1.515 | no | 5.0 min | 24,757 | 49,514 | sigma=0.01 |
+| 27 | `forward_grad` | 🚫 none | 3.167 | +1.529 | no | 5.0 min | 9,280 | 9,280 | lr=0.0018 |
+| 28 | `dreaming` | 🧱 local | 3.331 | +1.693 | no | 3.0 min | 21,607 | 43,214 | lr=0.0003 |
 | | *unigram (letter frequencies only)* | | 3.309 | | | | | | |
 | | *untrained / uniform guess* | | 4.216 | | | | | | |
 
-<sub>0.83M-param char GPT (4 layers, d=128, ctx 128), batch 32, TinyShakespeare, 5 min of training time per rule on `mps`, loss in nats/char. Early stopping: each rule's best checkpoint by val loss is scored on a held-out test split. Each rule's `tuned` knob got a 3-point sweep first. Rows tagged (reg) add the same regularisation to both rules: compare them with each other, not with the untagged rows or the `vs backprop` column.</sub>
+<sub>0.83M-param char GPT (4 layers, d=128, ctx 128), batch 32, TinyShakespeare, 5 min of training time per rule on `mps`, loss in nats/char. Early stopping: each rule's best checkpoint by val loss is scored on a held-out test split. Each rule's `tuned` knob got a 3-point sweep first. Tagged rows are controls, not contenders: (taught) is backprop given the same counting teacher `taught_mirror` uses. Compare a tagged row with what it controls for, not with the `vs backprop` column.</sub>
 
 ![loss curves](results/curves.png)
 
 <details><summary>What each rule's model writes after its run (prompt <code>ROMEO:</code>)</summary>
 
-**mirror_neurons** (test 1.540)
+**backprop (taught)** (test 1.578)
 
 ```
 ROMEO:
-Thou must know so? fair can earth you.
-I think you courtesy to your master hours
-Are so says him so.
-
-CORIOLANUS:
-A man of your fatal and hands
-How speak to drink yields, the people's nuze,
-I shall fall to faith and look of no side,
-And one danger than a commody of his point:
-Ay, one that fra
+Thou makest are not made a means from whom strength
+As we have weeping straining
+And sense on the people your way, and come away,
+Make no hands of well you for me him ove to come. I'll swear
+That I was for fair or will move not say,
+Make me deflecome blush'd to the next pins:
+For her England'
 ```
 
-**backprop** (test 1.551)
+**taught_mirror** (test 1.609)
 
 ```
 ROMEO:
-Thou mhss know sell me on my good words,
-Also than his wife from here hear to be
-A bloody of him; that's your way were comes;
-And truly devour too well out of the king?
+Thou make the Lord of God and hand,
+And gels me to courselves:
+I have heard of so hell!
+These worse at once reit permit of your fortune; my father well.
 
-LEONTES:
-I never stay not. So I fear, it is milk.
-Would they fear to queen to this reign.
+RICHARD:
+I see the duke contrive.
 
-JULIET:
-Their bones one that fea
-```
+FRIAR LAURENCE:
+Say this will be hence in fears of lovely mend me in me.
 
-**backprop** (test 1.629)
-
-```
-ROMEO:
-Thou must have sell me of your holy daughter,
-Because to give thee that the house is son?
-To him stands, your way, and come already, no; my
-father we will not carriied to the head and her fruit,
-I hold yet for his files foes, the maring of mercy,
-Their still to their seating of the queen.
-
-ME
+GREGORY:
+So, Sir Lord England 
 ```
 
 **mirror_neurons** (test 1.638)
@@ -119,6 +105,35 @@ By which she.
 QUEEN ELIZABETH:
 Alas, I snow it for thou livest: I am sure
 To send you to bed, your potuous st
+```
+
+**backprop** (test 1.638)
+
+```
+ROMEO:
+Thy father had seem it sounded,
+And then to the Mowbray you from herm hear homes
+And seem to him; that our wedits we are.
+What thou, no; my father wept stand and will his
+Had he control'zed up thy fortune banish'd--
+Whom I say, say 'tis out doth of with thee.
+
+JULIET:
+Thou shalt to thy confes
+```
+
+**sam** (test 1.652)
+
+```
+ROMEO:
+Thou mhast thy sell Warwick excellent.
+I then, good friend thou art a hair good to his
+seal'd in stratches or was we all: such a care-bed hangs
+How speak to bright in his garden coat, and the crown
+Have ever pillardicing, tongues, feit come to be my infright.
+
+JULIET:
+Thou shalt to Bona story
 ```
 
 **sign_symmetry** (test 1.675)
@@ -468,11 +483,19 @@ bS yteoheoEngsr  t
 - **🪞 `mirror_neurons` beats the 5-gram table**, untuned (1.806) and tuned (1.702). No 🚫 rule beats
   either; `local_losses` (1.743) beats the untuned one and sign symmetry (1.675) both. Its backward
   weights start random and receive the same update as their forward twins, so no weight is ever
-  copied. 1.641 over 3 seeds, 0.008 behind backprop (1.633), where fixed random feedback got 1.911.
-  With regularisation both reach about **1.55** (mirror 1.544, backprop 1.551): a tie. Details below.
+  copied. 1.641 over 3 seeds, 0.008 behind backprop (1.633; a later rerun gave 1.635), where fixed
+  random feedback got 1.911.
+  An earlier version called the regularised pair a tie (1.544 vs 1.551). That pair was tuned on
+  mirror's screen; on one shared grid backprop wins, 1.553 vs 1.584. Details below.
+- **📚 A lookup table teaching a backprop-free network beats backprop.** `taught_mirror` (🪞 modified)
+  counts the batches it sees into a smoothed 9-gram table (no gradients), then `mirror_neurons`
+  learns 30% from the table's predictions. **1.596** over 3 seeds vs **1.635** for backprop, rerun
+  in the same session: it wins every seed pair, by 0.039 on average. **The catch:** backprop with
+  the same teacher does better still (1.585). The win comes from the counting teacher, not from
+  mirror credit being better than the real gradient. Details below.
 - **Plain tables are a higher bar than this README used to say.** Untuned 5-gram: 1.806 on the
   arena's own windows. With smoothing tuned on val: 5-gram 1.702, 9- and 10-gram about **1.615**,
-  better than unregularised backprop (1.629 to 1.639). See the table in the mirror section.
+  better than unregularised backprop (1.626 to 1.641 over six runs). See the table in the mirror section.
   (An earlier version quoted 2.504 / 2.113 / 1.865 / 1.782 for 2- to 5-grams: untuned, and scored on
   continuous text instead of 128-char windows.)
 
@@ -665,21 +688,27 @@ backward pass with a learned stand-in for Wᵀ, so 🪞 modified, not 🚫.
 | test loss, 5 min | seed 0 | seed 1 | seed 2 | mean |
 |---|---:|---:|---:|---:|
 | `backprop` | 1.629 | 1.630 | 1.639 | **1.633** |
+| `backprop`, rerun later (same session as `taught_mirror`) | 1.638 | 1.641 | 1.626 | **1.635** |
 | **`mirror_neurons`** | 1.638 | 1.645 | 1.639 | **1.641** |
 | control: backward weights frozen (feedback alignment) | 1.898 | | | |
-| `backprop (reg)` | 1.551 | 1.548 | 1.553 | **1.551** |
-| **`mirror_neurons (reg)`** | 1.540 | 1.544 | 1.549 | **1.544** |
+| `backprop (reg)`, shared grid | 1.567 | 1.550 | 1.543 | **1.553** |
+| `mirror_neurons (reg)`, shared grid | 1.571 | 1.599 | 1.583 | **1.584** |
+| ~~old (reg) pair, tuned on mirror's screen~~ | ~~1.551 / 1.540~~ | | | ~~1.551 / 1.544~~ |
 
 - **Why it works, measured:** the cosine between each layer's backward and forward weights climbs
   0.00 → 0.48 → 0.68 → 0.82 → 0.90 at steps 0 / 500 / 1,000 / 2,000 / 4,000. With the mirror off it
   reaches only 0.18.
-- **`(reg)` is a fair-ish pair, not a win for mirror.** Learning-rate halving every 3,000 steps, weight
-  decay 0.2, and 5% of input characters replaced by noise. I picked those settings on a small
-  val-only screen of `mirror_neurons`, seed 0, 3 minutes; backprop's best in the same screen was
-  10% noise without extra weight decay (val 1.446 vs 1.449 as run). Both keep their old `lr`.
-  Mirror wins all three seed pairs by about 0.007, smaller than the bias from that selection: call it a tie.
+- **Correction: `(reg)` is a loss for mirror, not a tie.** The old pair used weight decay 0.2,
+  5% input noise and lr halving, picked on a 5-point screen of mirror, with each rule's old `lr`.
+  Rerun on one shared grid (lr ⅔e-3 / 1e-3 / 2e-3, noise 5% / 10%, weight decay 0.01 / 0.2, lr
+  halving every 3,000 steps, then lr 1.4e-3 for backprop and 3e-3 / 4e-3 for mirror to bracket
+  them; val, seed 0, 3 min), each rule picks its own best point. Backprop picks lr 1e-3, 5% noise,
+  weight decay 0.01 (val 1.420). Mirror picks lr 3e-3 (val 1.424). Over 3 seeds at 5 min:
+  backprop **1.553**, mirror **1.584**. At lr 2e-3 and up backprop gets erratic and mirror does
+  not, but that only buys mirror a higher learning rate, and at 3e-3 it is the one that wobbles
+  across seeds.
 - **What beat the table was the regularisation.** Without it neither rule beats the best table
-  (1.614); with it both do (1.54 and 1.55).
+  (1.614); with it both do (1.55 and 1.58).
 
 **`mirror_window`**: the same trick with hand-wired copy heads showing 2,048 neurons the last 6
 characters, output weights by the delta rule, input weights by mirrored feedback.
@@ -698,6 +727,79 @@ overfitting, the hand-wired window) is untested: a tuned table with the same 6 c
 *Did not work:* compiling decision trees into neurons (val 1.79 vs 1.81 for suffix cells, so
 counting-only is still far from 1.70), starting the neurons from those trees (diverged or val 1.69),
 hidden dropout (val 1.73). Each one seed, val only, in a standalone prototype.
+
+### 📚 Taught mirror: a lookup table teaches a network that never backprops
+
+**The idea.** Counting already beats backprop on test: a smoothed 9-gram table scores 1.611, and
+plain backprop 1.635. But the table needs about 1.4M contexts × 65 next characters, which does not
+fit in a 0.83M-parameter model. So let the table *teach* the network instead.
+
+`taught_mirror` has two parts, and neither one is backprop:
+1. **A counting teacher, no gradients.** For its first 1,500 steps the rule records which character
+   follows every recent string in the batches it sees, once per spot in the text (deduplicated by
+   a hash of the 24 characters before it, since windows overlap). Then it builds Witten-Bell
+   backoff tables for contexts of 0 to 8 characters. All of this happens inside `step()`, so the
+   arena's clock pays for it (about 2 s). The teacher is **leave-one-out**: for a training
+   character it subtracts that character's own count first. Otherwise a 9-character context seen
+   once would just give away the answer (at beta 1, train loss 1.70 leave-one-out vs 0.52 with the
+   answer left in).
+2. **A `mirror_neurons` student.** Its backward weights start random and get the same update as
+   their forward twins, so no weight is ever copied. The loss is 70% cross-entropy on the real next
+   character and 30% on the teacher's whole distribution.
+
+| test loss, 5 min | seed 0 | seed 1 | seed 2 | mean |
+|---|---:|---:|---:|---:|
+| `backprop`, rerun in the same session | 1.638 | 1.641 | 1.626 | **1.635** |
+| the teacher alone: a table, not in the model | | | | 1.611 |
+| **`taught_mirror`** (tournament, lr 1e-3) | 1.609 | 1.580 | 1.598 | **1.596** |
+| same rule, a second set of runs | 1.617 | 1.599 | 1.599 | 1.605 |
+| control: `backprop (taught)`, same teacher | 1.589 | 1.586 | 1.580 | **1.585** |
+| (its leaderboard row is a fourth run: 1.578) | | | | |
+| control: `mirror_neurons`, no teacher (old runs) | 1.638 | 1.645 | 1.639 | 1.641 |
+
+- **It beats backprop on every seed pair** (by 0.039 on average), and it beats its own teacher
+  (1.611): the student ends up better than the table it learned from.
+- **The catch, read first:** backprop with the same teacher gets 1.585, so it is still 0.011
+  ahead. Mirror credit is not better than the real gradient. It is close enough that a
+  backprop-free credit rule *plus* a counting teacher beats the bare gradient. The teacher
+  closes 0.045 of mirror's gap and 0.050 of backprop's.
+- **Settings were picked on val, not test.** beta = 16 (the smoothing strength) on the teacher's
+  own val loss (8 → 1.479, 16 → 1.476, 32 → 1.520, 10 val batches), and teach = 0.3 on a 3-min
+  student screen (0.3 → val 1.449, 0.6 → 1.450, 0.9 → 1.482). The tournament then swept lr as for
+  every rule, and picked 1e-3.
+- **Does the teacher lift the weaker rules too?** Yes, but not over the line (one seed each,
+  5 min): `sign_symmetry` 1.675 → **1.642** (backprop's seeds: 1.626 to 1.641), `feedback_alignment`
+  1.911 → **1.874**. The teacher is worth 0.03 to 0.05 to every rule, so the ranking does not
+  change. Mirror is the only backprop-free credit rule here close enough to backprop for that to
+  tip it over.
+- *Did not help:* also training on text the table **dreams up** (sampled from it, 1M chars, scored
+  against the teacher), val 1.456 / 1.463 for half / one extra dreamed batch vs 1.449 without.
+  The dreams cost steps and read like garbled Shakespeare.
+
+### 🔬 Overnight re-checks: what did not beat backprop, and a split that moves
+
+- **The val and test splits are different plays.** The data is cut 90/5/5 in order, so val is
+  mostly *The Taming of the Shrew* (which the end of train is also in), and test runs into
+  *The Tempest*. Only 9 of test's 21 speakers appear in train, against 11 of val's 17. Val
+  rewards knowing the play you are in, test rewards carrying over to a new one. Every rule is
+  still picked on val and scored on test. But **tricks that lower val do not reliably lower test**,
+  and it shows below.
+- **Sharpness-aware updates (`sam`, 🪞 modified) tie backprop on test and win on val.** Each step
+  takes its gradient a small step uphill (rho 0.15, two backward passes). Tournament, 3 seeds: test
+  **1.633** vs backprop 1.635, val **1.463** vs 1.494. The flatter minimum helps on the play it
+  trained on and not on the new one. A lagged one-pass version was worse than backprop on val.
+- **Backdrop (`backdrop`, 🪞 modified)**: drop the error signal for a random 10% of tokens at
+  every block boundary on the way down. With the shared-grid regularisation, 3 seeds: 1.558 vs
+  backprop 1.553. At 25% or 50% it gets much worse (val 1.43 and 1.63 vs 1.42).
+- **Unreliable backward synapses in `mirror_neurons`**: fresh noise on the feedback weights at
+  every step (0.5 × their std) lowers val from 1.493 to 1.476 (2 min, seed 0). Twice the noise
+  gives 1.600; dropping 30% or 60% of feedback synapses gives 1.503 and 1.662. Not taken further.
+- **A faster mirror.** The feedback weights now get their update in place instead of from a second
+  AdamW. It is the same update (a test checks it matches to 1e-6), but mirror is still about 12%
+  slower per step than backprop, because of its custom linear layer.
+
+(The shared-grid `(reg)` pair is not on the leaderboard: its seed-0 runs happen to go mirror's
+way, 1.560 vs 1.567, while the 3-seed means go backprop's way, 1.584 vs 1.553.)
 
 **How to read it**
 - **test loss**: cross-entropy on held-out Shakespeare, nats per character. Lower is better.
@@ -726,6 +828,9 @@ hidden dropout (val 1.73). Each one seed, val only, in a standalone prototype.
 | `backprop` | ✅ full | The baseline. AdamW. | Rumelhart, Hinton & Williams 1986 |
 | `feedback_alignment` | 🪞 modified | The backward pass sends errors through **fixed random matrices** instead of Wᵀ. Somehow the forward weights learn to "align" with them. | Lillicrap et al. 2016 |
 | `mirror_neurons` 🪞 | 🪞 modified | Backward weights are separate and start random, but get the same Hebbian update as their forward twins, so they drift into alignment without copying. | Kolen & Pollack 1994; Akrout et al. 2019 |
+| `taught_mirror` 📚 | 🪞 modified | A smoothed 9-gram table, built by counting the batches it sees (leave-one-out, no gradients), teaches a `mirror_neurons` student: 30% of the loss is the table's distribution. | Kolen & Pollack 1994; Witten & Bell 1991; Hinton et al. 2015 |
+| `sam` | 🪞 modified | Sharpness-aware: each update is the gradient taken a small step uphill, which steers toward wide minima. Two backward passes. | Foret et al. 2021 |
+| `backdrop` | 🪞 modified | Backprop whose error is dropped for a random fraction of tokens at every block boundary on the way down; the forward pass is untouched. | Golkar & Cranmer 2018 |
 | `mirror_window` 🪞 | 🪞 modified | Mirrored feedback on one hidden layer of 2,048 neurons that see the last 6 chars through hand-wired copy heads. | + Bengio et al. 2003 |
 | `sign_symmetry` | 🪞 modified | Backward pass through `sign(W)`: the feedback knows the signs of the weights but not their size. | Liao, Leibo & Poggio 2016 |
 | `local_losses` | 🧱 local | Every block gets its own tiny next-char readout and learns greedily. Gradients never cross a block boundary. | Belilovsky et al. 2019; Nøkland & Eidnes 2019 |

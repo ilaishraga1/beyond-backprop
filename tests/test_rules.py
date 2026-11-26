@@ -116,3 +116,71 @@ def test_census_heads_update_is_the_local_attention_gradient():
         loss = loss - (tgt * S.log_softmax(-1).masked_fill(offs < 0, 0)).sum() / (B * T)
     loss.backward()
     assert torch.allclose(W2.grad, manual, atol=1e-6, rtol=1e-4)
+
+
+def test_backdrop_leaves_forward_alone_and_thins_lower_gradients():
+    torch.manual_seed(0)
+    cfg = GPTConfig(**TINY)
+    x, y = batch(cfg)
+    ref, bd = GPT(cfg), GPT(cfg)
+    bd.load_state_dict(ref.state_dict())
+    RULES["backdrop"](bd, p=0.5)
+    l0, l1 = ref(x, y)[1], bd(x, y)[1]
+    assert torch.allclose(l0, l1)
+    l0.backward(); l1.backward()
+    top = lambda m: m.lm_head.weight.grad
+    assert torch.allclose(top(ref), top(bd))  # above every mask: exact gradient
+    low = lambda m: m.blocks[0].mlp.fc.weight.grad
+    assert not torch.allclose(low(ref), low(bd))  # below a mask: thinned
+
+
+def test_mirror_shortcut_equals_a_separate_adamw_on_the_feedback():
+    """The in-place mirror update must equal giving B its own AdamW fed W's gradient."""
+    torch.manual_seed(0)
+    cfg = GPTConfig(**TINY)
+    x, y = batch(cfg)
+    rule = RULES["mirror_neurons"](GPT(cfg), weight_decay=0.1, lr=3e-3)
+    B0 = [b.detach().clone().requires_grad_(True) for b in rule.B]
+    ref = torch.optim.AdamW(B0, lr=3e-3, weight_decay=0.1)
+    for _ in range(5):
+        rule.step(x, y)  # W's gradient from this step is still in .grad afterwards
+        for b, w in zip(B0, rule.W):
+            b.grad = w.grad.clone()
+        ref.step()
+    for b, r in zip(rule.B, B0):
+        assert torch.allclose(b, r, atol=1e-6)
+
+
+def test_counting_teacher_leave_one_out_stops_memorising():
+    from bbp.rules._teacher import CountingTeacher
+    torch.manual_seed(0)
+    text = torch.randint(5, (1, 400))  # random text: no real structure to generalise from
+    x, y = text[:, :-1], text[:, 1:]
+    T = CountingTeacher(5, order=9, beta=1.0)
+    T.observe(x, y)
+    T.build()
+    p_mem = T(x, y, loo=False).gather(-1, y[..., None]).mean().item()
+    p_loo = T(x, y, loo=True).gather(-1, y[..., None]).mean().item()
+    assert p_mem > 0.5  # with itself counted, long contexts are unique and give the answer away
+    assert p_loo < 0.35  # without itself, close to chance (0.2) on structureless text
+    assert torch.allclose(T(x, y).sum(-1), torch.ones(x.shape))
+
+
+def test_teach_hook_counts_then_teaches():
+    torch.manual_seed(0)
+    cfg = GPTConfig(**TINY)
+    rule = RULES["mirror_neurons"](GPT(cfg), teach=0.5, count_steps=2, order=3)
+    x, y = batch(cfg)
+    for _ in range(4):
+        assert math.isfinite(rule.step(x, y))
+    assert rule.teacher.ready
+
+
+def test_dreams_are_appended_and_trained_on():
+    torch.manual_seed(0)
+    cfg = GPTConfig(**TINY)
+    rule = RULES["backprop"](GPT(cfg), teach=0.5, count_steps=2, order=3, dream=0.5, dream_streams=8, dream_len=64)
+    x, y = batch(cfg)
+    for _ in range(4):
+        assert math.isfinite(rule.step(x, y))
+    assert rule.dreams.shape == (8, 64) and rule.xd.shape == (2, cfg.block_size)

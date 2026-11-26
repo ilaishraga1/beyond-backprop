@@ -1,0 +1,247 @@
+{
+ "rule": "sam",
+ "tag": "",
+ "autograd": "modified",
+ "blurb": "Each update uses the gradient taken a small step uphill from the current weights, which steers training toward wide minima.",
+ "paper": "Foret et al. 2021 (SAM); lagged variant after Du et al. 2022",
+ "hp": {
+  "lr": 0.002,
+  "weight_decay": 0.01,
+  "half": 0,
+  "noise": 0.0,
+  "rho": 0.15,
+  "mode": "exact"
+ },
+ "test_loss": 1.6518194556236268,
+ "best_val": 1.4592518544197082,
+ "best_at_s": 220.29,
+ "best_step": 8597,
+ "init_val": 4.216201114654541,
+ "steps": 11718,
+ "forwards": 23436,
+ "train_seconds": 300.0,
+ "budget_minutes": 5.0,
+ "device": "mps",
+ "params": 826368,
+ "model": {
+  "vocab_size": 65,
+  "block_size": 128,
+  "n_layer": 4,
+  "n_head": 4,
+  "n_embd": 128
+ },
+ "batch_size": 32,
+ "seed": 0,
+ "diverged": false,
+ "unigram_loss": 3.309084177017212,
+ "curve": [
+  {
+   "t": 0.0,
+   "step": 0,
+   "forwards": 0,
+   "val": 4.216201114654541
+  },
+  {
+   "t": 10.02,
+   "step": 391,
+   "forwards": 782,
+   "val": 2.4253702402114867
+  },
+  {
+   "t": 20.04,
+   "step": 783,
+   "forwards": 1566,
+   "val": 2.1407413244247437
+  },
+  {
+   "t": 30.05,
+   "step": 1175,
+   "forwards": 2350,
+   "val": 1.835988736152649
+  },
+  {
+   "t": 40.06,
+   "step": 1566,
+   "forwards": 3132,
+   "val": 1.6834341049194337
+  },
+  {
+   "t": 50.07,
+   "step": 1957,
+   "forwards": 3914,
+   "val": 1.5952947616577149
+  },
+  {
+   "t": 60.09,
+   "step": 2349,
+   "forwards": 4698,
+   "val": 1.5586339592933656
+  },
+  {
+   "t": 70.1,
+   "step": 2740,
+   "forwards": 5480,
+   "val": 1.540201997756958
+  },
+  {
+   "t": 80.11,
+   "step": 3131,
+   "forwards": 6262,
+   "val": 1.5192025899887085
+  },
+  {
+   "t": 90.12,
+   "step": 3522,
+   "forwards": 7044,
+   "val": 1.4922488689422608
+  },
+  {
+   "t": 100.13,
+   "step": 3911,
+   "forwards": 7822,
+   "val": 1.4875133275985717
+  },
+  {
+   "t": 110.14,
+   "step": 4300,
+   "forwards": 8600,
+   "val": 1.4753759264945985
+  },
+  {
+   "t": 120.15,
+   "step": 4691,
+   "forwards": 9382,
+   "val": 1.4743683695793153
+  },
+  {
+   "t": 130.18,
+   "step": 5080,
+   "forwards": 10160,
+   "val": 1.4702401995658874
+  },
+  {
+   "t": 140.19,
+   "step": 5474,
+   "forwards": 10948,
+   "val": 1.469931948184967
+  },
+  {
+   "t": 150.21,
+   "step": 5870,
+   "forwards": 11740,
+   "val": 1.4732697486877442
+  },
+  {
+   "t": 160.22,
+   "step": 6267,
+   "forwards": 12534,
+   "val": 1.4678018808364868
+  },
+  {
+   "t": 170.24,
+   "step": 6663,
+   "forwards": 13326,
+   "val": 1.4714762926101685
+  },
+  {
+   "t": 180.25,
+   "step": 7039,
+   "forwards": 14078,
+   "val": 1.4735179185867309
+  },
+  {
+   "t": 190.27,
+   "step": 7420,
+   "forwards": 14840,
+   "val": 1.4654139518737792
+  },
+  {
+   "t": 200.27,
+   "step": 7807,
+   "forwards": 15614,
+   "val": 1.467206883430481
+  },
+  {
+   "t": 210.28,
+   "step": 8202,
+   "forwards": 16404,
+   "val": 1.4682608485221862
+  },
+  {
+   "t": 220.29,
+   "step": 8597,
+   "forwards": 17194,
+   "val": 1.4628015875816345
+  },
+  {
+   "t": 230.3,
+   "step": 8993,
+   "forwards": 17986,
+   "val": 1.4707966804504395
+  },
+  {
+   "t": 240.3,
+   "step": 9390,
+   "forwards": 18780,
+   "val": 1.4746722340583802
+  },
+  {
+   "t": 250.31,
+   "step": 9786,
+   "forwards": 19572,
+   "val": 1.4760879755020142
+  },
+  {
+   "t": 260.33,
+   "step": 10179,
+   "forwards": 20358,
+   "val": 1.4719041585922241
+  },
+  {
+   "t": 270.34,
+   "step": 10566,
+   "forwards": 21132,
+   "val": 1.483598244190216
+  },
+  {
+   "t": 280.37,
+   "step": 10955,
+   "forwards": 21910,
+   "val": 1.4815841317176819
+  },
+  {
+   "t": 290.37,
+   "step": 11343,
+   "forwards": 22686,
+   "val": 1.4876819133758545
+  },
+  {
+   "t": 300.0,
+   "step": 11718,
+   "forwards": 23436,
+   "val": 1.4930620074272156
+  }
+ ],
+ "sample": "ROMEO:\nThou mhast thy sell Warwick excellent.\nI then, good friend thou art a hair good to his\nseal'd in stratches or was we all: such a care-bed hangs\nHow speak to bright in his garden coat, and the crown\nHave ever pillardicing, tongues, feit come to be my infright.\n\nJULIET:\nThou shalt to Bona story!\nWhat ",
+ "sweep": {
+  "key": "lr",
+  "minutes": 1.0,
+  "grid": [
+   {
+    "lr": 0.0006666666666666666,
+    "factor": 0.3333333333333333,
+    "val_loss": 1.6216623044013978
+   },
+   {
+    "lr": 0.002,
+    "factor": 1,
+    "val_loss": 1.5747071194648743
+   },
+   {
+    "lr": 0.006,
+    "factor": 3,
+    "val_loss": 2.064753510951996
+   }
+  ]
+ }
+}
