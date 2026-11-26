@@ -25,11 +25,19 @@ class NoisyBackprop(Backprop):
     autograd = "modified"
     blurb = "Backprop whose error signal gets fresh noise (sigma x its RMS) every time it crosses a block boundary on the way down."
     paper = "gradient-noise injection, e.g. Neelakantan et al. 2015 (here in the backward pass, per layer)"
-    defaults = dict(Backprop.defaults, sigma=0.5)
+    defaults = dict(Backprop.defaults, sigma=0.5, where="blocks")
 
     def __init__(self, model, **hp):
         super().__init__(model, **hp)
         s = self.hp["sigma"]
+        hook = lambda m, i, out: _Jitter.apply(out, s) if torch.is_grad_enabled() else out
         if s:
-            for blk in list(model.blocks)[:-1]:
-                blk.register_forward_hook(lambda m, i, out: _Jitter.apply(out, s) if torch.is_grad_enabled() else out)
+            if self.hp["where"] == "blocks":  # error leaving every block but the last
+                for blk in list(model.blocks)[:-1]:
+                    blk.register_forward_hook(hook)
+            elif self.hp["where"] == "attn":  # only the error entering each attention branch (long-range context)
+                for blk in model.blocks:
+                    blk.attn.register_forward_hook(hook)
+            elif self.hp["where"] == "mlp":  # only the error entering each MLP branch (local context)
+                for blk in model.blocks:
+                    blk.mlp.register_forward_hook(hook)

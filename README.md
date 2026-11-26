@@ -828,8 +828,11 @@ fit in a 0.83M-parameter model. So let the table *teach* the network instead.
   | `winner_credit`: only the k most driven MLP neurons per token get error, k = 64 / 192 | 1.788 / 1.505 |
   | `sam`, rho 0.15 / 0.3 / 0.6 | **1.449** / 1.456 / 1.581 |
   | mirror-credit SAM (sharpness-aware, no weight transport), lr 1e-3 / 2e-3 | 1.454 / 1.453 |
+  | `noisy_backprop`, noise only on the error entering attention, sigma 1 / 3 | 1.452 / 1.568 |
+  | `noisy_backprop`, noise only on the error entering the MLPs, sigma 1 | 1.453 |
 
-  Structure (low rank, winners only) costs a lot. Noise and sharpness are worth at most 0.007.
+  Structure (low rank, winners only) costs a lot. Noise and sharpness are worth at most 0.007,
+  wherever the noise goes: noise on the long-range (attention) credit is no better than on the MLPs.
 - **The two best ones on test, with the teacher:** `sam` over 6 seeds **1.578** vs backprop
   **1.583**. It wins 4 of 6 seed pairs, but paired t ≈ −0.7, so it is not a win. Mirror-credit SAM,
   3 seeds: 1.586 / 1.579 / 1.597 (**1.587**) vs backprop's 1.589 / 1.586 / 1.580 on the same seeds.
