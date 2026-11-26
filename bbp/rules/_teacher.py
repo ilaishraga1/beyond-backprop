@@ -18,8 +18,9 @@ KEY = 24  # chars of history that identify a position in the text
 
 
 class CountingTeacher:
-    def __init__(self, V, order=9, beta=1.0):
+    def __init__(self, V, order=9, beta=1.0, smoothing="wb", disc=1.0):
         self.V, self.order, self.beta = V, order, beta
+        self.smoothing, self.disc = smoothing, disc  # "wb" Witten-Bell (beta) or "kn" Kneser-Ney (disc)
         self.ctx, self.nxt, self.keys = [], [], []
         self.ready = False
         self.mult = None
@@ -55,14 +56,74 @@ class CountingTeacher:
         self.ctx = self.nxt = self.keys = None
         V = self.V
         self.tabs = []  # per context length n: (sorted ctx keys, dense counts (n_ctx, V))
+        rows = []
         for n in range(self.order):
             ck = self._ctxkey(ctx[:, :n])
             uk, row = torch.unique(ck, return_inverse=True)
             counts = torch.zeros(uk.numel(), V, device=ck.device)
             counts.index_put_((row, nxt), torch.ones_like(nxt, dtype=counts.dtype), accumulate=True)
             self.tabs.append((uk, counts))
+            rows.append(row)
+        if self.smoothing == "kn":
+            # continuation counts: cc[n][h, c] = how many different older chars w were seen before (h, c)
+            self.cc, self.D, self.Dcc = [], [], []
+            for n in range(self.order):
+                if n + 1 < self.order:
+                    suf = torch.zeros(self.tabs[n + 1][0].numel(), dtype=torch.long, device=ctx.device)
+                    suf[rows[n + 1]] = rows[n]
+                    cc = torch.zeros_like(self.tabs[n][1])
+                    cc.index_add_(0, suf, (self.tabs[n + 1][1] > 0).float())
+                else:
+                    cc = None
+                self.cc.append(cc)
+                self.D.append(self._discount(self.tabs[n][1]))
+                self.Dcc.append(self._discount(cc) if cc is not None else None)
         self.n_positions = nxt.numel()
         self.ready = True
+
+    def _discount(self, c):
+        n1, n2 = (c == 1).sum().float(), (c == 2).sum().float()
+        return float((self.disc * n1 / (n1 + 2 * n2).clamp_min(1)).clamp(0.05, 0.99))
+
+    @torch.no_grad()
+    def _dist_kn(self, hist, avail, y=None):
+        """Interpolated Kneser-Ney: the highest order a position can use counts raw, every lower
+        order counts *continuations* (in how many different contexts a char followed h)."""
+        V = self.V
+        p = torch.full(hist.shape[:-1] + (V,), 1.0 / V, device=hist.device)
+        top = avail.clamp_max(self.order - 1)
+        idx, hits = [], []
+        for n in range(self.order):
+            uk = self.tabs[n][0]
+            ck = self._ctxkey(hist[..., :n])
+            i = torch.searchsorted(uk, ck).clamp_max(uk.numel() - 1)
+            idx.append(i)
+            hits.append((uk[i] == ck) & (avail >= n))
+        for n in range(self.order):
+            raw = self.tabs[n][1][idx[n]] * hits[n][..., None]
+            is_top = (top == n)[..., None]
+            if self.cc[n] is not None:
+                cc = self.cc[n][idx[n]] * hits[n][..., None]
+                c = torch.where(is_top, raw, cc)
+            else:
+                c = raw
+            if y is not None:
+                oh = torch.nn.functional.one_hot(y, V).float()
+                own_raw = oh * (raw.gather(-1, y[..., None]) > 0)
+                if self.cc[n] is not None:  # own occurrence is a continuation only if it was the only one with its older char
+                    up = self.tabs[n + 1][1][idx[n + 1]].gather(-1, y[..., None]) * hits[n + 1][..., None]
+                    own_cc = oh * (up == 1) * (cc.gather(-1, y[..., None]) > 0)
+                    own = torch.where(is_top, own_raw, own_cc)
+                else:
+                    own = own_raw
+                c = (c - own).clamp_min(0)
+            D = torch.where(is_top, torch.tensor(self.D[n], device=c.device),
+                            torch.tensor(self.Dcc[n] if self.Dcc[n] is not None else self.D[n], device=c.device))
+            tot = c.sum(-1, keepdim=True)
+            types = (c > 0).sum(-1, keepdim=True).float()
+            q = ((c - D).clamp_min(0) + D * types * p) / tot.clamp_min(1e-9)
+            p = torch.where((tot > 0) & (n <= top)[..., None], q, p)
+        return p
 
     def _ctxkey(self, c):  # c (..., n) chars, most recent first -> int64 key (unique for n <= 9)
         k = torch.zeros(c.shape[:-1], dtype=torch.long, device=c.device)
@@ -74,6 +135,8 @@ class CountingTeacher:
     def _dist(self, hist, avail, y=None):
         """Backoff distribution (..., V). hist[..., i] = char i back; avail = chars of history
         actually available; y = the true next char, whose own count is left out (LOO)."""
+        if self.smoothing == "kn":
+            return self._dist_kn(hist, avail, y)
         V = self.V
         p = torch.full(hist.shape[:-1] + (V,), 1.0 / V, device=hist.device)
         onehot = torch.nn.functional.one_hot(y, V).float() if y is not None else None
@@ -141,7 +204,8 @@ def teach(rule, x, y, logits, loss):
         return loss
     T = getattr(rule, "teacher", None)
     if T is None:
-        T = rule.teacher = CountingTeacher(logits.shape[-1], int(rule.hp.get("order", 9)), rule.hp.get("beta", 1.0))
+        T = rule.teacher = CountingTeacher(logits.shape[-1], int(rule.hp.get("order", 9)), rule.hp.get("beta", 1.0),
+                                           rule.hp.get("smoothing", "wb"), rule.hp.get("disc", 1.0))
         rule.k_teach = 0
     if not T.ready:
         T.observe(x, y)

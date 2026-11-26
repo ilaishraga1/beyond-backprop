@@ -28,11 +28,15 @@ class MirrorNeurons(Rule):
     autograd = "modified"
     blurb = "Separate, random-born backward weights that receive the same Hebbian update as their forward twins, so they drift into alignment without any weight being copied."
     paper = "Kolen & Pollack 1994; Akrout et al. 2019 (weight mirrors)"
-    defaults = dict(lr=1e-3, weight_decay=0.01, scale=1.0, mirror=True, half=0, noise=0.0, bdrop=0.0, fnoise=0.0, fdrop=0.0)
+    defaults = dict(lr=1e-3, weight_decay=0.01, scale=1.0, mirror=True, half=0, noise=0.0, bdrop=0.0, fnoise=0.0, fdrop=0.0, born="random")
 
     def __init__(self, model, **hp):
         super().__init__(model, **hp)
         swap_linears(model, "random", self.hp["scale"])
+        if self.hp["born"] == "copy":  # ablation: feedback born as an exact copy -> exact backprop credit
+            for m in model.modules():
+                if isinstance(m, FALinear):
+                    m.feedback.copy_(m.weight.detach())
         install_backdrop(model, self.hp["bdrop"])  # optional, off by default
         self.twins = [m for m in model.modules() if isinstance(m, FALinear)]
         kw = dict(lr=self.hp["lr"], weight_decay=self.hp["weight_decay"])

@@ -38,11 +38,14 @@ class SAM(Backprop):
 
     def step(self, x, y):
         from ._regularise import regularise
-        x = regularise(self, [self.opt], x)
+        from ._teacher import teach
+        x0, x = x, regularise(self, [self.opt], x)
         e = None
         if self.hp["mode"] == "exact":
             self.opt.zero_grad(set_to_none=True)
-            _, loss = self.model(x, y)
+            logits, loss = self.model(x, y)
+            if getattr(self, "teacher", None) is not None and self.teacher.ready:
+                loss = teach(self, x0, y, logits, loss)  # ascend on the same objective
             loss.backward()
             with torch.no_grad():
                 e = self._nudge(self._grads())
@@ -51,7 +54,8 @@ class SAM(Backprop):
             with torch.no_grad():
                 e = self._nudge(self.prev)
         self.opt.zero_grad(set_to_none=True)
-        _, l2 = self.model(x, y)
+        logits, l2 = self.model(x, y)
+        l2 = teach(self, x0, y, logits, l2)  # optional counting teacher, off by default
         l2.backward()
         with torch.no_grad():
             if e is not None:

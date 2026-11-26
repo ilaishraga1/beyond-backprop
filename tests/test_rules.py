@@ -184,3 +184,32 @@ def test_dreams_are_appended_and_trained_on():
     for _ in range(4):
         assert math.isfinite(rule.step(x, y))
     assert rule.dreams.shape == (8, 64) and rule.xd.shape == (2, cfg.block_size)
+
+
+def test_mirror_born_as_copy_is_exact_backprop():
+    torch.manual_seed(0)
+    cfg = GPTConfig(**TINY)
+    x, y = batch(cfg)
+    ref = GPT(cfg)
+    mir = GPT(cfg)
+    mir.load_state_dict(ref.state_dict())
+    rule = RULES["mirror_neurons"](mir, born="copy")
+    bp = RULES["backprop"](ref, lr=rule.hp["lr"], weight_decay=rule.hp["weight_decay"])
+    for _ in range(3):
+        rule.step(x, y)
+        bp.step(x, y)
+    for (k, a), b in zip(ref.named_parameters(), mir.parameters()):
+        assert torch.allclose(a, b, atol=1e-5), k
+
+
+def test_kneser_ney_teacher_is_a_distribution():
+    from bbp.rules._teacher import CountingTeacher
+    torch.manual_seed(0)
+    text = torch.randint(5, (2, 300))
+    x, y = text[:, :-1], text[:, 1:]
+    T = CountingTeacher(5, order=4, smoothing="kn")
+    T.observe(x, y)
+    T.build()
+    for loo in (True, False):
+        p = T(x, y, loo=loo)
+        assert (p >= 0).all() and torch.allclose(p.sum(-1), torch.ones(x.shape), atol=1e-5)

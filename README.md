@@ -772,6 +772,26 @@ fit in a 0.83M-parameter model. So let the table *teach* the network instead.
   1.911 → **1.874**. The teacher is worth 0.03 to 0.05 to every rule, so the ranking does not
   change. Mirror is the only backprop-free credit rule here close enough to backprop for that to
   tip it over.
+- **Can a non-gradient credit rule beat backprop when *both* are taught?** Not yet: every
+  variant ties, and with regularisation backprop pulls ahead.
+
+  | all with the same teacher; test, 5 min | runs | mean |
+  |---|---|---:|
+  | `backprop`, lr ⅔e-3 | 1.589 1.586 1.580 1.583 1.597 1.565 | **1.583** |
+  | `backprop`, lr 1e-3 | 1.584 1.583 1.587 | 1.585 |
+  | `taught_mirror` + noisy feedback (0.5 × std, fresh each step; picked on val) | 1.580 1.575 1.577 1.584 1.612 1.589 | 1.586 |
+  | noisy backprop: feedback born as an exact copy, plus the same noise | 1.567 1.575 1.595 | 1.579 |
+  | `sam` (rho 0.15, lr 2e-3) | 1.569 1.581 1.608 | 1.586 |
+  | `backprop` + lr halving + 5% input noise | 1.553 1.532 1.534 | **1.540** |
+  | `taught_mirror` + noisy feedback + the same regulariser | 1.577 1.560 1.587 | 1.575 |
+
+  After 3 seeds, noisy mirror looked 0.008 ahead. Three more seeds took that away, and noisy
+  backprop's 0.006 edge over lr-matched backprop is inside the noise too. With the regulariser
+  the runs are compute-bound (both peak near minute 5). Mirror's custom layer takes about 15%
+  fewer steps there, and backprop wins by 0.035. **The best number in the arena is backprop with
+  the counting teacher and the regulariser: 1.540.**
+- *Did not help:* a Kneser-Ney teacher (val 1.477 vs 1.474 for Witten-Bell, 50 batches; left in as
+  `smoothing="kn"`).
 - *Did not help:* also training on text the table **dreams up** (sampled from it, 1M chars, scored
   against the teacher), val 1.456 / 1.463 for half / one extra dreamed batch vs 1.449 without.
   The dreams cost steps and read like garbled Shakespeare.
