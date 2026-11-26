@@ -830,9 +830,12 @@ fit in a 0.83M-parameter model. So let the table *teach* the network instead.
   | mirror-credit SAM (sharpness-aware, no weight transport), lr 1e-3 / 2e-3 | 1.454 / 1.453 |
   | `noisy_backprop`, noise only on the error entering attention, sigma 1 / 3 | 1.452 / 1.568 |
   | `noisy_backprop`, noise only on the error entering the MLPs, sigma 1 | 1.453 |
+  | `and_mask` (move a weight only where batch slices agree on its gradient's sign), 4 slices all agree / 3 of 4 / 6 of 8 / 2 of 2 | 1.465 / 1.454 / 1.477 / 1.457 |
 
   Structure (low rank, winners only) costs a lot. Noise and sharpness are worth at most 0.007,
   wherever the noise goes: noise on the long-range (attention) credit is no better than on the MLPs.
+  Masking out what the slices of a batch disagree on (meant to drop one play's names and plot) does not
+  help either: random windows are not different enough "environments".
 - **The two best ones on test, with the teacher:** `sam` over 6 seeds **1.578** vs backprop
   **1.583**. It wins 4 of 6 seed pairs, but paired t ≈ −0.7, so it is not a win. Mirror-credit SAM,
   3 seeds: 1.586 / 1.579 / 1.597 (**1.587**) vs backprop's 1.589 / 1.586 / 1.580 on the same seeds.
@@ -876,6 +879,7 @@ way, 1.560 vs 1.567, while the 3-seed means go backprop's way, 1.584 vs 1.553.)
 | `backdrop` | 🪞 modified | Backprop whose error is dropped for a random fraction of tokens at every block boundary on the way down; the forward pass is untouched. | Golkar & Cranmer 2018 |
 | `noisy_backprop` | 🪞 modified | Backprop whose error gets fresh noise every time it crosses a block boundary on the way down. | gradient-noise injection (Neelakantan et al. 2015) |
 | `winner_credit` | 🪞 modified | Backprop where only the k most driven hidden neurons in each MLP get any error. | k-winners-take-all |
+| `and_mask` | 🪞 modified | A weight moves only where most slices of the batch agree on the sign of its gradient: learn what is hard to vary. | Parascandolo et al. 2020 |
 | `mirror_window` 🪞 | 🪞 modified | Mirrored feedback on one hidden layer of 2,048 neurons that see the last 6 chars through hand-wired copy heads. | + Bengio et al. 2003 |
 | `sign_symmetry` | 🪞 modified | Backward pass through `sign(W)`: the feedback knows the signs of the weights but not their size. | Liao, Leibo & Poggio 2016 |
 | `local_losses` | 🧱 local | Every block gets its own tiny next-char readout and learns greedily. Gradients never cross a block boundary. | Belilovsky et al. 2019; Nøkland & Eidnes 2019 |
