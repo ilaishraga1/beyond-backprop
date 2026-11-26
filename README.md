@@ -831,6 +831,12 @@ fit in a 0.83M-parameter model. So let the table *teach* the network instead.
   | `noisy_backprop`, noise only on the error entering attention, sigma 1 / 3 | 1.452 / 1.568 |
   | `noisy_backprop`, noise only on the error entering the MLPs, sigma 1 | 1.453 |
   | `and_mask` (move a weight only where batch slices agree on its gradient's sign), 4 slices all agree / 3 of 4 / 6 of 8 / 2 of 2 | 1.465 / 1.454 / 1.477 / 1.457 |
+  | `rwp`: each gradient taken at randomly jittered weights, sigma 0.01 / 0.03 / 0.1 / **0.2** / 0.3 / 0.5 | 1.455 / 1.460 / 1.435 / **1.414** / 1.448 / 1.572 |
+  | `rwp` 0.2, seed 1 | 1.418 |
+  | backprop + lr halving + 5% / 10% input noise (its best regulariser) | 1.437 / 1.449 |
+  | `rwp` 0.2 + that regulariser on top | 1.476 |
+  | `taught_mirror` + weight jitter 0.2 / 0.1 (no weight transport) | 1.447 / 1.444 |
+  | `lazy_lower`: error reaches the bottom blocks only every 4th / 2nd step | 2.259 / 1.964 |
 
   Structure (low rank, winners only) costs a lot. Noise and sharpness are worth at most 0.007,
   wherever the noise goes: noise on the long-range (attention) credit is no better than on the MLPs.
@@ -840,6 +846,14 @@ fit in a 0.83M-parameter model. So let the table *teach* the network instead.
   **1.583**. It wins 4 of 6 seed pairs, but paired t ≈ −0.7, so it is not a win. Mirror-credit SAM,
   3 seeds: 1.586 / 1.579 / 1.597 (**1.587**) vs backprop's 1.589 / 1.586 / 1.580 on the same seeds.
   Resolving a 0.006 gap at this seed spread would take about 40 seed pairs.
+- **Random weight perturbation (`rwp`) was the strongest candidate, and it still ties.** On the
+  *Richard II* proxy, sigma 0.2 beat backprop's best regularised run by 0.023 (two seeds each
+  for `rwp`). On the real arena, 6 seeds each, both with the teacher: `rwp` test **1.542**
+  (1.533 1.537 1.560 1.530 1.555 1.539) vs backprop + lr halving + 5% input noise **1.538**
+  (1.553 1.532 1.534 1.545 1.528 1.538). On val `rwp` is far ahead, 1.392 vs 1.405, and on test
+  it is not. Like SAM, it finds flatter minima that help on the play it trained on and on
+  *Richard II*, but not on *The Tempest*. What moved test was the counting teacher and input
+  noise, not where the gradient is taken.
 - **A faster mirror.** The feedback weights now get their update in place instead of from a second
   AdamW. It is the same update (a test checks it matches to 1e-6), but mirror is still about 12%
   slower per step than backprop, because of its custom linear layer.
@@ -880,6 +894,8 @@ way, 1.560 vs 1.567, while the 3-seed means go backprop's way, 1.584 vs 1.553.)
 | `noisy_backprop` | 🪞 modified | Backprop whose error gets fresh noise every time it crosses a block boundary on the way down. | gradient-noise injection (Neelakantan et al. 2015) |
 | `winner_credit` | 🪞 modified | Backprop where only the k most driven hidden neurons in each MLP get any error. | k-winners-take-all |
 | `and_mask` | 🪞 modified | A weight moves only where most slices of the batch agree on the sign of its gradient: learn what is hard to vary. | Parascandolo et al. 2020 |
+| `rwp` | 🪞 modified | Each gradient is taken at a randomly jittered copy of the weights (noise scaled to each row), then the clean weights step. | Li et al. 2023 |
+| `lazy_lower` | 🪞 modified | The error reaches the bottom blocks only every k-th step. | cf. FreezeOut (Brock et al. 2017) |
 | `mirror_window` 🪞 | 🪞 modified | Mirrored feedback on one hidden layer of 2,048 neurons that see the last 6 chars through hand-wired copy heads. | + Bengio et al. 2003 |
 | `sign_symmetry` | 🪞 modified | Backward pass through `sign(W)`: the feedback knows the signs of the weights but not their size. | Liao, Leibo & Poggio 2016 |
 | `local_losses` | 🧱 local | Every block gets its own tiny next-char readout and learns greedily. Gradients never cross a block boundary. | Belilovsky et al. 2019; Nøkland & Eidnes 2019 |

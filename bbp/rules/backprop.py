@@ -25,6 +25,8 @@ class Backprop(Rule):
         loss = teach(self, x0, y, logits, loss)  # optional counting teacher, off by default
         self.opt.zero_grad(set_to_none=True)
         loss.backward()
+        if hasattr(self, "_before_opt"):
+            self._before_opt()  # hook for subclasses (e.g. undo a weight jitter)
         self.opt.step()
         self.forwards += 1
         return loss.item()

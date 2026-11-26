@@ -28,7 +28,7 @@ class MirrorNeurons(Rule):
     autograd = "modified"
     blurb = "Separate, random-born backward weights that receive the same Hebbian update as their forward twins, so they drift into alignment without any weight being copied."
     paper = "Kolen & Pollack 1994; Akrout et al. 2019 (weight mirrors)"
-    defaults = dict(lr=1e-3, weight_decay=0.01, scale=1.0, mirror=True, half=0, noise=0.0, bdrop=0.0, fnoise=0.0, fdrop=0.0, born="random", frank=0, frank_every=25, rho=0.0)
+    defaults = dict(lr=1e-3, weight_decay=0.01, scale=1.0, mirror=True, half=0, noise=0.0, bdrop=0.0, fnoise=0.0, fdrop=0.0, born="random", frank=0, frank_every=25, rho=0.0, wjit=0.0)
 
     def __init__(self, model, **hp):
         super().__init__(model, **hp)
@@ -52,6 +52,12 @@ class MirrorNeurons(Rule):
                 self._lowrank(int(self.hp["frank"]))
         jolt = self._jolt()  # optional: unreliable backward synapses for this one step (B is only read going back)
         xa, ya = add_dreams(self, x, y)  # optional dreamed text, off by default
+        wj = None
+        if self.hp["wjit"]:  # optional: take this step's credit at randomly jittered forward weights (RWP)
+            with torch.no_grad():
+                ps = [p for p in self.model.parameters() if p.dim() == 2]
+                wj = (ps, [torch.randn_like(p) * p.pow(2).mean(1, keepdim=True).sqrt() * self.hp["wjit"] for p in ps])
+                torch._foreach_add_(ps, wj[1])
         nudge = None
         if self.hp["rho"]:  # optional sharpness-aware step, taken with mirror credit (no weight transport)
             T = getattr(self, "teacher", None)
@@ -74,6 +80,8 @@ class MirrorNeurons(Rule):
         with torch.no_grad():
             if nudge is not None:
                 torch._foreach_sub_(nudge[0], nudge[1])
+            if wj is not None:
+                torch._foreach_sub_(wj[0], wj[1])
             if jolt is not None:
                 torch._foreach_sub_(self.B, jolt)
             before = torch._foreach_mul(self.W, 1.0) if self.hp["mirror"] else None
